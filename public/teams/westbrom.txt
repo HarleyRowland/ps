@@ -1,0 +1,2 @@
+Ben Foster,Allan Nyom,Hal Robson-Kanu,Claudio Yacob,Jonny Evans,James Morrison,Jake Livermore,Salomón Rondón,Matt Phillips,Chris Brunt,Boaz Myhill,James McClean,Jay Rodriguez,Callum McManaman,Nacer Chadli,Gareth McAuley,Craig Dawson,Alex Palmer,Tyler Roberts,Jonathan Leko,Sam Field
+1,2,4,5,6,7,8,9,10,11,13,14,17,19,22,23,25,40,44,45,47

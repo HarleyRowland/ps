@@ -1,0 +1,27 @@
+.optionText {
+	height: 80px;
+}
+
+.optionSubtitle {
+	height: 80px;
+}
+
+.styles {
+	margin:0px;
+	padding-right: 0px !important;
+	padding-left: 0px !important;
+	text-align: center;
+	margin: 30px;
+}
+
+.style {
+	
+}
+
+
+.style > div {
+	border: 2px solid #818181;
+	padding: 10px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}

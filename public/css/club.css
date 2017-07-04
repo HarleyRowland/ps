@@ -1,0 +1,14 @@
+.club .content {
+	display: none;
+}
+
+.crest {
+	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+}
+
+.crest img {
+	width: 200px;
+}
+

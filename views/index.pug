@@ -1,0 +1,33 @@
+include header.pug
+div.page
+	h1 What Service Do You Want?
+	p You Can either send us your shirt, deliver us your shirt or have us send the letters to you.
+	div.styles.row
+		div.style.small-12.medium-4.columns
+			div.post
+				h3 Post Us You Shirt
+				h5.optionSubTitle You send us your shirt, we print on it and send it back.
+				div.optionText
+					p Please post it to this address. 1 Address Road, Address, AB12 3CD
+				div.btnDiv
+					a.btn(href="/style?deliveryType=post")
+						span Post Your Shirt
+		div.style.small-12.medium-4.columns
+			div.deliver
+				h3 Delivery your shirt to us
+				h5.optionSubTitle You deliver us your shirt, we print on it and send it back.
+				div.optionText
+					p Please deliver it to this address. 1 Address Road, Address, AB12 3CD
+				div.btnDiv
+					a.btn(href="/style?deliveryType=deliver")
+						span Deliver You Shirt
+		div.style.small-12.medium-4.columns
+			div.print
+				h3 You print yourself
+				h5.optionSubTitle You tell us what letters and numbers you want and send them.
+				div.optionText
+					p You select the letters and numbers and we will send you them.
+				div.btnDiv
+					a.btn(href="/style?deliveryType=send")
+						span We Supply You
+include footer.pug

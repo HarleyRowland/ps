@@ -1,0 +1,35 @@
+.dividerImage {
+	border-top: solid 3px #323B7E;
+	border-bottom: solid 3px #323B7E;
+}
+
+.dividerImage img{
+	width: 100%;
+	-webkit-filter: grayscale(50%);
+    filter: grayscale(50%);
+}
+
+.section {
+	padding: 10px;
+	text-align: center;
+	margin: 30px;
+}
+
+.section > div {
+	padding: 0px;
+}
+
+.section img {
+	padding: 30px;
+	height: 35%;
+}
+
+.section.contact h2 {
+	margin-bottom: 50px;
+}
+
+.section.contact > div {
+	border: 2px solid #818181;
+	padding: 50px;
+	
+}

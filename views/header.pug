@@ -1,0 +1,32 @@
+html
+	head
+		title Premier Shirts
+		style 
+			include ../public/css/style.css
+			include ../public/css/general.css
+			include ../public/css/hero.css
+			include ../public/css/header.css
+			include ../public/css/year.css
+			include ../public/css/index.css
+			include ../public/css/payment.css
+			include ../public/css/club.css
+			include ../public/css/strip.css
+			include ../public/css/footer.css
+			include ../public/css/foundation.css
+		link(rel='styelsheet', href='https://fonts.googleapis.com/css?family=Cinzel:900|Lato:300i', type='text/css')
+		script(type='text/javascript' src='public/js/jquery.js')
+		script(type='text/javascript').
+			var local_data = !{JSON.stringify(data)};
+		script(type='text/javascript' src='public/js/custom.js')
+	body
+		div.header
+			main.row
+				div.logo.small-3.columns
+					a(href="/")
+						img(src="/public/images/logo.jpeg")
+				div.links.small-9.columns
+					a(href="/") Home
+					a(href="/hero") Hero Print
+					a(href="/custom") Shirt Customisation
+					a(href="/contact") Contact
+					a(href="/faq") FAQs

@@ -1,0 +1,30 @@
+.header {
+	height: 80px;
+	border-bottom: #323B7E solid 3px;
+}
+
+.logo {
+	padding: 5px;
+	height: 100%;
+}
+
+.links {
+	display: flex;
+ 	justify-content: flex-end;
+ 	align-items: center;
+ 	height: 100%;
+}
+
+.links a {
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-decoration: underline;
+	transition: 0.5s;
+	color: #323B7E;
+	font-weight: bold;
+}
+
+.links a:hover {
+	color: #9DE4FF;
+}

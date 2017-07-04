@@ -1,0 +1,30 @@
+body * {
+	font-family: 'Cinzel', sans-serif;
+
+}
+
+.page {
+	padding-top: 40px;
+	text-align: center;
+}
+
+.btnDiv {
+	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ 	padding: 10px;
+}
+
+a.btn {
+	display: block;
+	border: solid 2px #323B7E;
+	padding: 3px;
+	width: 200px;
+	color: #323B7E;
+	transition: 0.5s;
+}
+
+a.btn:hover {
+	background-color: #323B7E;
+	color: #FFFFFF;
+}
