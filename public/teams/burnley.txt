@@ -1,2 +1,2 @@
-Tom Heaton,Matthew Lowton,Michael Keane,Ben Mee,Andre Gray,Dean Marney,Sam Vokes,Ashley Barnes,Robbie Brady,Jeff Hendrick,Steven Defour,Paul Robinson,Ashley Westwood,Fredrik Ulvestad,George Boyd,Stephen Ward,Chris Long,Jóhann Berg Guðmundsson,James Tarkowski,Tendayi Darikwa,Kevin Long,Nick Pope,Dan Agyei,Tom Anderson,Conor Mitchell,Scott Arfield,Aiden O'Neill
+Heaton,Lowton,Keane,Mee,Gray,Marney,Vokes,Barnes,Brady,Hendrick,Defour,Robinson,Westwood,Ulvestad,Boyd,Ward,Long,Guðmundsson,Tarkowski,Darikwa,Long,Pope,Agyei,Anderson,Mitchell,Arfield,O'Neill
 1,2,5,6,7,8,9,10,12,13,16,17,18,20,21,23,24,25,26,27,28,29,32,34,36,37,41

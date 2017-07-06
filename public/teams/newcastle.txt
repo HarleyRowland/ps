@@ -1,2 +1,2 @@
-Tim Krul,Ciaran Clark,Paul Dummett,Jack Colback,Grant Hanley,Jamaal Lascelles,Achraf Lazaar,Dwight Gayle,Siem de Jong,Matt Ritchie,Jonjo Shelvey,Isaac Hayden,Mohamed Diamé,Rolando Aarons,Ayoze Pérez,Chancel Mbemba,Massadio Haïdara,Yoan Gouffran,Rob Elliot,DeAndre Yedlin,Henri Saivet,Karl Darlow,Jesús Gámez,Matz Sels,Emmanuel Rivière,Christian Atsu,Adam Armstrong,Daryl Murphy,Jamie Sterry,Aleksandar Mitrović
+Krul,Clark,Dummett,Colback,Hanley,Lascelles,Lazaar,Gayle,de Jong,Ritchie,Shelvey,Hayden,Diamé,Aarons,Pérez,Mbemba,Haïdara,Gouffran,Elliot,Yedlin,Saivet,Darlow,Gámez,Sels,Rivière,Atsu,Armstrong,Murphy,Sterry,Mitrović
 1,2,3,4,5,6,7,9,10,11,12,14,15,16,17,18,19,20,21,22,23,26,27,28,29,30,33,42,45

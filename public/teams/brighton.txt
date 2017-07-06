@@ -1,2 +1,2 @@
-Niki Mäenpää,Bruno,Gaëtan Bong,Uwe Hünemeier,Lewis Dunk,Dale Stephens,Beram Kayal,Jiří Skalák,Sam Baldock,Tomer Hemed,Anthony Knockaert,Steve Sidwell,Jamie Murphy,Glenn Murray,Connor Goldson,Elvis Manu,Solly March,Oliver Norwood,Shane Duffy,Liam Rosenior,Rohan Ince,Pascal Groß,Richie Towell,Kazenga LuaLua
+Mäenpää,Bruno,Bong,Hünemeier,Dunk,Stephens,Kayal,Skalák,Baldock,Hemed,Knockaert,Sidwell,Murphy,Murray,Goldson,Manu,March,Norwood,Duffy,Rosenior,Ince,Groß,Towell,LuaLua
 1,2,3,4,5,6,7,8,9,10,11,14,15,17,18,19,20,21,22,23,24,27,29,30

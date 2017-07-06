@@ -1,2 +1,2 @@
-Jack Butland,Phil Bardsley,Erik Pieters,Joe Allen,Marc Muniesa,Glenn Whelan,Stephen Ireland,Glen Johnson,Saido Berahino,Marko Arnautović,Joselu,Ibrahim Afellay,Charlie Adam,Ryan Shawcross,Mame Biram Diouf,Jonathan Walters,Geoff Cameron,Giannelli Imbula,Xherdan Shaqiri,Darren Fletcher,Peter Crouch,Philipp Wollscheid,Bojan Krkić,Jakob Haugaard,Ramadan Sobhi,Lee Grant
+Butland,Bardsley,Pieters,Allen,Muniesa,Whelan,Ireland,Johnson,Berahino,Arnautović,Joselu,Afellay,Adam,Shawcross,Diouf,Walters,Cameron,Imbula,Shaqiri,Fletcher,Crouch,Wollscheid,Krkić,Haugaard,Sobhi,Grant
 1,2,3,4,5,6,7,8,9,10,11,14,16,17,18,19,20,21,22,24,25,26,27,29,32,33

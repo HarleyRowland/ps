@@ -1,5 +1,6 @@
 include header.pug
 div.page
+  h1 £#{data.cost}
   if data.printingType == "hero"
     h1 #{data.printingType}
     h1 #{data.style}
@@ -23,5 +24,4 @@ div.page
     h1 #{data.strip}
     h1 #{data.name}
     h1 #{data.number}
-
 include footer.pug

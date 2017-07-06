@@ -1,2 +1,2 @@
-Hugo Lloris,Kyle Walker,Danny Rose,Toby Alderweireld,Jan Vertonghen,Son Heung-min,Vincent Janssen,Harry Kane,Érik Lamela,Victor Wanyama,Michel Vor,Georges-Kévin N'Koudou,Eric Dier,Kieran Trippier,Moussa Sissoko,Mousa Dembélé,Dele Alli,Christian Eriksen,Josh Onomah,Kevin Wimmer,Harry Winks,Pau López,Ben Davies,Cameron Carter-Vickers
+Lloris,Walker,Rose,Alderweireld,Vertonghen,Heung-min,Janssen,Kane,Lamela,Wanyama,Vor,N'Koudou,Dier,Trippier,Sissoko,Dembélé,Alli, Eriksen,Onomah,Wimmer,Winks,López,Davies,Carter-Vickers
 1,2,3,4,5,7,9,10,11,12,13,14,15,16,17,19,20,23,25,27,29,30,33,38

@@ -1,2 +1,2 @@
-Joel Robles,Morgan Schneiderlin,Leighton Baines,Ashley Williams,Phil Jagielka,Ross Barkley,Romelu Lukaku,Kevin Mirallas,Aaron Lennon,Yannick Bolasie,James McCarthy,Idrissa Gueye,Gareth Barry,Muhamed Bešić,Maarten Stekelenburg,Séamus Coleman,Shani Tarashaj,Ramiro Funes Mori,Tom Davies,Tyias Browning,Kieran Dowell,Dominic Calvert-Lewin,Mason Holgate,Ademola Lookman,Brendan Galloway,Matthew Pennington,Conor Grant,Luke Garbutt
+Robles,Schneiderlin,Baines,Williams,Jagielka,Barkley,Lukaku,Mirallas,Lennon,Bolasie,McCarthy,Gueye,Barry,Bešić,Stekelenburg,Coleman,Tarashaj,Funes Mori,Davies,Browning,Dowell,Calvert-Lewin,Holgate,Lookman,Galloway,Pennington,Grant,Garbutt
 1,2,3,5,6,8,10,11,12,14,16,17,18,21,22,23,24,25,26,27,28,29,30,31,32,38,39

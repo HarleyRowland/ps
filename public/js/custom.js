@@ -19,7 +19,13 @@ $(document).on('change','.playerOption',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".hero .btn").attr("href", "/sleeves?club=" + local_data.club + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&strip=" + local_data.strip + "&playerNumber=" + player)
+		var playerNumberArray = player.split("-");
+		console.log(playerNumberArray)
+		var cost = playerNumberArray[0].trim().length + (playerNumberArray[1].trim().length)*5
+		console.log(cost)
+		console.log(playerNumberArray[0].replace(/ /g,"").length)
+		console.log((playerNumberArray[1].replace(/ /g,"").length)*5)
+		$(".hero .btn").attr("href", "/sleeves?club=" + local_data.club + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&strip=" + local_data.strip + "&playerNumber=" + player + "&cost=" + cost)
 	}
 });
 
@@ -29,7 +35,7 @@ $(document).on('change','.colourOption',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".colour .btn").attr("href", "/letter?colour=" + colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&premOrDifferent=different")
+		$(".colour .btn").attr("href", "/letter?colour=" + colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&premOrDifferent=" + local_data.premOrDifferent)
 	}
 });
 
@@ -39,18 +45,18 @@ $(document).on('change','.letterOption',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".letter .btn").attr("href", "/nameNumber?letter=" + letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=different")
+		$(".letter .btn").attr("href", "/nameNumber?letter=" + letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent)
 	}
 });
 
 $(document).on('change','.sleeveOption',function(){
 	var sleeve = $('.sleeveOption').find(":selected").text();
-	console.log(sleeve)
+	console.log(local_data.cost)
 	if(sleeve == "Please Select"){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".sleeves .btn").attr("href", "/payment?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + local_data.name + "&number=" + local_data.number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&playerNumber=" + local_data.playerNumber + "&sleeve=" + sleeve)
+		$(".sleeves .btn").attr("href", "/payment?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + local_data.name + "&number=" + local_data.number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&playerNumber=" + local_data.playerNumber + "&sleeve=" + sleeve + "&cost=" + local_data.cost)
 	}
 });
 
@@ -61,7 +67,7 @@ $(document).on('change','.shirtName',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=different" + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip)
+		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip  + "&cost=" + local_data.cost)
 	}
 });
 
@@ -76,7 +82,7 @@ $(document).on('change','.shirtNumber',function(){
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
 		$(".price").text("£" + cost);
-		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=different" + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&cost=" + cost)
+		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&cost=" + cost)
 	}
 });
 

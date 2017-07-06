@@ -51,14 +51,16 @@ var buildObject = function(dirname, view, query){
 	} else if(view == "letter.pug") {
 		return {data: {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, premOrDifferent: query.premOrDifferent, colour: query.colour}}
 	} else if(view == "sleeves.pug") {
-		return {data: {letter: query.letter, colour: query.colour, printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, premOrDifferent: query.premOrDifferent, name: query.name, number: query.number, club: query.club, strip: query.strip, strip: query.strip, playerNumber: query.playerNumber}}
+		console.log(query)
+		return {data: {letter: query.letter, colour: query.colour, printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, premOrDifferent: query.premOrDifferent, name: query.name, number: query.number, club: query.club, strip: query.strip, strip: query.strip, playerNumber: query.playerNumber, cost: query.cost}}
 	} else if(view == "payment.pug"){
+		console.log(query)
 		if(query.printingType == "hero"){
-			return {data: {printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, club: query.club, strip: query.strip, playerNumber: query.playerNumber}}
+			return {data: {printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, club: query.club, strip: query.strip, playerNumber: query.playerNumber, cost: query.cost}}
 		} else if(query.printingType == "custom" && query.premOrDifferent == "prem"){
-			return {data: {printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, club: query.club, strip: query.strip, name: query.name, number: query.number}}
+			return {data: {printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, club: query.club, strip: query.strip, name: query.name, number: query.number, cost: query.cost}}
 		} else if(query.premOrDifferent == "different") {
-			return {data: {printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, letter: query.letter, colour: query.colour, name: query.name, number: query.number, premOrDifferent: query.premOrDifferent}}
+			return {data: {printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, letter: query.letter, colour: query.colour, name: query.name, number: query.number, premOrDifferent: query.premOrDifferent, cost: query.cost}}
 		}
 	} else{
 		return {}
