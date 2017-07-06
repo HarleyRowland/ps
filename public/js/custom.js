@@ -1,31 +1,34 @@
 $(document).on('change','.clubOption',function(){
-	console.log(local_data)
 	var club = $('.clubOption').find(":selected").text();
 	if(club == "Please Select"){
-		$(".club .content").css("display", "none");
+		$(".hiddenFirst").css("display", "none");
 	} else {
-		$(".btnDiv a").attr("href", "/strip?club=" + nameConverter(club) + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style)
+		if(local_data.premOrDifferent){
+			$(".btnDiv a").attr("href", "/strip?club=" + nameConverter(club) + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&premOrDifferent=" + local_data.premOrDifferent)
+		} else {
+			$(".btnDiv a").attr("href", "/strip?club=" + nameConverter(club) + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style)
+		}
 		$(".crest img").attr("src","/public/images/crests/" + nameConverter(club) + ".png");
-		$(".club .content").css("display", "block");
+		$(".hiddenFirst").css("display", "block");
 	}
 });
 
 $(document).on('change','.playerOption',function(){
 	var player = $('.playerOption').find(":selected").text();
 	if(player == "Please Select"){
-		$(".hero .btn").css("display", "none");
+		$(".hiddenFirst").css("display", "none");
 	} else {
-		$(".hero .btn").css("display", "block");
-		$(".hero .btn").attr("href", "/flow?club=" + local_data.club + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&strip=" + strip)
+		$(".hiddenFirst").css("display", "block");
+		$(".hero .btn").attr("href", "/sleeves?club=" + local_data.club + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&strip=" + local_data.strip + "&playerNumber=" + player)
 	}
 });
 
 $(document).on('change','.colourOption',function(){
 	var colour = $('.colourOption').find(":selected").text();
 	if(colour == "Please Select"){
-		$(".colour .btn").css("display", "none");
+		$(".hiddenFirst").css("display", "none");
 	} else {
-		$(".colour .btn").css("display", "block");
+		$(".hiddenFirst").css("display", "block");
 		$(".colour .btn").attr("href", "/letter?colour=" + colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&premOrDifferent=different")
 	}
 });
@@ -33,23 +36,48 @@ $(document).on('change','.colourOption',function(){
 $(document).on('change','.letterOption',function(){
 	var letter = $('.letterOption').find(":selected").text();
 	if(letter == "Please Select"){
-		$(".letter .btn").css("display", "none");
+		$(".hiddenFirst").css("display", "none");
 	} else {
-		$(".letter .btn").css("display", "block");
+		$(".hiddenFirst").css("display", "block");
 		$(".letter .btn").attr("href", "/nameNumber?letter=" + letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=different")
+	}
+});
+
+$(document).on('change','.sleeveOption',function(){
+	var sleeve = $('.sleeveOption').find(":selected").text();
+	console.log(sleeve)
+	if(sleeve == "Please Select"){
+		$(".hiddenFirst").css("display", "none");
+	} else {
+		$(".hiddenFirst").css("display", "block");
+		$(".sleeves .btn").attr("href", "/payment?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + local_data.name + "&number=" + local_data.number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&playerNumber=" + local_data.playerNumber + "&sleeve=" + sleeve)
 	}
 });
 
 $(document).on('change','.shirtName',function(){
 	var name =  $('.shirtName').val();
 	var number =  $('.shirtNumber').val();
-	$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=different" + "&name=" + name + "&number=" + number)
+	if(name.trim() == "" || number.trim() == ""){
+		$(".hiddenFirst").css("display", "none");
+	} else {
+		$(".hiddenFirst").css("display", "block");
+		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=different" + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip)
+	}
 });
 
 $(document).on('change','.shirtNumber',function(){
 	var name =  $('.shirtName').val();
 	var number =  $('.shirtNumber').val();
-	$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=different" + "&name=" + name + "&number=" + number)
+	if(name.trim() == "" || number.trim() == ""){
+		$(".hiddenFirst").css("display", "none");
+		$(".basket").css("display", "none");
+	} else {
+		var cost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
+		$(".hiddenFirst").css("display", "block");
+		$(".basket").css("display", "block");
+		$(".price").text("£" + cost);
+		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=different" + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&cost=" + cost)
+	}
 });
 
 var nameConverter = function(name){

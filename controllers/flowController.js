@@ -20,15 +20,19 @@ var buildObject = function(dirname, view, query){
 	} else if(view == "club.pug"){ 
 		var clubs = fs.readFileSync(dirname + '/public/teamList.txt', 'utf8');
 		var clubsArray = clubs.split(",");
-		return {data : {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, clubs: clubsArray}}
+		if(query.premOrDifferent){
+			return {data : {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, clubs: clubsArray, premOrDifferent: query.premOrDifferent}}
+		} else {
+			return {data : {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, clubs: clubsArray}}
+		}
 	} else if(view == "strip.pug"){
 		var stripCount = howManyStrips(query.club)
-		return {data: {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, club: query.club, stripCount: stripCount}}
+		return {data: {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, club: query.club, stripCount: stripCount, premOrDifferent: query.premOrDifferent}}
 	} else if(view == "nameNumber.pug"){
 		if(query.premOrDifferent == "different"){
 			return {data: {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, premOrDifferent: query.premOrDifferent, colour: query.colour, letter: query.letter}}
 		} else {
-			return {data: {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, premOrDifferent: query.premOrDifferent, colour: query.colour, letter: query.letter}}
+			return {data: {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, premOrDifferent: query.premOrDifferent, colour: query.colour, letter: query.letter, club: query.club, strip: query.strip}}
 		}
 	} else if(view == "hero.pug"){
 		var club = fs.readFileSync(dirname + '/public/teams/' + query.club + '.txt', 'utf8');
@@ -46,8 +50,18 @@ var buildObject = function(dirname, view, query){
 		return {data: {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, premOrDifferent: query.premOrDifferent}}
 	} else if(view == "letter.pug") {
 		return {data: {deliveryType: query.deliveryType, style: query.style, printingType: query.printingType, premOrDifferent: query.premOrDifferent, colour: query.colour}}
-	} else {
-		return {data: {}}
+	} else if(view == "sleeves.pug") {
+		return {data: {letter: query.letter, colour: query.colour, printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, premOrDifferent: query.premOrDifferent, name: query.name, number: query.number, club: query.club, strip: query.strip, strip: query.strip, playerNumber: query.playerNumber}}
+	} else if(view == "payment.pug"){
+		if(query.printingType == "hero"){
+			return {data: {printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, club: query.club, strip: query.strip, playerNumber: query.playerNumber}}
+		} else if(query.printingType == "custom" && query.premOrDifferent == "prem"){
+			return {data: {printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, club: query.club, strip: query.strip, name: query.name, number: query.number}}
+		} else if(query.premOrDifferent == "different") {
+			return {data: {printingType: query.printingType, deliveryType: query.deliveryType, style: query.style, letter: query.letter, colour: query.colour, name: query.name, number: query.number, premOrDifferent: query.premOrDifferent}}
+		}
+	} else{
+		return {}
 	}
 }
 

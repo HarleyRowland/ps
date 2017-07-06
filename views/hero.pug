@@ -1,11 +1,13 @@
 include header.pug
 div.page.hero
-	h1 What player do you want on your shirt?
-	select.playerOption
-		option(value='') Please Select
-		each pair in data.playersAndNumbers
-			option #{pair}
-	div.content
+	h1 What Player Do You Want On Your Shirt?
+	div.select
+		select.playerOption
+			option(value='') Please Select
+			each pair in data.playersAndNumbers
+				option #{pair}
+	
+	div.hiddenFirst.content
 		div.btnDiv
 			a.btn()
 				span Select

@@ -4,6 +4,8 @@ html
 		style 
 			include ../public/css/style.css
 			include ../public/css/general.css
+			include ../public/css/page.css
+			include ../public/css/nameNumber.css
 			include ../public/css/hero.css
 			include ../public/css/header.css
 			include ../public/css/year.css
@@ -13,11 +15,11 @@ html
 			include ../public/css/strip.css
 			include ../public/css/footer.css
 			include ../public/css/foundation.css
-		link(rel='styelsheet', href='https://fonts.googleapis.com/css?family=Cinzel:900|Lato:300i', type='text/css')
 		script(type='text/javascript' src='public/js/jquery.js')
 		script(type='text/javascript').
 			var local_data = !{JSON.stringify(data)};
 		script(type='text/javascript' src='public/js/custom.js')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
 	body
 		div.header
 			main.row
@@ -26,7 +28,6 @@ html
 						img(src="/public/images/logo.jpeg")
 				div.links.small-9.columns
 					a(href="/") Home
-					a(href="/hero") Hero Print
-					a(href="/custom") Shirt Customisation
+					a(href="/") Printing
 					a(href="/contact") Contact
 					a(href="/faq") FAQs

@@ -1,13 +1,27 @@
 include header.pug
-div.row
-  form(action="/charge", method="post")
-    article
-      label Amount: $5.00
-    script(
-      src="//checkout.stripe.com/v2/checkout.js",
-      class="stripe-button",
-      data-key=keyPublishable,
-      data-locale="auto",
-      data-description="Sample Charge",
-      data-amount="500")
+div.page
+  if data.printingType == "hero"
+    h1 #{data.printingType}
+    h1 #{data.style}
+    h1 #{data.deliveryType}
+    h1 #{data.club}
+    h1 #{data.strip}
+    h1 #{data.playerNumber}
+  else if data.premOrDifferent == "different"
+    h1 #{data.printingType}
+    h1 #{data.style}
+    h1 #{data.deliveryType}
+    h1 #{data.letter}
+    h1 #{data.colour}
+    h1 #{data.name}
+    h1 #{data.number}
+  else if data.printingType == "custom"
+    h1 #{data.printingType}
+    h1 #{data.style}
+    h1 #{data.deliveryType}
+    h1 #{data.club}
+    h1 #{data.strip}
+    h1 #{data.name}
+    h1 #{data.number}
+
 include footer.pug

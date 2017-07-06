@@ -1,12 +1,13 @@
 include header.pug
 div.page.club
 	h1 Which Club's Shirt Do You Have?
-	select.clubOption
-		option(value='') Please Select
-		each club in data.clubs
-			option #{club}
+	div.select
+		select.clubOption
+			option(value='') Please Select
+			each club in data.clubs
+				option #{club}
 
-	div.content
+	div.hiddenFirst.content
 		div.crest
 			img()
 		div.btnDiv

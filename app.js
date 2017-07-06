@@ -22,6 +22,15 @@ app.use("/public", express.static(__dirname + '/public'));
 app.get("/", (req, res) =>
   res.render("index.pug", {keyPublishable}));
 
+app.get("/payment", (req, res) => {
+  var callback = function(template, data, err){
+    res.render(template, data);
+  }
+  if(req.query.deliveryType){
+    flowController.flow("payment.pug", __dirname, req, callback);
+  }
+})
+
 app.get("/style", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
@@ -91,6 +100,42 @@ app.get("/nameNumber", (req, res) => {
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.colour && req.query.letter){
     flowController.flow("nameNumber.pug", __dirname, req, callback);
+  } else {
+    res.send(req.query)
+  }
+})
+
+app.get("/heroOrCustom", (req, res) => {
+  var callback = function(template, data, err){
+    res.render(template, data);
+  }
+  if(req.query.deliveryType && req.query.style && req.query.printingType && req.query.club && req.query.strip){
+    if(req.query.printingType == "hero"){
+      flowController.flow("hero.pug", __dirname, req, callback);
+    } else if(req.query.printingType == "custom" && req.query.premOrDifferent) {
+      flowController.flow("nameNumber.pug", __dirname, req, callback);
+    } else {
+      res.send(req.query);
+    }
+  } else {
+    res.send(req.query)
+  }
+})
+
+app.get("/sleeves", (req, res) => {
+  var callback = function(template, data, err){
+    res.render(template, data);
+  }
+  if(req.query.deliveryType && req.query.style && req.query.printingType){
+    if(req.query.printingType == "hero" && req.query.club && req.query.strip && req.query.playerNumber){
+      flowController.flow("sleeves.pug", __dirname, req, callback);
+    } else if(req.query.printingType == "custom" && req.query.premOrDifferent == "prem" && req.query.club && req.query.strip && req.query.name && req.query.number) {
+      flowController.flow("sleeves.pug", __dirname, req, callback);
+    } else if(req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.letter && req.query.colour && req.query.name && req.query.number){
+      flowController.flow("sleeves.pug", __dirname, req, callback);
+    } else {
+      res.send(req.query);
+    }
   } else {
     res.send(req.query)
   }

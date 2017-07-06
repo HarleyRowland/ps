@@ -1,16 +1,17 @@
 include header.pug
 div.page.colour
-	h1 Which colour is the shirt you have??
-	select.colourOption
-		option(value='') Please Select
-		option(value='white') White
-		option(value='black') Black
-		option(value='blue') Blue
-		option(value='red') Red
-		option(value='yellow') Yellow
+	h1 What Is The Colour Of The Shirt You Have?
+	div.select
+		select.colourOption
+			option(value='') Please Select
+			option(value='white') White
+			option(value='black') Black
+			option(value='blue') Blue
+			option(value='red') Red
+			option(value='yellow') Yellow
 
 
-	div.content
+	div.hiddenFirst.content
 		div.btnDiv
 			a.btn()
 				span Select

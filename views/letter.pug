@@ -1,12 +1,13 @@
 include header.pug
 div.page.letter
-	h1 What letter styling do you want?
-	select.letterOption
-		option(value='') Please Select
-		option(value='white') Straight
-		option(value='black') Curved
+	h1 What Letter Styling Do You Want?
+	div.select
+		select.letterOption
+			option(value='') Please Select
+			option(value='white') Straight
+			option(value='black') Curved
 
-	div.content
+	div.hiddenFirst.content
 		div.btnDiv
 			a.btn()
 				span Select
