@@ -4,9 +4,8 @@ div.page.hero
 	div.select
 		select.playerOption
 			option(value='') Please Select
-			each pair in data.playersAndNumbers
-				option #{pair}
-	
+			each player, index in data.players
+				option #{player} - #{data.numbers[index]}
 	div.hiddenFirst.content
 		div.btnDiv
 			a.btn()

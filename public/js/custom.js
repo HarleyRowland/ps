@@ -21,11 +21,11 @@ $(document).on('change','.playerOption',function(){
 		$(".hiddenFirst").css("display", "block");
 		var playerNumberArray = player.split("-");
 		console.log(playerNumberArray)
-		var cost = playerNumberArray[0].trim().length + (playerNumberArray[1].trim().length)*5
-		console.log(cost)
+		var shirtCost = playerNumberArray[0].trim().length + (playerNumberArray[1].trim().length)*5
+		console.log(shirtCost)
 		console.log(playerNumberArray[0].replace(/ /g,"").length)
 		console.log((playerNumberArray[1].replace(/ /g,"").length)*5)
-		$(".hero .btn").attr("href", "/sleeves?club=" + local_data.club + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&strip=" + local_data.strip + "&playerNumber=" + player + "&cost=" + cost)
+		$(".hero .btn").attr("href", "/sleeves?club=" + local_data.club + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&strip=" + local_data.strip + "&playerNumber=" + player + "&shirtCost=" + shirtCost)
 	}
 });
 
@@ -51,12 +51,12 @@ $(document).on('change','.letterOption',function(){
 
 $(document).on('change','.sleeveOption',function(){
 	var sleeve = $('.sleeveOption').find(":selected").text();
-	console.log(local_data.cost)
+	console.log(local_data.shirtCost)
 	if(sleeve == "Please Select"){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".sleeves .btn").attr("href", "/payment?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + local_data.name + "&number=" + local_data.number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&playerNumber=" + local_data.playerNumber + "&sleeve=" + sleeve + "&cost=" + local_data.cost)
+		$(".sleeves .btn").attr("href", "/payment?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + local_data.name + "&number=" + local_data.number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&playerNumber=" + local_data.playerNumber + "&sleeve=" + sleeve + "&shirtCost=" + local_data.shirtCost)
 	}
 });
 
@@ -67,7 +67,7 @@ $(document).on('change','.shirtName',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip  + "&cost=" + local_data.cost)
+		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip  + "&shirtCost=" + local_data.shirtCost)
 	}
 });
 
@@ -78,11 +78,11 @@ $(document).on('change','.shirtNumber',function(){
 		$(".hiddenFirst").css("display", "none");
 		$(".basket").css("display", "none");
 	} else {
-		var cost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
+		var shirtCost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
-		$(".price").text("£" + cost);
-		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&cost=" + cost)
+		$(".price").text("£" + shirtCost);
+		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&shirtCost=" + shirtCost)
 	}
 });
 
