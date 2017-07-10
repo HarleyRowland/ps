@@ -5,20 +5,20 @@ div.page
 	div.styles.row
 		div.style.small-12.medium-6.columns
 			div.heroPrinting
-				h3 Premier League Shirt
+				h3.optionTitle Premier League Shirt
 				h5.optionSubtitle One of the 20 teams currently in the English Premier League.
 				div.optionText
 					p Next you will choose the which Premier League team's kit you have.
 					div.btnDiv
 						a.btn(href="/club?premOrDifferent=prem&printingType=" + data.printingType + "&deliveryType=" + data.deliveryType +"&style=" + data.style)
-							span Premier League Shirt
+							span Select
 		div.style.small-12.medium-6.columns
 			div.customPrinting
-				h3 Different League
+				h3.optionTitle Different League
 				h5.optionSubtitle A team not currently in the English Premier League.
 				div.optionText
 					p You will next choose the colour of the team kit to best represent the kit you have.
 					div.btnDiv
 						a.btn(href="/colour?premOrDifferent=different&printingType=custom&deliveryType=" + data.deliveryType +"&style=" + data.style)
-							span Custom Shirt
+							span Select
 include footer.pug

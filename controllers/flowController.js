@@ -1,8 +1,7 @@
 var fs = require('fs')
 
 module.exports = {
-	flow: function(view, req, callback){
-		console.log(view)
+	selectTemplate: function(view, req, callback){
 		var viewFields = {
 			data: req.query
 		} 

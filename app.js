@@ -40,45 +40,12 @@ app.get("/dbTest", (req,res) => {
 })
 
 app.post("/paymentResult", (req, res) => {
-  let amount = 500;
-  console.log(req.body.stripeEmail)
-  stripe.customers.create({
-     email: req.body.stripeEmail,
-    source: req.body.stripeToken
-  })
-  .then(customer =>
-    stripe.charges.create({
-      amount,
-      description: "Sample Charge",
-         currency: "GBP",
-         customer: customer.id
-    }))
-  .then(charge => {
-    var transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: 'harleyrowland17@gmail.com', // Your email id
-            pass: 'Omg_0923' // Your password
-        }
-    });
-    var text = 'Payment made from \n\n Harley';
-    var mailOptions = {
-      from: 'harleyrowland17@gmail.com', // sender address
-      to: req.body.stripeEmail, // list of receivers
-      subject: 'Email Example',
-      html: fs.readFileSync('emailTemplates/orderProcessed.txt', 'utf8')
-    };
-    transporter.sendMail(mailOptions, function(error, info){
-      if(error){
-          console.log(error);
-          res.json({yo: 'error'});
-      }else{
-          console.log('Message sent: ' + info.response);
-          res.json({yo: info.response});
-      };
-    });
-    res.render("paymentResult.pug", {finalCost: req.query.finalCost});
-  })
+  var callback = function(template, data, err){
+    res.render(template, data);
+  }
+  if(req.query.stripeEmail){
+    paymentController.makePayment(req, callback);
+  }
 })
 
 app.get("/payment", (req, res) => {
@@ -86,7 +53,7 @@ app.get("/payment", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType){
-    flowController.flow("payment.pug", __dirname, req, callback, keyPublishable);
+    flowController.selectTemplate("payment.pug", req, callback);
   }
 })
 
@@ -100,7 +67,7 @@ app.get("/style", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType){
-    flowController.flow("year.pug", req, callback);
+    flowController.selectTemplate("year.pug", req, callback);
   }
 })
 
@@ -109,7 +76,7 @@ app.get("/printingType", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType && req.query.style){
-    flowController.flow("printingType.pug", req, callback);
+    flowController.selectTemplate("printingType.pug", req, callback);
   }
 })
 
@@ -118,7 +85,7 @@ app.get("/club", (req, res) => {
     res.render(template, data);
   }
   if((req.query.deliveryType && req.query.style && req.query.printingType == "hero") || (req.query.deliveryType && req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "prem")){
-    flowController.flow("club.pug", req, callback);
+    flowController.selectTemplate("club.pug", req, callback);
   }
 })
 
@@ -127,7 +94,7 @@ app.get("/premOrDifferent", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType == "custom"){
-    flowController.flow("premOrDifferent.pug", req, callback);
+    flowController.selectTemplate("premOrDifferent.pug", req, callback);
   }
 })
 
@@ -136,7 +103,7 @@ app.get("/strip", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType && req.query.club){
-    flowController.flow("strip.pug", req, callback);
+    flowController.selectTemplate("strip.pug", req, callback);
   }
 })
 
@@ -145,7 +112,7 @@ app.get("/colour", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different"){
-    flowController.flow("colour.pug", req, callback);
+    flowController.selectTemplate("colour.pug", req, callback);
   }
 })
 
@@ -154,7 +121,7 @@ app.get("/letter", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.colour){
-    flowController.flow("letter.pug", req, callback);
+    flowController.selectTemplate("letter.pug", req, callback);
   }
 })
 
@@ -163,7 +130,7 @@ app.get("/nameNumber", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.colour && req.query.letter){
-    flowController.flow("nameNumber.pug", req, callback);
+    flowController.selectTemplate("nameNumber.pug", req, callback);
   } else {
     res.send(req.query)
   }
@@ -175,9 +142,9 @@ app.get("/heroOrCustom", (req, res) => {
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType && req.query.club && req.query.strip){
     if(req.query.printingType == "hero"){
-      flowController.flow("hero.pug", req, callback);
+      flowController.selectTemplate("hero.pug", req, callback);
     } else if(req.query.printingType == "custom" && req.query.premOrDifferent) {
-      flowController.flow("nameNumber.pug", req, callback);
+      flowController.selectTemplate("nameNumber.pug", req, callback);
     } else {
       res.send(req.query);
     }
@@ -192,11 +159,11 @@ app.get("/sleeves", (req, res) => {
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType){
     if(req.query.printingType == "hero" && req.query.club && req.query.strip && req.query.playerNumber){
-      flowController.flow("sleeves.pug", req, callback);
+      flowController.selectTemplate("sleeves.pug", req, callback);
     } else if(req.query.printingType == "custom" && req.query.premOrDifferent == "prem" && req.query.club && req.query.strip && req.query.name && req.query.number) {
-      flowController.flow("sleeves.pug", req, callback);
+      flowController.selectTemplate("sleeves.pug", req, callback);
     } else if(req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.letter && req.query.colour && req.query.name && req.query.number){
-      flowController.flow("sleeves.pug", req, callback);
+      flowController.selectTemplate("sleeves.pug", req, callback);
     } else {
       res.send(req.query);
     }

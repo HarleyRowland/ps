@@ -5,14 +5,14 @@ body * {
 .page {
 	padding-top: 40px;
 	text-align: center;
-	min-height: 80%;
+	min-height: 70%;
 }
 
 .btnDiv {
 	display: flex;
  	justify-content: center;
  	align-items: center;
- 	padding: 10px;
+ 	padding: 20px;
 }
 
 a.btn {
@@ -27,4 +27,48 @@ a.btn {
 a.btn:hover {
 	background-color: #323B7E;
 	color: #FFFFFF;
+}
+
+.optionTitle {
+	height: 80px;
+}
+
+.optionText {
+	height: 80px;
+}
+
+.optionSubtitle {
+	height: 80px;
+}
+
+@media only screen and (min-width: 40em) and (max-width: 64em) { 
+	.optionTitle {
+		height: 100px;
+	}
+
+	.optionText {
+		height: 100px;
+	}
+
+	.optionSubtitle {
+		height: 130px;
+	}
+}
+
+@media only screen and (max-width: 40em) { 
+	h3 {
+		font-size: 30px !important;
+	}
+
+	.optionTitle {
+		height: 50px;
+	}
+
+	.optionText {
+		height: 50px;
+	}
+
+	.optionSubtitle {
+		height: 50px;
+	}
 }
