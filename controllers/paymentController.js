@@ -15,11 +15,13 @@ var payStripe = function(email, token){
 	stripe.customers.create({
 	 	email: email,
 		source: token
-	}).then(customer =>
+	})
+	.then(customer =>
 		stripe.charges.create({
 	  		amount,
 	  		description: "Sample Charge",
 	    	currency: "GBP",
 	    	customer: customer.id
-		}))
+		})
+	)
 }

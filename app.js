@@ -1,31 +1,36 @@
 var express = require('express');
 var fs = require('fs');
+var cookieParser = require('cookie-parser')
+var pg = require('pg');
+
 var app = express();
+var keyPublishable = process.env.PUBLISHABLE_KEY;
+var keySecret = process.env.SECRET_KEY;
+var stripe = require("stripe")(keySecret);
+var bodyParser = require('body-parser');
+var nodemailer = require('nodemailer');
+
 var flowController = require('./controllers/flowController.js')
 var paymentController = require('./controllers/paymentController.js')
-var pg = require('pg');
+var basketController = require('./controllers/basketController.js')
+
+app.set("view engine", "pug");
+app.set('port', (process.env.PORT || 5000));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
-const keyPublishable = process.env.PUBLISHABLE_KEY;
-const keySecret = process.env.SECRET_KEY;
-const stripe = require("stripe")(keySecret);
-const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer');
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.set("view engine", "pug");
 app.use(require("body-parser").urlencoded({extended: false}));
 app.use("/public", express.static(__dirname + '/public'));
-app.use(express.cookieParser());
+app.use(cookieParser())
 
-app.get("/", (req, res) =>
-  res.render("index.pug", {keyPublishable}));
+app.get("/", (req, res) => {
+  res.render("index.pug", {keyPublishable});
+});
 
 app.post("/paymentResult", (req, res) => {
   var callback = function(template, data, err){
@@ -36,18 +41,14 @@ app.post("/paymentResult", (req, res) => {
   }
 })
 
-app.get("/payment", (req, res) => {
+app.get("/basket", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType){
-    flowController.selectTemplate("payment.pug", req, callback);
+  if(req.query.shirtObject){
+    var shirtObject = JSON.parse(req.query.shirtObject)
+    basketController.buildBasket("basket.pug", res, req, shirtObject, callback);
   }
-})
-
-
-app.get("/", (req, res) => {
-  res.render("index.pug");
 })
 
 app.get("/style", (req, res) => {
@@ -146,7 +147,7 @@ app.get("/sleeves", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType){
-    if(req.query.printingType == "hero" && req.query.club && req.query.strip && req.query.playerNumber){
+    if(req.query.printingType == "hero" && req.query.club && req.query.strip && req.query.name && req.query.number){
       flowController.selectTemplate("sleeves.pug", req, callback);
     } else if(req.query.printingType == "custom" && req.query.premOrDifferent == "prem" && req.query.club && req.query.strip && req.query.name && req.query.number) {
       flowController.selectTemplate("sleeves.pug", req, callback);
@@ -167,8 +168,6 @@ app.get("/faq", (req, res) =>
   res.render("faq.pug", {keyPublishable}));
 app.get("/quote", (req, res) =>
   res.render("quote.pug", {keyPublishable}));
-
-app.set('port', (process.env.PORT || 5000));
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

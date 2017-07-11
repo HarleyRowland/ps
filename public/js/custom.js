@@ -4,9 +4,18 @@ $(document).on('change','.clubOption',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		if(local_data.premOrDifferent){
-			$(".btnDiv a").attr("href", "/strip?club=" + nameConverter(club) + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&premOrDifferent=" + local_data.premOrDifferent)
+			$(".btnDiv a").attr("href", "/strip?&deliveryType=" + local_data.deliveryType +
+				"&printingType=" + local_data.printingType +
+				"&style=" + local_data.style +
+				"&premOrDifferent=" + local_data.premOrDifferent +
+				"&club=" + nameConverter(club)
+			)
 		} else {
-			$(".btnDiv a").attr("href", "/strip?club=" + nameConverter(club) + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style)
+			$(".btnDiv a").attr("href", "/strip?deliveryType=" + local_data.deliveryType +
+				"&printingType=" + local_data.printingType + 
+				"&style=" + local_data.style +
+				"&club=" + nameConverter(club)
+			)
 		}
 		$(".crest img").attr("src","/public/images/crests/" + nameConverter(club) + ".png");
 		$(".hiddenFirst").css("display", "block");
@@ -20,12 +29,18 @@ $(document).on('change','.playerOption',function(){
 	} else {
 		$(".hiddenFirst").css("display", "block");
 		var playerNumberArray = player.split("-");
-		console.log(playerNumberArray)
-		var shirtCost = playerNumberArray[0].trim().length + (playerNumberArray[1].trim().length)*5
-		console.log(shirtCost)
-		console.log(playerNumberArray[0].replace(/ /g,"").length)
-		console.log((playerNumberArray[1].replace(/ /g,"").length)*5)
-		$(".hero .btn").attr("href", "/sleeves?club=" + local_data.club + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&strip=" + local_data.strip + "&playerNumber=" + player + "&shirtCost=" + shirtCost)
+		var name = playerNumberArray[0].trim();
+		var number = playerNumberArray[1].trim();
+		var shirtCost = name.length + number.length*5
+		$(".hero .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
+			"&printingType=" + local_data.printingType +
+			"&style=" + local_data.style +
+			"&club=" + local_data.club +
+			"&strip=" + local_data.strip +
+			"&name=" + name +
+			"&number=" + number +
+			"&shirtCost=" + shirtCost
+		)
 	}
 });
 
@@ -35,7 +50,12 @@ $(document).on('change','.colourOption',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".colour .btn").attr("href", "/letter?colour=" + colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style + "&premOrDifferent=" + local_data.premOrDifferent)
+		$(".colour .btn").attr("href", "/letter?deliveryType=" + local_data.deliveryType +
+			"&printingType=" + local_data.printingType +
+			"&style=" + local_data.style +
+			"&premOrDifferent=" + local_data.premOrDifferent +
+			"&colour=" + colour
+		)
 	}
 });
 
@@ -45,18 +65,24 @@ $(document).on('change','.letterOption',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".letter .btn").attr("href", "/nameNumber?letter=" + letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent)
+		$(".letter .btn").attr("href", "/nameNumber?deliveryType=" + local_data.deliveryType +
+			"&printingType=" + local_data.printingType +
+			"&style=" + local_data.style  +
+			"&premOrDifferent=" + local_data.premOrDifferent +
+			"&colour=" + local_data.colour +
+			"&letter=" + letter
+		)
 	}
 });
 
 $(document).on('change','.sleeveOption',function(){
-	var sleeve = $('.sleeveOption').find(":selected").text();
-	console.log(local_data.shirtCost)
-	if(sleeve == "Please Select"){
+	local_data.sleeve = $('.sleeveOption').find(":selected").text();
+	if(local_data.sleeve == "Please Select"){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".sleeves .btn").attr("href", "/payment?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + local_data.name + "&number=" + local_data.number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&playerNumber=" + local_data.playerNumber + "&sleeve=" + sleeve + "&shirtCost=" + local_data.shirtCost)
+		var shirtObject = JSON.stringify(buildShirtObject(local_data))
+		$(".sleeves .btn").attr("href", "/basket?shirtObject=" + shirtObject)
 	}
 });
 
@@ -67,7 +93,18 @@ $(document).on('change','.shirtName',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip  + "&shirtCost=" + local_data.shirtCost)
+		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
+			"&printingType=" + local_data.printingType +
+			"&style=" + local_data.style  +
+			"&premOrDifferent=" + local_data.premOrDifferent +
+			"&colour=" + local_data.colour +
+			"&letter=" + local_data.letter +
+			"&club=" + local_data.club +
+			"&strip=" + local_data.strip  +
+			"&name=" + name +
+			"&number=" + number +
+			"&shirtCost=" + local_data.shirtCost
+		)
 	}
 });
 
@@ -82,9 +119,66 @@ $(document).on('change','.shirtNumber',function(){
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
 		$(".price").text("£" + shirtCost);
-		$(".nameNumber .btn").attr("href", "/sleeves?letter=" + local_data.letter + "&colour=" + local_data.colour + "&printingType=" + local_data.printingType + "&deliveryType=" + local_data.deliveryType +"&style=" + local_data.style  + "&premOrDifferent=" + local_data.premOrDifferent + "&name=" + name + "&number=" + number + "&club=" + local_data.club + "&strip=" + local_data.strip + "&shirtCost=" + shirtCost)
+		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
+			"&printingType=" + local_data.printingType +
+			"&style=" + local_data.style  +
+			"&premOrDifferent=" + local_data.premOrDifferent +
+			"&colour=" + local_data.colour +
+			"&letter=" + local_data.letter +
+			"&club=" + local_data.club +
+			"&strip=" + local_data.strip +
+			"&name=" + name +
+			"&number=" + number +
+			"&shirtCost=" + shirtCost
+		)
 	}
 });
+
+var buildShirtObject = function(data){
+	if(data.deliveryType && data.style && data.printingType && data.shirtCost){
+	    if(data.printingType == "hero" && data.club && data.strip && data.name && data.number){
+			return {
+				printingType: data.printingType,
+				deliveryType: data.deliveryType,
+				style: data.style,
+				club: data.club,
+				strip: data.strip,
+				sleeve: data.sleeve,
+				name: data.name,
+				number: data.number,
+				shirtCost: data.shirtCost
+			}
+	    } else if(data.printingType == "custom" && data.premOrDifferent == "prem" && data.club && data.strip && data.name && data.number) {
+	      	return {
+				printingType: data.printingType,
+				deliveryType: data.deliveryType,
+				style: data.style,
+				club: data.club,
+				strip: data.strip,
+				sleeve: data.sleeve,
+				name: data.name,
+				number: data.number,
+				shirtCost: data.shirtCost
+			}
+	    } else if(data.printingType == "custom" && data.premOrDifferent == "different" && data.letter && data.colour && data.name && data.number){
+	    	return {
+				printingType: data.printingType,
+				deliveryType: data.deliveryType,
+				style: data.style,
+				club: data.colour,
+				strip: data.letter,
+				sleeve: data.sleeve,
+				name: data.name,
+				number: data.number,
+				shirtCost: data.shirtCost
+			}
+	    } else {
+	      return {};
+	    }
+	  } else {
+	    return {};
+	  }
+}
 
 var nameConverter = function(name){
 	if(name == "Arsenal"){
