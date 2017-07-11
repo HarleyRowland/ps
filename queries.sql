@@ -89,3 +89,6 @@ INSERT INTO shirts(orderNumber, sleeve, kitName, kitNumber, deliveryType, printi
 
 INSERT INTO shirts(orderNumber, sleeve, kitName, kitNumber, deliveryType, printingType, style, colour, letter) 
 	VALUES (5,false, 'Ralph', '4', 'post', 'custom', 'current', 'black', 'straight');
+
+INSERT INTO statuses(orderNumber, dateChanged, description) VALUES
+    ((SELECT orderNumber from orders WHERE email='test3@gmail.com'), now(), 'Shirt Recieved');

@@ -22,28 +22,16 @@ app.use(bodyParser.json());
 app.set("view engine", "pug");
 app.use(require("body-parser").urlencoded({extended: false}));
 app.use("/public", express.static(__dirname + '/public'));
+app.use(express.cookieParser());
 
 app.get("/", (req, res) =>
   res.render("index.pug", {keyPublishable}));
-
-app.get("/dbTest", (req,res) => {
-  var conString = "postgres://wjjqnjduyhktca:8ef3e929ad76924d6892432179d558d24dfb798a48f57223f75eef58c66dc2ac@ec2-23-21-96-159.compute-1.amazonaws.com:5432/ddgf1kja4g6fpg";
-  var client = new pg.Client({
-    user: "wjjqnjduyhktca",
-    password: "8ef3e929ad76924d6892432179d558d24dfb798a48f57223f75eef58c66dc2ac",
-    database: "ddgf1kja4g6fpg",
-    port: 5432,
-    host: "ec2-23-21-96-159.compute-1.amazonaws.com",
-    ssl: true
-  });
-  client.connect();
-})
 
 app.post("/paymentResult", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.stripeEmail){
+  if(req.query.stripeEmail && req.query.cost && req.query.shirtArray && req.query.shirtArray.length > 0){
     paymentController.makePayment(req, callback);
   }
 })
