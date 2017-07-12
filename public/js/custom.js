@@ -82,7 +82,7 @@ $(document).on('change','.sleeveOption',function(){
 	} else {
 		$(".hiddenFirst").css("display", "block");
 		var shirtObject = JSON.stringify(buildShirtObject(local_data))
-		$(".sleeves .btn").attr("href", "/basket?shirtObject=" + shirtObject)
+		$(".sleeves .btn").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
 	}
 });
 
@@ -146,7 +146,8 @@ var buildShirtObject = function(data){
 				sleeve: data.sleeve,
 				name: data.name,
 				number: data.number,
-				shirtCost: data.shirtCost
+				shirtCost: data.shirtCost,
+				timestamp: new Date()
 			}
 	    } else if(data.printingType == "custom" && data.premOrDifferent == "prem" && data.club && data.strip && data.name && data.number) {
 	      	return {
@@ -158,7 +159,8 @@ var buildShirtObject = function(data){
 				sleeve: data.sleeve,
 				name: data.name,
 				number: data.number,
-				shirtCost: data.shirtCost
+				shirtCost: data.shirtCost,
+				timestamp: new Date()
 			}
 	    } else if(data.printingType == "custom" && data.premOrDifferent == "different" && data.letter && data.colour && data.name && data.number){
 	    	return {
@@ -170,7 +172,8 @@ var buildShirtObject = function(data){
 				sleeve: data.sleeve,
 				name: data.name,
 				number: data.number,
-				shirtCost: data.shirtCost
+				shirtCost: data.shirtCost,
+				timestamp: new Date()
 			}
 	    } else {
 	      return {};
