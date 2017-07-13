@@ -82,8 +82,15 @@ $(document).on('change','.sleeveOption',function(){
 	} else {
 		$(".hiddenFirst").css("display", "block");
 		var shirtObject = JSON.stringify(buildShirtObject(local_data))
-		$(".sleeves .btn").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
+		$(".sleeves .btn").attr("href", "/confirmation?shirtObject=" + shirtObject)
 	}
+});
+
+$( document ).ready(function() {
+	console.log("hello")
+    var shirtObject = JSON.stringify(buildShirtObject(local_data))
+    console.log(shirtObject)
+	$("a.confirmShirt").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
 });
 
 $(document).on('change','.shirtName',function(){

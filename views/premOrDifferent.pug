@@ -2,8 +2,8 @@ include header.pug
 div.page
 	h1 What Kind Of Shirt Do You Have?
 	p Is your shirt from a team in Premier League now or not.
-	div.styles.row
-		div.style.small-12.medium-6.columns
+	div.choices.row
+		div.choice.small-12.medium-6.columns
 			div.heroPrinting
 				h3.optionTitle Premier League Shirt
 				h5.optionSubtitle One of the 20 teams currently in the English Premier League.
@@ -12,7 +12,7 @@ div.page
 					div.btnDiv
 						a.btn(href="/club?premOrDifferent=prem&printingType=" + data.printingType + "&deliveryType=" + data.deliveryType +"&style=" + data.style)
 							span Select
-		div.style.small-12.medium-6.columns
+		div.choice.small-12.medium-6.columns
 			div.customPrinting
 				h3.optionTitle Different League
 				h5.optionSubtitle A team not currently in the English Premier League.

@@ -1,0 +1,39 @@
+include header.pug
+div.page.basketPage
+	h1 Your Shirts
+	each shirt in data.shirtsArray
+		div.shirt
+			div.row
+				div.kitImage.small-12.medium-6.large-4.columns
+					img(src="/public/images/kits/" + shirt.club + "-" + shirt.strip + ".gif")
+				div.info.small-12.medium-6.large-8.columns
+					div.title
+						h3 #{shirt.fullClub}
+					div.details.row
+						div.small-12.medium-6.columns
+							div
+								h5 Name: #{shirt.name} 
+							div 
+								h5 Number: #{shirt.number} 
+							div 
+								h5 Strip: #{shirt.strip} 
+						div.small-12.medium-6.columns
+							div
+								h5 Delivery Type: #{shirt.deliveryType} 
+							div 
+								h5 Style: #{shirt.style} 
+							div 
+								h5 Sleeves: #{shirt.sleeve}
+					div.delete
+						a(href="/deleteShirtFromBasket?timestamp=" + shirt.timestamp) Delete
+					div
+						h3 Cost: £#{shirt.shirtCost}
+	div.overallActions
+		div.row
+			div.delete
+				a(href="/deleteShirtFromBasket?timestamp=all") Delete		
+			div.payment
+				span £#{data.cost}
+				a(href="/payment?cost=" + data.cost) Make Payment		
+
+include footer.pug

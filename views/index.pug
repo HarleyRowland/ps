@@ -2,22 +2,22 @@ include header.pug
 div.page
 	h1 What Service Do You Want?
 	p You Can either send us your shirt, bring your shirt to us or have us send the letters to you.
-	div.styles.row
-		div.style.small-12.medium-4.columns
+	div.choices.row
+		div.choice.small-12.medium-4.columns
 			div.post
 				h3.optionTitle Post Us You Shirt
 				h5.optionSubTitle You send us your shirt and we print on it and send it back.
 				div.btnDiv
 					a.btn(href="/style?deliveryType=post")
 						span Select
-		div.style.small-12.medium-4.columns
+		div.choice.small-12.medium-4.columns
 			div.deliver
 				h3.optionTitle Bring Your Shirt To Us
 				h5.optionSubTitle You bring us your shirt, we print on it and send it back.
 				div.btnDiv
 					a.btn(href="/style?deliveryType=deliver")
 						span Select
-		div.style.small-12.medium-4.columns
+		div.choice.small-12.medium-4.columns
 			div.print
 				h3.optionTitle You Print Yourself
 				h5.optionSubTitle You tell us what letters and numbers you want and we send them to you.

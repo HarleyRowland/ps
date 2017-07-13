@@ -2,8 +2,8 @@ include header.pug
 div.page
   h1 What Style Do You Want On Your Shirt?
   p Please select whether you want a style from the current Premier League, the previous Premier League style or another kind of style.
-  div.styles.row
-    div.style.small-12.medium-4.columns
+  div.choices.row
+    div.choice.small-12.medium-4.columns
       div.current
         h3.optionTitle Current PL Style
         h5.optionSubTitle (2017-2020)
@@ -12,7 +12,7 @@ div.page
         div.btnDiv
           a.btn(href="/printingType?style=current&deliveryType=" + data.deliveryType)
             span Select
-    div.style.small-12.medium-4.columns
+    div.choice.small-12.medium-4.columns
       div.previous
         h3.optionTitle Previous PL Style
         h5.optionSubTitle (2014-2017)
@@ -21,7 +21,7 @@ div.page
         div.btnDiv
           a.btn(href="/printingType?style=previous&deliveryType=" + data.deliveryType)
             span Select
-    div.style.small-12.medium-4.columns
+    div.choice.small-12.medium-4.columns
       div.quote
         h3.optionTitle Other Styles
         h5.optionSubTitle (International and Other Leagues)        

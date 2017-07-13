@@ -35,6 +35,15 @@ app.get("/", (req, res) => {
   res.render("index.pug", {keyPublishable});
 });
 
+app.post("/payment", (req, res) => {
+  var callback = function(template, data, err){
+    res.render(template, data);
+  }
+  if(req.query.cost){
+    res.render("payment.pug", { data: { cost: req.query.cost}})
+  }
+})
+
 app.post("/paymentResult", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
@@ -50,7 +59,27 @@ app.get("/basket", (req, res) => {
   }
   if(req.query.shirtObject){
     var shirtObject = JSON.parse(req.query.shirtObject)
-    basketController.buildBasket("basket.pug", res, req, shirtObject, callback);
+    basketController.buildBasket(res, req, shirtObject, callback);
+  }
+})
+
+app.get("/confirmation", (req, res) => {
+  var callback = function(template, data, err){
+    res.render(template, data);
+  }
+  if(req.query.shirtObject){
+    var shirtObject = { data: JSON.parse(req.query.shirtObject) }
+
+    res.render("confirmation.pug", shirtObject)
+  }
+})
+
+app.get("/deleteShirtFromBasket", (req, res) => {
+  var callback = function(template, data, err){
+    res.render(template, data);
+  }
+  if(req.query.timestamp){
+    basketController.deleteCookie(res, req, req.query.timestamp, callback);
   }
 })
 
@@ -59,7 +88,7 @@ app.get("/style", (req, res) => {
     res.render(template, data);
   }
   if(req.query.deliveryType){
-    flowController.selectTemplate("year.pug", req, callback);
+    flowController.selectTemplate("style.pug", req, callback);
   }
 })
 

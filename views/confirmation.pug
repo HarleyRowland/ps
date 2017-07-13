@@ -1,0 +1,34 @@
+include header.pug
+div.page.basketPage
+	h1 Are you happy with your shirt?
+		div.shirt
+			div.row
+				div.kitImage.small-12.medium-6.large-4.columns
+					img(src="/public/images/kits/" + data.club + "-" + data.strip + ".gif")
+				div.info.small-12.medium-6.large-8.columns
+					div.title
+						h3 #{data.fullClub}
+					div.details.row
+						div.small-12.medium-6.columns
+							div
+								h5 Name: #{data.name} 
+							div 
+								h5 Number: #{data.number} 
+							div 
+								h5 Strip: #{data.strip} 
+						div.small-12.medium-6.columns
+							div
+								h5 Delivery Type: #{data.deliveryType} 
+							div 
+								h5 Style: #{data.style} 
+							div 
+								h5 Sleeves: #{data.sleeve}
+	div.actions
+		div.row
+			div.startOver.small-6.columns
+				a(href="/") Start Again		
+			div.payment.small-6.columns
+				span £#{data.cost}
+				a.confirmShirt Add to Basket		
+
+include footer.pug

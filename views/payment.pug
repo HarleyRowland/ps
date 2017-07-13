@@ -1,9 +1,9 @@
 include header.pug
 div.page
   div.paymentForm
-    form(action="/paymentResult?finalCost=" + data.shirtCost, method="post")
+    form(action="/paymentResult?finalCost=" + data.cost, method="post")
       article
-        label Amount: £#{data.shirtCost}
+        label Amount: £#{data.cost}
       script(
         src="//checkout.stripe.com/v2/checkout.js",
         class="stripe-button",
@@ -12,31 +12,4 @@ div.page
         data-description="Premier Shirts",
         data-currency="GBP",
         data-amount=data.shirtCost*100)
-
-  h1 £#{data.shirtCost}
-  if data.printingType == "hero"
-    h1 #{data.printingType}
-    h1 #{data.style}
-    h1 #{data.deliveryType}
-    h1 #{data.club}
-    h1 #{data.strip}
-    h1 #{data.playerNumber}
-    h1 #{data.sleeve}
-  else if data.premOrDifferent == "different"
-    h1 #{data.printingType}
-    h1 #{data.style}
-    h1 #{data.deliveryType}
-    h1 #{data.letter}
-    h1 #{data.colour}
-    h1 #{data.name}
-    h1 #{data.number}
-    h1 #{data.sleeve}
-  else if data.printingType == "custom"
-    h1 #{data.printingType}
-    h1 #{data.style}
-    h1 #{data.deliveryType}
-    h1 #{data.club}
-    h1 #{data.strip}
-    h1 #{data.name}
-    h1 #{data.sleeve}
 include footer.pug

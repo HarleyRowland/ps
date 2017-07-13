@@ -4,6 +4,8 @@ DROP TABLE orders;
 
 CREATE TABLE orders(
    orderNumber serial primary key,
+   name VARCHAR(400) NOT NULL,
+   address VARCHAR(400) NOT NULL,
    email VARCHAR(400) NOT NULL,
    cost INT NOT NULL
 );
@@ -31,19 +33,19 @@ CREATE TABLE shirts(
 );
 
 INSERT INTO orders(email, cost) 
-   VALUES ('test@gmail.com', 25);
+   VALUES ('Mr test', '123 test lane, test street, test', 'test@gmail.com', 25);
 
 INSERT INTO orders(email, cost)
-   VALUES ('test1@gmail.com', 32);
+   VALUES ('Mr test', '82 test road, test street, test', 'test1@gmail.com', 32);
 
 INSERT INTO orders(email, cost)
-   VALUES ('test1@gmail.com', 29);
+   VALUES ('Mr test', '82 test road, test street, test', 'test1@gmail.com', 29);
 
 INSERT INTO orders(email, cost)
-   VALUES ('test2@gmail.com', 27);
+   VALUES ('Mr test', '26 test street, test street, test', 'test2@gmail.com', 27);
 
 INSERT INTO orders(email, cost)
-   VALUES ('test3@gmail.com', 25);
+   VALUES ('Mr test', '6 test avenue, test street, test', 'test3@gmail.com', 25);
 
 INSERT INTO statuses(orderNumber, dateChanged, description)
    VALUES (1, now(), 'Waiting for shirt');

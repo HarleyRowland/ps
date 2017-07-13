@@ -2,8 +2,8 @@ include header.pug
 div.page
 	h1 Choose What You Want Done
 	p Please choose between having a proffesional player's name and number appear on your shirt or a name and number of your choice.
-	div.styles.row
-		div.style.small-12.medium-6.columns
+	div.choices.row
+		div.choice.small-12.medium-6.columns
 			div.heroPrinting
 				h3.optionTitle Hero Printing
 				h5.optionSubtitle A professional player and their number
@@ -11,7 +11,7 @@ div.page
 					div.btnDiv
 						a.btn(href="/club?printingType=hero&deliveryType=" + data.deliveryType +"&style=" + data.style)
 							span Select
-		div.style.small-12.medium-6.columns
+		div.box.small-12.medium-6.columns
 			div.customPrinting
 				h3.optionTitle Custom Printing
 				h5.optionSubtitle A name and number chosen by you
