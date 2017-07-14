@@ -6,7 +6,7 @@ module.exports = {
 		var shirtsArray = []
 		for ( cookie in req.cookies ) {
 			if(cookie.includes("shirt")){
-				if(shirtObject.timestamp.toString() === req.cookies[cookie].timestamp.toString()){
+				if(!shirtObject || shirtObject.timestamp.toString() === req.cookies[cookie].timestamp.toString()){
 					add = false;
 				}
 				shirtCount++;

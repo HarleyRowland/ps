@@ -35,21 +35,23 @@ app.get("/", (req, res) => {
   res.render("index.pug", {keyPublishable});
 });
 
-app.post("/payment", (req, res) => {
+app.get("/payment", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.cost){
-    res.render("payment.pug", { data: { cost: req.query.cost}})
-  }
+  paymentController.paymentBuilder(req, keyPublishable, callback);
 })
 
 app.post("/paymentResult", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.stripeEmail && req.query.cost && req.query.shirtArray && req.query.shirtArray.length > 0){
+  console.log(req.query)
+  console.log(req.body)
+  if(req.body.stripeEmail && req.query.cost && req.query.shirtArray){
     paymentController.makePayment(req, callback);
+  } else {
+    res.send(req.query)
   }
 })
 
@@ -60,6 +62,8 @@ app.get("/basket", (req, res) => {
   if(req.query.shirtObject){
     var shirtObject = JSON.parse(req.query.shirtObject)
     basketController.buildBasket(res, req, shirtObject, callback);
+  } else {
+    basketController.buildBasket(res, req, null, callback);    
   }
 })
 

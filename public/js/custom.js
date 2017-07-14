@@ -87,10 +87,19 @@ $(document).on('change','.sleeveOption',function(){
 });
 
 $( document ).ready(function() {
-	console.log("hello")
-    var shirtObject = JSON.stringify(buildShirtObject(local_data))
-    console.log(shirtObject)
-	$("a.confirmShirt").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
+	if ($("a.confirmShirt").length){
+    	var shirtObject = JSON.stringify(buildShirtObject(local_data))
+		$("a.confirmShirt").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
+	}
+	$(".stripe-button-el").on("click", function(){
+		var name =  $('.name').val();
+		var line1 =  $('.line1').val();
+		var line2 =  $('.line2').val();
+		var town =  $('.town').val();
+		var county =  $('.county').val();
+		var postcode =  $('.postcode').val();
+		$(".paymentForm form").attr("action", "/paymentResult?name="+ name +"&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&cost=" + local_data.cost + "&shirtArray=" + local_data.jsonArray)
+	});
 });
 
 $(document).on('change','.shirtName',function(){
