@@ -1,0 +1,3 @@
+.field:not(#name):not(#email):not(#pro) {
+	display: none;
+}

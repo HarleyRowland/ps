@@ -44,6 +44,15 @@ $(document).on('change','.playerOption',function(){
 	}
 });
 
+$(document).on('change','.proOption',function(){
+	var player = $('.proOption').find(":selected").text();
+	if(player == "Please Select"){
+		$("#field:not(#name):not(#email):not(#pro)").css("display", "none");
+	} else {
+		$("#field").css("display", "block");
+	}
+});
+
 $(document).on('change','.colourOption',function(){
 	var colour = $('.colourOption').find(":selected").text();
 	if(colour == "Please Select"){

@@ -5,7 +5,6 @@ module.exports = {
 	}
 }
 
-
 var query = function(sqlQuery) {
 	var client = new pg.Client({
 	    user: "wjjqnjduyhktca",

@@ -6,7 +6,11 @@ module.exports = {
 			data: req.query
 		} 
 		if(view == "club.pug"){
-			viewFields.data.clubs = buildClubsArray()
+			viewFields.data.clubsFull = buildClubsArray()
+			viewFields.data.clubs = []
+			viewFields.data.clubsFull.forEach(function(club){
+				viewFields.data.clubs.push(nameConverter(club))
+			});
 		} else if(view == "strip.pug"){
 			viewFields.data.clubs = howManyStrips(req.query.club)
 		} else if(view == "hero.pug"){
@@ -31,7 +35,8 @@ var howManyStrips = function(club){
 
 var buildClubsArray = function() {
 	var clubs = fs.readFileSync('./public/teamList.txt', 'utf8');
-	return clubs.split(",");
+	var clubsArray = clubs.split(",");
+	return clubsArray;
 }
 
 var getPlayersAndNumbers = function(club){
@@ -41,4 +46,50 @@ var getPlayersAndNumbers = function(club){
 	var numbers = playersAndNumbers[1].split(",")
 
 	return [players, numbers]
+}
+
+var nameConverter = function(club) {
+	if(club == "Arsenal") {
+		return "arsenal"
+	} else if(club == "Bournemouth"){
+		return "bournemouth"
+	} else if(club == "Brighton and Hove Albion"){
+		return "brighton"
+	} else if(club == "Burnley"){
+		return "burnley"
+	} else if(club == "Chelsea"){
+		return "chelsea"
+	} else if(club == "Crystal Palace"){
+		return "crystalPalace"
+	} else if(club == "Everton"){
+		return "everton"
+	} else if(club == "Huddersfield"){
+		return "huddersfield"
+	} else if(club == "Leicester City"){
+		return "leicesterCity"
+	} else if(club == "Liverpool"){
+		return "liverpool"
+	} else if(club == "Manchester City"){
+		return "manchesterCity"
+	} else if(club == "Manchester United"){
+		return "manu"
+	} else if(club == "Newcastle United"){
+		return "newcastle"
+	} else if(club == "Southampton"){
+		return "southampton"
+	} else if(club == "Stoke City"){
+		return "stoke"
+	} else if(club == "Swansea City"){
+		return "swansea"
+	} else if(club == "Tottenham Hotspur"){
+		return "tottenham"
+	} else if(club == "Watford"){
+		return "watford"
+	} else if(club == "West Bromich Albion"){
+		return "westbrom"
+	} else if(club == "West Ham"){
+		return "westham"
+	} else {
+		return club;
+	}
 }

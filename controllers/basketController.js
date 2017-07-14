@@ -1,5 +1,4 @@
-// res.cookie('cookiename', 'cookievalue', { maxAge: 900000, httpOnly: true });
-module.exports = {
+ module.exports = {
 	buildBasket: function(res, req, shirtObject, callback){
 		var shirtCount = 0;
 		var add = true;
@@ -35,7 +34,9 @@ module.exports = {
 	deleteCookie: function(res, req, timestamp, callback){
 		var shirtsArray = []
 		for ( cookie in req.cookies ) {
-			if(cookie.includes("shirt") && req.cookies[cookie].timestamp.toString() != timestamp){
+			if(timestamp == "all"){
+				res.clearCookie(cookie);
+			} else if(cookie.includes("shirt") && req.cookies[cookie].timestamp.toString() != timestamp){
 				shirtsArray.push(req.cookies[cookie]);
 			} else if(req.cookies[cookie].timestamp.toString() === timestamp){
 				res.clearCookie(cookie);
@@ -52,7 +53,6 @@ module.exports = {
 		callback("basket.pug", data)
 	}
 }
-
 
 var nameConverter = function(name){
 	if(name == "arsenal"){

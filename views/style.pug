@@ -6,28 +6,22 @@ div.page
     div.choice.small-12.medium-4.columns
       div.current
         h3.optionTitle Current PL Style
-        h5.optionSubTitle (2017-2020)
-        div.optionText
-          p The most up-to-date style.
+        h5.optionSubTitle The current Premier League Style (2017-2020)
         div.btnDiv
           a.btn(href="/printingType?style=current&deliveryType=" + data.deliveryType)
             span Select
     div.choice.small-12.medium-4.columns
       div.previous
         h3.optionTitle Previous PL Style
-        h5.optionSubTitle (2014-2017)
-        div.optionText
-          p Want a slightly older style? No problem.
+        h5.optionSubTitle The Previous Premier League Style (2014-2017)
         div.btnDiv
           a.btn(href="/printingType?style=previous&deliveryType=" + data.deliveryType)
             span Select
     div.choice.small-12.medium-4.columns
       div.quote
         h3.optionTitle Other Styles
-        h5.optionSubTitle (International and Other Leagues)        
-        div.optionText
-          p We can give you a personalised quote for styles not in the Premier League.
+        h5.optionSubTitle We can give you a quote for something different.
         div.btnDiv
           a.btn(href="/quote?deliveryType=" + deliveryType)
-            span Select
+            span Quote Me
 include footer.pug
