@@ -1,18 +1,16 @@
 var express = require('express');
 var fs = require('fs');
 var cookieParser = require('cookie-parser')
-var pg = require('pg');
 
 var app = express();
 var keyPublishable = process.env.PUBLISHABLE_KEY;
-var keySecret = process.env.SECRET_KEY;
-var stripe = require("stripe")(keySecret);
 var bodyParser = require('body-parser');
 var nodemailer = require('nodemailer');
 
 var flowController = require('./controllers/flowController.js')
 var paymentController = require('./controllers/paymentController.js')
 var basketController = require('./controllers/basketController.js')
+var ownerController = require('./controllers/ownerController.js')
 
 app.set("view engine", "pug");
 app.set('port', (process.env.PORT || 5000));
@@ -46,10 +44,8 @@ app.post("/paymentResult", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  console.log(req.query)
-  console.log(req.body)
   if(req.body.stripeEmail && req.query.cost && req.query.shirtArray){
-    paymentController.makePayment(req, callback);
+    paymentController.makePayment(req, res);
   } else {
     res.send(req.query)
   }
@@ -78,8 +74,22 @@ app.get("/confirmation", (req, res) => {
   }
 })
 
+app.get("/userOrders", (req, res) => {
+  var callback = function(err, template, data){
+    res.render(template, {data: data});
+  }
+  ownerController.getAll(callback);    
+})
+
+app.get("/update", (req, res) => {
+  var callback = function(err, template, data){
+    res.render(template, {data: data});
+  }
+  ownerController.updateOrder(req, callback);    
+})
+
 app.get("/deleteShirtFromBasket", (req, res) => {
-  var callback = function(template, data, err){
+  var callback = function(err, template, data){
     res.render(template, data);
   }
   if(req.query.timestamp){

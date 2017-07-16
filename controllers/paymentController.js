@@ -1,6 +1,8 @@
+var async = require('async')
 var config = require('../config.yaml')
 var emailClient = require('../clients/emailClient.js')
 var stripeClient = require('../clients/stripeClient.js')
+var databaseClient = require('../clients/databaseClient.js')
 
 module.exports = {
 	paymentBuilder: function(req, key, callback) {
@@ -13,11 +15,25 @@ module.exports = {
 		callback("payment.pug", data);
 	},
 
-	makePayment: function(req, callback){
-		stripeClient.payStripe(req.body.stripeEmail, req.body.stripeToken).then(charge => {
-			emailClient.sendMail("Payment", req.body.stripeEmail)
-			res.render("paymentResult.pug", {finalCost: req.query.cost});
-		})
+	makePayment: function(req, res){
+		async.waterfall([
+		    function(callback) {
+		        databaseClient.newOrder(req, callback);
+		    },
+		    function(orderNumber, callback) {
+		        emailClient.sendEmail("Payment", req.body.stripeEmail, orderNumber, res, callback)
+		    }
+		], function (err, result) {
+			console.log("hello")
+			var callback = function(err, charge){
+				if(err) {
+					res.render("paymentFailure.pug")
+				} else {
+					res.render("paymentResult.pug")
+				}
+			}	
+			stripeClient.makePayment(req.query.cost, req.body.stripeEmail, req.body.stripeToken, callback)
+		});
 	}
 }
 

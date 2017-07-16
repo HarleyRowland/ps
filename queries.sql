@@ -32,19 +32,19 @@ CREATE TABLE shirts(
    letter VARCHAR(400)
 );
 
-INSERT INTO orders(email, cost) 
+INSERT INTO orders(name, address, email, cost) 
    VALUES ('Mr test', '123 test lane, test street, test', 'test@gmail.com', 25);
 
-INSERT INTO orders(email, cost)
+INSERT INTO orders(name, address, email, cost) 
    VALUES ('Mr test', '82 test road, test street, test', 'test1@gmail.com', 32);
 
-INSERT INTO orders(email, cost)
+INSERT INTO orders(name, address, email, cost) 
    VALUES ('Mr test', '82 test road, test street, test', 'test1@gmail.com', 29);
 
-INSERT INTO orders(email, cost)
+INSERT INTO orders(name, address, email, cost) 
    VALUES ('Mr test', '26 test street, test street, test', 'test2@gmail.com', 27);
 
-INSERT INTO orders(email, cost)
+INSERT INTO orders(name, address, email, cost) 
    VALUES ('Mr test', '6 test avenue, test street, test', 'test3@gmail.com', 25);
 
 INSERT INTO statuses(orderNumber, dateChanged, description)
@@ -91,6 +91,3 @@ INSERT INTO shirts(orderNumber, sleeve, kitName, kitNumber, deliveryType, printi
 
 INSERT INTO shirts(orderNumber, sleeve, kitName, kitNumber, deliveryType, printingType, style, colour, letter) 
 	VALUES (5,false, 'Ralph', '4', 'post', 'custom', 'current', 'black', 'straight');
-
-INSERT INTO statuses(orderNumber, dateChanged, description) VALUES
-    ((SELECT orderNumber from orders WHERE email='test3@gmail.com'), now(), 'Shirt Recieved');
