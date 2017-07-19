@@ -1,3 +1,10 @@
+.club {
+	border: 1px solid #C1C1C1;
+	margin-bottom: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 .club h3 {
 	height: 50px;
 	margin-bottom: 30px;
@@ -7,7 +14,7 @@
 	display: flex;
  	justify-content: center;
  	align-items: center;
- 	height: 400px;
+ 	height: 300px;
 }
 
 .crest img {

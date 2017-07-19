@@ -13,19 +13,20 @@ var transporterDetails = {
 }
 
 module.exports = {
-	sendEmail: function(subject, toEmailAddress, orderNumber, res, callback){
+	sendEmail: function(subject, toEmailAddress, orderNumber, callback){
 		var transporter = nodemailer.createTransport(transporterDetails);
 		var mailOptions = {
 			from: 'harleyrowland17@gmail.com',
 			to: toEmailAddress,
-			subject: subject,
-			html: fs.readFileSync('emailTemplates/orderProcessed.txt', 'utf8')
+			subject: subject + " - " + orderNumber,
+			html: fs.readFileSync('emailTemplates/' + subject + '.txt', 'utf8')
 		};
 		transporter.sendMail(mailOptions, function(err, info){
-			console.log(err, info)
 			if(err){
-				callback(err)
+				console.log(err);
+				callback(err);
 			} else {
+				console.log(info);
 				callback()
 			};
 		});

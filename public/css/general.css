@@ -1,5 +1,5 @@
 body * {
-	font-family: 'Open Sans', sans-serif !important;
+	font-family: 'Dosis', sans-serif !important;
 }
 
 .page {
@@ -41,9 +41,9 @@ a.btn:hover {
 	height: 80px;
 }
 
-@media only screen and (min-width: 40em) and (max-width: 64em) { 
+@media only screen and (min-width: 39em) and (max-width: 64em) { 
 	.optionTitle {
-		height: 100px;
+		height: 120px;
 	}
 
 	.optionText {
@@ -56,8 +56,17 @@ a.btn:hover {
 }
 
 @media only screen and (max-width: 40em) { 
+	h1 {
+		font-size: 40px !important;
+	}
+
 	h3 {
 		font-size: 30px !important;
+	}
+
+	.pageInfo {
+		font-size: 20px !important;
+		/*padding: 20px;*/
 	}
 
 	.optionTitle {

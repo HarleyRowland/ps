@@ -14,4 +14,61 @@
 	padding: 30px;
 	margin: 2px;
 	border: 2px solid #818181;
+	border-radius: 10px;
 }
+
+.services * {
+	color: #FFFFFF;
+}
+
+.services {
+	height: 100%;
+	background-color: #323B7E;
+}
+
+.services .choice > div {
+	background-color: white;
+	border: 3px solid #9DE4FF;
+}
+
+.services .choice * {
+	background-color: white;
+	color: #323B7E;
+}
+
+.services > * {
+	margin-bottom: 30px;
+}
+
+.top a img {
+	background-color: #FFFFFF;
+	padding: 15px;
+	border: 3px solid #9DE4FF;
+	border-radius: 10px;
+}
+
+.bottom *{
+	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ }
+
+ .bottom a {
+ 	margin-top: 30px;
+ 	font-size: 20px;
+ }
+
+ .bottom .action span {
+ 	border: solid 2px #9DE4FF;
+ 	border-radius: 10px;
+ 	transition: 1s;
+ }
+
+  .bottom .action span:hover {
+  	background-color: #9DE4FF;
+  	color: #323B7E;
+ }
+
+/*.services h1 {
+	margin-bottom: 30px;
+}*/

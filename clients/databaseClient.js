@@ -36,8 +36,19 @@ module.exports = {
 		});
 	},
 	getAllOrders: function(callback){
-		var sql = 'SELECT o.*, s.*, sh.* FROM orders o INNER JOIN statuses s ON o.ordernumber = s.ordernumber INNER JOIN shirts sh ON s.ordernumber=sh.ordernumber;'
+		var sql = 'SELECT  o.*, sh.*, s.description, s.dateChanged FROM ( SELECT  s.ordernumber, MAX(s.dateChanged) AS maxDate FROM statuses s GROUP BY s.ordernumber) d JOIN statuses s ON s.ordernumber = d.ordernumber AND s.dateChanged = d.maxDate JOIN orders o ON o.ordernumber = s.ordernumber JOIN shirts sh ON o.ordernumber = sh.ordernumber;'
 		query("SELECT", sql, callback);
+	},
+	updateOrder: function(orderNumber, shirtid, description, callback){
+		var statusQuery = 'INSERT INTO statuses(orderNumber, dateChanged, description) VALUES (\'' + orderNumber + '\', now(), \'' + description + '\');'
+		query("INSERT", statusQuery, callback);
+	},
+	getEmail: function(orderNumber, callback){
+		var statusQuery = 'SELECT email FROM orders WHERE ordernumber=' + orderNumber + ';'
+		var cb = function(){
+			
+		}
+		query("INSERT", statusQuery, callback);
 	}
 }
 

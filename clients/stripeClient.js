@@ -14,6 +14,7 @@ module.exports = {
 	    	customer: customer.id
 		}, function(err, charge) {
 		    if (err) {
+		    	console.log(err)
 		    	callback(err)
 		    } else {
 		    	callback(null, charge)

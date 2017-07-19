@@ -33,6 +33,10 @@ app.get("/", (req, res) => {
   res.render("index.pug", {keyPublishable});
 });
 
+app.get("/service", (req, res) => {
+  res.render("service.pug", {keyPublishable});
+});
+
 app.get("/payment", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
@@ -64,12 +68,9 @@ app.get("/basket", (req, res) => {
 })
 
 app.get("/confirmation", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
   if(req.query.shirtObject){
     var shirtObject = { data: JSON.parse(req.query.shirtObject) }
-
+    console.log(shirtObject)
     res.render("confirmation.pug", shirtObject)
   }
 })
@@ -81,11 +82,8 @@ app.get("/userOrders", (req, res) => {
   ownerController.getAll(callback);    
 })
 
-app.get("/update", (req, res) => {
-  var callback = function(err, template, data){
-    res.render(template, {data: data});
-  }
-  ownerController.updateOrder(req, callback);    
+app.get("/updateStatus", (req, res) => {
+  ownerController.updateOrder(req, res);    
 })
 
 app.get("/deleteShirtFromBasket", (req, res) => {

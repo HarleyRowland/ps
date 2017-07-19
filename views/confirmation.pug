@@ -1,34 +1,60 @@
 include header.pug
-div.page.basketPage
-	h1 Are you happy with your shirt?
-		div.shirt
-			div.row
-				div.kitImage.small-12.medium-6.large-4.columns
-					img(src="/public/images/kits/" + data.club + "-" + data.strip + ".gif")
-				div.info.small-12.medium-6.large-8.columns
-					div.title
-						h3 #{data.fullClub}
-					div.details.row
-						div.small-12.medium-6.columns
-							div
-								h5 Name: #{data.name} 
-							div 
-								h5 Number: #{data.number} 
-							div 
-								h5 Strip: #{data.strip} 
-						div.small-12.medium-6.columns
-							div
-								h5 Delivery Type: #{data.deliveryType} 
-							div 
-								h5 Style: #{data.style} 
-							div 
-								h5 Sleeves: #{data.sleeve}
+div.page.confirmation
+	div
+		div.row
+			div.kitImage.small-12.medium-6.large-4.columns
+				img(src="/public/images/kits/" + data.club + "-" + data.strip + ".gif")
+			div.info.small-12.medium-6.large-8.columns
+				div.title
+					h3 #{data.fullClub}
+				div.details
+					h3 The Details
+					div
+						p 
+							b #{data.name} 
+							span will appear on the back of your shirt with the number 
+							b #{data.number}. 
+							span You will pay 
+							b £#{data.shirtCost} 
+							span for this combination of letters and numbers.
+					div 
+						p You have a 
+							b #{data.club} #{data.strip} 
+							span kit. 
+					div
+						if data.deliveryType == "deliver"
+							p You will 
+								b bring 
+								span your shirt to our office at 123 Test Lane, Test, Test TN24 123/
+						else if data.deliverType == "post"
+							p You will 
+								b send 
+								span your shirt to our office at 123 Test Lane, Test, Test TN24 123.
+						else 
+							p 
+								b We will send you the letters and numbers 
+								span need for you to print yourself.
+					div 
+						p We will use the 
+							b #{data.style} 
+							span Premier League font for the letters and numbers on your shirt.
+					div 
+						if data.sleeve == "No"
+							p You 
+								b will not 
+								span have the official Premier League sleeve badges on your kit.
+						else if data.sleeve == "Yes"
+							p You 
+								b will not 
+								span have the official Premier League sleeve badges on your kit.
+					div
+						h3 £#{data.shirtCost}
+
 	div.actions
 		div.row
 			div.startOver.small-6.columns
 				a(href="/") Start Again		
 			div.payment.small-6.columns
-				span £#{data.cost}
 				a.confirmShirt Add to Basket		
 
 include footer.pug

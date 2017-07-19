@@ -21,7 +21,7 @@ module.exports = {
 		        databaseClient.newOrder(req, callback);
 		    },
 		    function(orderNumber, callback) {
-		        emailClient.sendEmail("Payment", req.body.stripeEmail, orderNumber, res, callback)
+		        emailClient.sendEmail("payment", req.body.stripeEmail, orderNumber, callback)
 		    }
 		], function (err, result) {
 			console.log("hello")
@@ -32,7 +32,7 @@ module.exports = {
 					res.render("paymentResult.pug")
 				}
 			}	
-			stripeClient.makePayment(req.query.cost, req.body.stripeEmail, req.body.stripeToken, callback)
+			stripeClient.makePayment(req.query.cost*100, req.body.stripeEmail, req.body.stripeToken, callback)
 		});
 	}
 }

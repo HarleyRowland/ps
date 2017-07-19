@@ -33,19 +33,19 @@ CREATE TABLE shirts(
 );
 
 INSERT INTO orders(name, address, email, cost) 
-   VALUES ('Mr test', '123 test lane, test street, test', 'test@gmail.com', 25);
+   VALUES ('James Adams', '123 test lane, test street, test', 'test@gmail.com', 25);
 
 INSERT INTO orders(name, address, email, cost) 
-   VALUES ('Mr test', '82 test road, test street, test', 'test1@gmail.com', 32);
+   VALUES ('Harley Rowland', '82 test road, test street, test', 'test1@gmail.com', 32);
 
 INSERT INTO orders(name, address, email, cost) 
-   VALUES ('Mr test', '82 test road, test street, test', 'test1@gmail.com', 29);
+   VALUES ('Sam Jones', '82 test road, test street, test', 'test1@gmail.com', 29);
 
 INSERT INTO orders(name, address, email, cost) 
-   VALUES ('Mr test', '26 test street, test street, test', 'test2@gmail.com', 27);
+   VALUES ('Tom Smith', '26 test street, test street, test', 'test2@gmail.com', 27);
 
 INSERT INTO orders(name, address, email, cost) 
-   VALUES ('Mr test', '6 test avenue, test street, test', 'test3@gmail.com', 25);
+   VALUES ('Ryan Johannson', '6 test avenue, test street, test', 'test3@gmail.com', 25);
 
 INSERT INTO statuses(orderNumber, dateChanged, description)
    VALUES (1, now(), 'Waiting for shirt');
@@ -55,9 +55,6 @@ INSERT INTO statuses(orderNumber, dateChanged, description)
 
 INSERT INTO statuses(orderNumber, dateChanged, description)
    VALUES (2, now(), 'Waiting for shirt');
-
-INSERT INTO statuses(orderNumber, dateChanged, description)
-   VALUES (2, now(), 'Shirt Recieved');
 
 INSERT INTO statuses(orderNumber, dateChanged, description)
    VALUES (2, now(), 'Shirt Sent Back');
