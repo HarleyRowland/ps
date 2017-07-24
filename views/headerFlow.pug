@@ -1,0 +1,17 @@
+html
+	head
+		title Premier Shirts
+		style 
+			include ../public/css/general.css
+			include ../public/css/page.css
+			include ../public/css/foundation.css
+		script(type='text/javascript' src='public/js/jquery.js')
+		script(type='text/javascript' src='public/js/styleText.js')
+		script(type='text/javascript').
+			var local_data = !{JSON.stringify(data)};
+		script(type='text/javascript' src='public/js/custom.js')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Dosis')
+	body
+		div.top
+			a(href="/")
+				img(src="/public/images/logo.jpeg")

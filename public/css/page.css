@@ -17,58 +17,129 @@
 	border-radius: 10px;
 }
 
-.services * {
-	color: #FFFFFF;
+.page h1 {
+	margin-top: 50px;
 }
 
-.services {
-	height: 100%;
-	background-color: #323B7E;
-}
-
-.services .choice > div {
-	background-color: white;
-	border: 3px solid #9DE4FF;
-}
-
-.services .choice * {
-	background-color: white;
+.page * {
 	color: #323B7E;
 }
 
-.services > * {
+.page {
+	max-height: 100%;
+}
+
+.page .choice > div {
+	border: 3px solid #323B7E;
+}
+
+.page .choice * {
+	color: #323B7E;
+}
+
+.page > * {
 	margin-bottom: 30px;
+}
+
+.top {
+	text-align: center;
+	margin-bottom: -60px;
 }
 
 .top a img {
-	background-color: #FFFFFF;
 	padding: 15px;
-	border: 3px solid #9DE4FF;
 	border-radius: 10px;
+	width: 300px;
 }
 
-.bottom *{
+.content {
+	margin-bottom: 100px;
+}
+
+.page h1, .pageInfo {
+	padding-bottom: 50px;
+}
+
+
+.pageInfo {
+	font-size: 20px;
+}
+
+.bottom {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	margin-bottom: 0px;
+	padding: 30px;
+	background-color: #FFFFFF;
+}
+
+.bottom * {
 	display: flex;
  	justify-content: center;
  	align-items: center;
- }
+}
 
- .bottom a {
- 	margin-top: 30px;
+.action span {
  	font-size: 20px;
- }
-
- .bottom .action span {
- 	border: solid 2px #9DE4FF;
+ 	padding: 5px;
+ 	border: solid 3px #323B7E;
  	border-radius: 10px;
  	transition: 1s;
+	width: 150px !important;
  }
 
-  .bottom .action span:hover {
-  	background-color: #9DE4FF;
-  	color: #323B7E;
+ .action span:hover {
+  	background-color: #323B7E;
+  	color: #FFFFFF;
  }
 
-/*.services h1 {
+.club {
+	margin-bottom: 80px;
+	padding-bottom: 50px;
+	border-bottom: #919191 solid 1px;
+}
+
+.club h3 {
+	height: 50px;
 	margin-bottom: 30px;
-}*/
+}
+
+.crest {
+	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ 	height: 300px;
+}
+
+.crest img {
+	width: 200px;
+	max-height: 300px;
+}
+
+.strip .image {
+	padding-bottom: 30px;
+}
+
+.strip .image img {
+	height: 400px;
+}
+
+.confirmation div {
+	margin-top: 20px;
+}
+
+.kitImage img {
+	height: 500px;
+}
+
+.details p {
+	text-align: left;
+	font-size: 20px;
+}
+
+.form span {
+	text-align: left;
+	width: 200px !important;
+}
+

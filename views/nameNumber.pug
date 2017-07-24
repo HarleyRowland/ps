@@ -1,23 +1,22 @@
-include header.pug
-div.page.nameNumber
-	h1 What Name And Number Do You Want? 
-	div.row
-		div.form.small-12.medium-8.columns
-			form
-				div
-					span Shirt Name: 
-					input.shirtName
-				div
-					span Shirt Number: 
-					input.shirtNumber
-		div.basket.small-12.medium-4.columns
-			h3 Basket
-			p Custom Name and Number: 
-				span.price
+include headerFlow.pug
+div.nameNumber.page
+	div.content
+		h1 What Name And Number Do You Want? 
+		div.row
+			div.form
+				form
+					div
+						span Shirt Name: 
+						input.shirtName
+					div
+						span Shirt Number: 
+						input.shirtNumber
+			div.basket.hiddenFirst
+				p Price: 
+					span.price
 
-	div.hiddenFirst.content
-		div.btnDiv
-			a.btn()
-				span Select
-
-include footer.pug
+		div.hiddenFirst.content
+			div.action
+				a.btn()
+					span Select
+	include footerFlow.pug

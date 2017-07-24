@@ -1,25 +1,14 @@
-include header.pug
-div.page.club
-	//- h1 Which Club's Shirt Do You Have?
-	//- div.select
-	//- 	select.clubOption
-	//- 		option(value='') Please Select
-	//- 		each club in data.clubs
-	//- 			option #{club}
-
-	//- div.hiddenFirst.content
-	//- 	div.crest
-	//- 		img()
-	//- 	div.btnDiv
-	//- 		a.btn()
-	//- 			span Select
-	div.clubs.row
-		each club, index in data.clubs
-			div.club.small-12.medium-4.large-3.columns
-				h3 #{data.clubsFull[index]}
-				div.crest
-					img(src="/public/images/crests/" + club + ".png")
-				div.btnDiv
-					a.btn(href="/strip?deliveryType=" + data.deliveryType + "&printingType=" + data.printingType + "&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent + "&club=" + club)
-						span Select
-include footer.pug
+include headerFlow.pug
+div.teams.page
+	div.content
+		h1 Which Club's Shirt Do You Have?
+		div.clubs.row
+			each club, index in data.clubs
+				div.club.small-12.medium-4.large-3.columns
+					h3 #{data.clubsFull[index]}
+					div.crest
+						img(src="/public/images/crests/" + club + ".png")
+					div.btnDiv
+						a.action(href="/strip?deliveryType=" + data.deliveryType + "&printingType=" + data.printingType + "&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent + "&club=" + club)
+							span Select
+	include footerFlow.pug

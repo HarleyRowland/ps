@@ -1,16 +1,17 @@
-include header.pug
-div.page.sleeves
-	h1 Add the Official Premier League Sleeve Patches?
-	div.select
-		select.sleeveOption
-			option(value='') Please Select
-			option Yes
-			option No
+include headerFlow.pug
+div.sleeves.page
+	div.content
+		h1 Add the Official Premier League Sleeve Patches?
+		div.select
+			select.sleeveOption
+				option(value='') Please Select
+				option Yes
+				option No
 
-	div.hiddenFirst.content
-		div.sleeve
-			img()
-		div.btnDiv
-			a.btn()
-				span Select
-include footer.pug
+		div.hiddenFirst.content
+			div.sleeve
+				img()
+			div.action
+				a.btn()
+					span Select
+		include footerFlow.pug

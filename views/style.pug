@@ -1,27 +1,28 @@
-include header.pug
-div.page
-  h1 What Style Do You Want On Your Shirt?
-  p Please select whether you want a style from the current Premier League, the previous Premier League style or another kind of style.
-  div.choices.row
-    div.choice.small-12.medium-4.columns
-      div.current
-        h3.optionTitle Current PL Style
-        h5.optionSubTitle The current Premier League Style (2017-2020)
-        div.btnDiv
-          a.btn(href="/printingType?style=current&deliveryType=" + data.deliveryType)
-            span Select
-    div.choice.small-12.medium-4.columns
-      div.previous
-        h3.optionTitle Previous PL Style
-        h5.optionSubTitle The Previous Premier League Style (2014-2017)
-        div.btnDiv
-          a.btn(href="/printingType?style=previous&deliveryType=" + data.deliveryType)
-            span Select
-    div.choice.small-12.medium-4.columns
-      div.quote
-        h3.optionTitle Other Styles
-        h5.optionSubTitle We can give you a quote for something different.
-        div.btnDiv
-          a.btn(href="/quote?deliveryType=" + deliveryType)
-            span Quote
-include footer.pug
+include headerFlow.pug
+div.style.page
+  div.content
+    h1 What Style Do You Want On Your Shirt?
+    p.pageInfo Please select whether you want a style from the current Premier League, the previous Premier League style or another kind of style.
+    div.choices.row
+      div.choice.small-12.medium-4.columns
+        div.current
+          h3.optionTitle Current PL Style
+          h5.optionSubTitle The current Premier League Style (2017-2020)
+          div.action
+            a.btn(href="/printingType?style=current&deliveryType=" + data.deliveryType)
+              span Select
+      div.choice.small-12.medium-4.columns
+        div.previous
+          h3.optionTitle Previous PL Style
+          h5.optionSubTitle The Previous Premier League Style (2014-2017)
+          div.action
+            a.btn(href="/printingType?style=previous&deliveryType=" + data.deliveryType)
+              span Select
+      div.choice.small-12.medium-4.columns
+        div.quote
+          h3.optionTitle Other Styles
+          h5.optionSubTitle We can give you a quote for something different.
+          div.action
+            a.btn(href="/quote?deliveryType=" + deliveryType)
+              span Quote
+  include footerFlow.pug

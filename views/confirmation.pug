@@ -1,6 +1,6 @@
-include header.pug
-div.page.confirmation
-	div
+include headerFlow.pug
+div.confirmation.page
+	div.content
 		div.row
 			div.kitImage.small-12.medium-6.large-4.columns
 				img(src="/public/images/kits/" + data.club + "-" + data.strip + ".gif")
@@ -49,12 +49,14 @@ div.page.confirmation
 								span have the official Premier League sleeve badges on your kit.
 					div
 						h3 £#{data.shirtCost}
-
-	div.actions
+	div.bottom
 		div.row
-			div.startOver.small-6.columns
-				a(href="/") Start Again		
-			div.payment.small-6.columns
-				a.confirmShirt Add to Basket		
-
-include footer.pug
+			div.action.small-12.medium-2.columns
+				a.btn(href="/style?deliveryType=send")
+					span Home
+			div.action.small-12.medium-2.columns
+				a.btn(href="/style?deliveryType=send")
+					span Start Again
+			div.action.small-12.medium-2.columns
+				a.btn(href="/style?deliveryType=send")
+					span Add To Basket

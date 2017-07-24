@@ -1,13 +1,14 @@
-include header.pug
-div.page.hero
-	h1 What Player Do You Want On Your Shirt?
-	div.select
-		select.playerOption
-			option(value='') Please Select
-			each player, index in data.players
-				option #{player} - #{data.numbers[index]}
-	div.hiddenFirst.content
-		div.btnDiv
-			a.btn()
-				span Select
-include footer.pug
+include headerFlow.pug
+div.hero.page
+	div.content
+		h1 What Player Do You Want On Your Shirt?
+		div.select
+			select.playerOption
+				option(value='') Please Select
+				each player, index in data.players
+					option #{player} - #{data.numbers[index]}
+		div.hiddenFirst.content
+			div.action
+				a.btn()
+					span Select
+	include footerFlow.pug

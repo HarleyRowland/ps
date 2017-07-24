@@ -4,14 +4,14 @@ $(document).on('change','.clubOption',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		if(local_data.premOrDifferent){
-			$(".btnDiv a").attr("href", "/strip?&deliveryType=" + local_data.deliveryType +
+			$(".action a").attr("href", "/strip?&deliveryType=" + local_data.deliveryType +
 				"&printingType=" + local_data.printingType +
 				"&style=" + local_data.style +
 				"&premOrDifferent=" + local_data.premOrDifferent +
 				"&club=" + nameConverter(club)
 			)
 		} else {
-			$(".btnDiv a").attr("href", "/strip?deliveryType=" + local_data.deliveryType +
+			$(".action a").attr("href", "/strip?deliveryType=" + local_data.deliveryType +
 				"&printingType=" + local_data.printingType + 
 				"&style=" + local_data.style +
 				"&club=" + nameConverter(club)

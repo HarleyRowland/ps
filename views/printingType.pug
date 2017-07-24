@@ -1,22 +1,23 @@
-include header.pug
-div.page
-	h1 Choose What You Want Done
-	p Please choose between having a proffesional player's name and number appear on your shirt or a name and number of your choice.
-	div.choices.row
-		div.choice.small-12.medium-6.columns
-			div.heroPrinting
-				h3.optionTitle Hero Printing
-				h5.optionSubtitle A professional player and their number
-				div.optionText
-					div.btnDiv
-						a.btn(href="/club?printingType=hero&deliveryType=" + data.deliveryType +"&style=" + data.style)
-							span Select
-		div.choice.small-12.medium-6.columns
-			div.customPrinting
-				h3.optionTitle Custom Printing
-				h5.optionSubtitle A name and number chosen by you
-				div.optionText
-					div.btnDiv
-						a.btn(href="/premOrDifferent?printingType=custom&deliveryType=" + data.deliveryType + "&style=" + data.style)
-							span Select
-include footer.pug
+include headerFlow.pug
+div.printing.page
+	div.content
+		h1 Choose What You Want Done
+		p.pageInfo Please choose between having a proffesional player's name and number appear on your shirt or a name and number of your choice.
+		div.choices.row
+			div.choice.small-12.medium-6.columns
+				div.heroPrinting
+					h3.optionTitle Hero Printing
+					h5.optionSubtitle A professional player and their number.
+					div.optionText
+						div.action
+							a.btn(href="/club?printingType=hero&deliveryType=" + data.deliveryType +"&style=" + data.style)
+								span Select
+			div.choice.small-12.medium-6.columns
+				div.customPrinting
+					h3.optionTitle Custom Printing
+					h5.optionSubtitle A name and number chosen by you.
+					div.optionText
+						div.action
+							a.btn(href="/premOrDifferent?printingType=custom&deliveryType=" + data.deliveryType + "&style=" + data.style)
+								span Select
+	include footerFlow.pug
