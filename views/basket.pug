@@ -1,39 +1,63 @@
 include header.pug
-div.page.basketPage
-	h1 Your Shirts
-	each shirt in data.shirtsArray
-		div.shirt
-			div.row
-				div.kitImage.small-12.medium-6.large-4.columns
-					img(src="/public/images/kits/" + shirt.club + "-" + shirt.strip + ".gif")
-				div.info.small-12.medium-6.large-8.columns
-					div.title
-						h3 #{shirt.fullClub}
-					div.details.row
-						div.small-12.medium-6.columns
+div.basket
+	h1.title Your Basket
+	div.shirts
+		if data.shirtsArray.length > 0
+			div.another
+				a(href="/service") Add Another?	
+			each shirt in data.shirtsArray
+				div.shirt
+					div.row
+						if shirt.colour
+							div.kitImage.small-12.medium-6.large-4.columns
+								img(src="/public/images/kits/" + shirt.colour + ".gif")
+						else
+							div.kitImage.small-12.medium-6.large-4.columns
+								img(src="/public/images/kits/" + shirt.club + "-" + shirt.strip + ".gif")
+						div.info.small-12.medium-6.large-8.columns
+							div.details.row
+								div.title
+									if shirt.colour
+										h3 Customised Shirt
+									else 
+										h3 #{shirt.fullClubName}
+								div.small-12.large-6.columns
+									div
+										h5 Kit Name: #{shirt.name} 
+									div 
+										h5 Kit Number: #{shirt.number} 
+									div 
+										h5 Font: #{shirt.fullStyle} 
+								div.small-12.large-6.columns
+									if shirt.colour
+										div 
+											h5 Shirt Colour: #{shirt.colour} 
+										div 
+											h5 Letter Style: #{shirt.letter} 
+										div 
+											h5 Sleeves: #{shirt.sleeve}
+									else 
+										div 
+											h5 Strip: #{shirt.fullStrip} 
+										div 
+											h5 Sleeves: #{shirt.sleeve}
 							div
-								h5 Name: #{shirt.name} 
-							div 
-								h5 Number: #{shirt.number} 
-							div 
-								h5 Strip: #{shirt.strip} 
-						div.small-12.medium-6.columns
-							div
-								h5 Delivery Type: #{shirt.deliveryType} 
-							div 
-								h5 Style: #{shirt.style} 
-							div 
-								h5 Sleeves: #{shirt.sleeve}
-					div.delete
-						a(href="/deleteShirtFromBasket?timestamp=" + shirt.timestamp) Delete
-					div
-						h3 Cost: £#{shirt.shirtCost}
-	div.overallActions
-		div.row
-			div.delete
-				a(href="/deleteShirtFromBasket?timestamp=all") Delete		
-			div.payment
-				span £#{data.cost}
-				a(href="/payment") Make Payment		
+								h4 Total Cost For Shirt: £#{shirt.fullCost}
+							div.delete
+								a(href="/deleteShirtFromBasket?timestamp=" + shirt.timestamp) Remove From Basket
+		else 
+			div.emptyBasket
+				h5 You have no shirts in your basket. 
+					a(href="/service") Add one here
+					span .
+	if data.shirtsArray.length > 0 
+		div.overallActions
+			div
+				div.totalCost
+					h4 Total Cost: £#{data.cost}
+				div.payment
+					a(href="/payment") Make Payment		
+				div.delete
+					a(href="/deleteShirtFromBasket?timestamp=all") Empty Your Basket		
 
 include footer.pug

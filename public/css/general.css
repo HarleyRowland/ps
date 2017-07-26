@@ -2,6 +2,11 @@ body * {
 	font-family: 'Dosis', sans-serif !important;
 }
 
+.title {
+	padding: 30px;
+	color: #323B7E;
+}
+
 .page {
 	padding-top: 40px;
 	text-align: center;

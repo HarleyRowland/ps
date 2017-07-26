@@ -68,10 +68,11 @@ app.get("/basket", (req, res) => {
 })
 
 app.get("/confirmation", (req, res) => {
+  var callback = function(data, err){
+    res.render("confirmation.pug", data);
+  }
   if(req.query.shirtObject){
-    var shirtObject = { data: JSON.parse(req.query.shirtObject) }
-    console.log(shirtObject)
-    res.render("confirmation.pug", shirtObject)
+    flowController.confirmation(req, callback);
   }
 })
 
@@ -87,7 +88,7 @@ app.get("/updateStatus", (req, res) => {
 })
 
 app.get("/deleteShirtFromBasket", (req, res) => {
-  var callback = function(err, template, data){
+  var callback = function(template, data){
     res.render(template, data);
   }
   if(req.query.timestamp){

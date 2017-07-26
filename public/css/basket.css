@@ -1,16 +1,60 @@
-.shirt {
-	display: flex;
- 	justify-content: flex-end;
- 	align-items: center;
+.basket {
+	text-align: center;
 }
 
-.basketPage .shirt {
+.basket .shirt {
 	border: 1px solid #818181;
 	padding: 15px;
 	width: 80%;
 	margin-left: 10%;
+	display: flex;
+ 	justify-content: flex-end;
+ 	align-items: center;
+ 	margin-bottom: 15px;
 }
 
 .kitImage img {
-	height: 200px;
+	height: 300px !important;
+}
+
+
+.basket .shirt > .row{
+	margin: 0px;
+	width: 100%;
+}
+
+
+.basket .shirt h5 {
+	padding-bottom: 15px;
+}
+
+.basket .overallActions * {
+	margin-top: 20px;
+}
+
+.payment a {
+	background-color: green;
+	color: #ffffff;
+	padding: 10px;
+	border-radius: 5px;
+	transition: 1s;
+}
+
+.payment a:hover {
+	background-color: #FFFFFF;
+	border: solid 1px green;
+	color: green;
+}
+
+.basket a {
+	transition: 1s;
+}
+
+.basket a:hover {
+	text-decoration: underline;
+}
+
+.another {
+	margin: 20px;
+	font-size: 20px;
 }

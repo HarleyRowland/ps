@@ -51,10 +51,10 @@
 	border-radius: 10px;
 	width: 300px;
 }
-
 .content {
 	margin-bottom: 100px;
 }
+
 
 .page h1, .pageInfo {
 	padding-bottom: 50px;
@@ -80,7 +80,7 @@
  	align-items: center;
 }
 
-.action span {
+.action span, .action div {
  	font-size: 20px;
  	padding: 5px;
  	border: solid 3px #323B7E;
@@ -89,7 +89,7 @@
 	width: 150px !important;
  }
 
- .action span:hover {
+ .action span:hover, .action div:hover {
   	background-color: #323B7E;
   	color: #FFFFFF;
  }
@@ -117,20 +117,16 @@
 	max-height: 300px;
 }
 
+.strip {
+	margin-bottom: 30px;
+}
+
 .strip .image {
 	padding-bottom: 30px;
 }
 
 .strip .image img {
-	height: 400px;
-}
-
-.confirmation div {
-	margin-top: 20px;
-}
-
-.kitImage img {
-	height: 500px;
+	height: 300px;
 }
 
 .details p {
@@ -138,8 +134,77 @@
 	font-size: 20px;
 }
 
-.form span {
-	text-align: left;
-	width: 200px !important;
+.form .formLabel {
+	display: inline-block;
+	width: 100px;
 }
 
+.form > form > div {
+	margin: 10px;
+}
+
+.form input {
+	width: 500px;
+}
+
+.confirmation {
+	text-align: center;
+}
+
+.confirmation .shirt {
+	border: 1px solid #818181;
+	padding: 15px;
+	width: 80%;
+	margin-left: 10%;
+	display: flex;
+ 	justify-content: flex-end;
+ 	align-items: center;
+ 	margin-bottom: 15px;
+}
+
+.kitImage img {
+	height: 300px !important;
+}
+
+
+.confirmation .shirt > .row{
+	margin: 0px;
+	width: 100%;
+}
+
+
+.confirmation .shirt h5 {
+	padding-bottom: 15px;
+}
+
+.confirmation .overallActions * {
+	margin-top: 20px;
+}
+
+.addToBasket span{
+	background-color: green;
+	color: #ffffff;
+	border: solid 2px;
+	padding: 10px;
+	transition: 1s;
+}
+
+.addToBasket span:hover {
+	background-color: #FFFFFF;
+	border: solid 2px green;
+	color: green;
+}
+
+.sleeveImage img {
+	height: 300px;
+	margin: 30px;
+}
+
+.buttons {
+	width: 20%;
+}
+
+.buttons .action div {
+	display: inline-block;
+	width: 150px !important;
+}

@@ -1,6 +1,5 @@
-$(document).on('change','.orderOption',function(){
+$(document).on('input','.orderOption',function(){
 	var myClass = $(this).attr("id");
-	console.log(myClass)
 	var description = $("#" + myClass).find(":selected").text();
 	var split = myClass.split("_");
 	var orderNo = split[0]

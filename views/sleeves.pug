@@ -2,16 +2,14 @@ include headerFlow.pug
 div.sleeves.page
 	div.content
 		h1 Add the Official Premier League Sleeve Patches?
-		div.select
-			select.sleeveOption
-				option(value='') Please Select
-				option Yes
-				option No
+		div.sleeveImage
+			img(src="/public/images/sleeve.jpeg")
 
-		div.hiddenFirst.content
-			div.sleeve
-				img()
-			div.action
-				a.btn()
-					span Select
+		div.buttons.row
+			div.action.small-6.columns
+				a.btn.yes()
+					div Yes
+			div.action.small-6.columns
+				a.btn.no()
+					div No
 		include footerFlow.pug

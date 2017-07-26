@@ -1,0 +1,16 @@
+.payment {
+	text-align: center;
+}
+
+.addressForm .formLabel {
+	display: inline-block;
+	width: 100px;
+}
+
+.addressForm > div {
+	margin: 10px;
+}
+
+.addressForm input {
+	width: 500px;
+}

@@ -24,9 +24,16 @@ div.shirt > .row{
 	border-radius: 5px;
 }
 
-.payment a {
+.addToBasket {
 	background-color: green;
 	color: #ffffff;
-	padding: 7px;
+	padding: 10px;
 	border-radius: 5px;
+	transition: 1s;
+}
+
+.addToBasket:hover {
+	background-color: #FFFFFF;
+	border: solid 1px green;
+	color: green;
 }

@@ -1,23 +1,24 @@
 include header.pug
-div.page
+div.payment
+  h1.title Payment
   div.addressForm
     div
-      span Name: 
+      div.formLabel Name: 
       input.name
     div
-      span Line 1: 
+      div.formLabel Line 1: 
       input.line1
     div  
-      span Line 2: 
+      div.formLabel Line 2: 
       input.line2
     div  
-      span Town/City: 
+      div.formLabel Town/City: 
       input.town
     div  
-      span County: 
+      div.formLabel County: 
       input.county
     div  
-      span Postcode: 
+      div.formLabel Postcode: 
       input.postcode
   div.paymentForm
     form(action="/paymentResult?finalCost=" + data.cost, method="post")

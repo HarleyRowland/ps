@@ -3,17 +3,19 @@
 		var shirtCount = 0;
 		var add = true;
 		var shirtsArray = []
-		for ( cookie in req.cookies ) {
-			if(cookie.includes("shirt")){
-				if(!shirtObject || shirtObject.timestamp.toString() === req.cookies[cookie].timestamp.toString()){
-					add = false;
+		if(shirtObject){
+			for ( cookie in req.cookies ) {
+				if(cookie.includes("shirt")){
+					if(!shirtObject || shirtObject.timestamp.toString() === req.cookies[cookie].timestamp.toString()){
+						add = false;
+					}
+					shirtCount++;
 				}
-				shirtCount++;
 			}
-		}
-		if(add){
-	  		res.cookie("shirt"+shirtCount, shirtObject)
-	  		shirtsArray.push(shirtObject)
+			if(add){
+		  		res.cookie("shirt"+shirtCount, shirtObject)
+		  		shirtsArray.push(shirtObject)
+			}
 		}
 		for ( cookie in req.cookies ) {
 			if(cookie.includes("shirt")){
@@ -22,7 +24,7 @@
 		}
 		var cost = 0;
 		shirtsArray.forEach(function(shirt){
-			cost = cost + parseInt(shirt.shirtCost)
+			cost = cost + parseInt(shirt.fullCost)
 			shirt.fullClub = nameConverter(shirt.club)
 		})
 

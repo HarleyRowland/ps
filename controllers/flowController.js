@@ -1,4 +1,5 @@
 var fs = require('fs')
+var tidyClient = require('../clients/tidyClient.js')
 
 module.exports = {
 	selectTemplate: function(view, req, callback){
@@ -19,6 +20,22 @@ module.exports = {
 			viewFields.data.numbers = nameNumberTuple[1]
 		}
 		callback(view, viewFields)
+	},
+	confirmation: function(req, callback){
+		var viewFields = {
+			data: JSON.parse(req.query.shirtObject)
+		}
+		var sleeveCost = 0;
+		if(viewFields.data.sleeve == "Yes"){
+			sleeveCost = 10;
+		}
+		viewFields.data.fullCost = parseInt(viewFields.data.shirtCost) + sleeveCost;
+		viewFields.data.fullClubName = tidyClient.clubName(viewFields.data.club)
+		viewFields.data.fullStrip = tidyClient.strip(viewFields.data.strip)
+		viewFields.data.fullStyle = tidyClient.style(viewFields.data.style)
+		viewFields.data.shirtObject = JSON.stringify(viewFields.data)
+		console.log(viewFields.data.shirtObject)
+		callback(viewFields)
 	}
 }
 
