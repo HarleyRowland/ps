@@ -45,10 +45,11 @@ module.exports = {
 	},
 	getEmail: function(orderNumber, callback){
 		var statusQuery = 'SELECT email FROM orders WHERE ordernumber=' + orderNumber + ';'
-		var cb = function(){
-			
-		}
 		query("INSERT", statusQuery, callback);
+	},
+	statusesForOrderNo: function(ordernumber, callback){
+		var orderNoQuery = 'SELECT * FROM orders WHERE ordernumber=' + ordernumber;
+		query('SELECT', orderNoQuery, callback)
 	}
 }
 

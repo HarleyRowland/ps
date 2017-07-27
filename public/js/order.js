@@ -7,6 +7,7 @@ $(document).on('input','.orderOption',function(){
 	$("." + myClass).attr("href", "/updateStatus?orderNumber=" + orderNo + "&shirtNo=" + shirtNo + "&description=" + description)
 });
 
-$( ".orderNumberInput" ).keyup(function() {
-	$(".getOrder").attr("href", "/updateStatus?orderNumber=" + orderNo + "&shirtNo=" + shirtNo + "&description=" + description)
+$(document).on('input','.orderNumberInput',function(){
+	var orderNo =  $('.orderNumberInput').val();
+	$(".getOrder").attr("href", "/statusesForOrderNo?orderNumber=" + orderNo)
 });

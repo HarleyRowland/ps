@@ -7,7 +7,9 @@ div.hero.page
 				option(value='') Please Select
 				each player, index in data.players
 					option #{player} - #{data.numbers[index]}
-		div.hiddenFirst.content
+		span.linkToCustom Can't find who you are looking for? 
+			a(href="/heroOrCustom?strip=" + data.strip + "&club=" + data.club + "&printingType=custom&deliveryType=" + data.deliveryType +"&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent) Input them yourself.
+		div.hiddenFirst.content.heroButton
 			div.action
 				a.btn()
 					span Select

@@ -87,6 +87,13 @@ app.get("/updateStatus", (req, res) => {
   ownerController.updateOrder(req, res);    
 })
 
+app.get("/statusesForOrderNo", (req, res) => {
+  var callback = function(err, template, data){
+    res.render(template, {data: data});
+  }
+  ownerController.statusesForOrderNo(req.query.orderNumber, callback);    
+})
+
 app.get("/deleteShirtFromBasket", (req, res) => {
   var callback = function(template, data){
     res.render(template, data);
@@ -194,9 +201,7 @@ app.get("/sleeves", (req, res) => {
   if(req.query.deliveryType && req.query.style && req.query.printingType){
     if(req.query.printingType == "hero" && req.query.club && req.query.strip && req.query.name && req.query.number){
       flowController.selectTemplate("sleeves.pug", req, callback);
-    } else if(req.query.printingType == "custom" && req.query.premOrDifferent == "prem" && req.query.club && req.query.strip && req.query.name && req.query.number) {
-      flowController.selectTemplate("sleeves.pug", req, callback);
-    } else if(req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.letter && req.query.colour && req.query.name && req.query.number){
+    } else if(req.query.printingType == "custom" && req.query.club && req.query.strip && req.query.name && req.query.number) {
       flowController.selectTemplate("sleeves.pug", req, callback);
     } else {
       res.send(req.query);

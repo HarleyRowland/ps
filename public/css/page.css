@@ -189,6 +189,14 @@
 	transition: 1s;
 }
 
+.heroButton {
+	margin-top: 30px;
+}
+
+.linkToCustom a {
+	text-decoration: underline !important;
+}
+
 .addToBasket span:hover {
 	background-color: #FFFFFF;
 	border: solid 2px green;

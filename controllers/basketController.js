@@ -1,15 +1,17 @@
  module.exports = {
 	buildBasket: function(res, req, shirtObject, callback){
-		var shirtCount = 0;
+		var shirtCount = -1;
 		var add = true;
 		var shirtsArray = []
+		console.log(shirtObject.timestamp)
 		if(shirtObject){
 			for ( cookie in req.cookies ) {
+				console.log(cookie)
 				if(cookie.includes("shirt")){
+					console.log(req.cookies[cookie])
 					if(!shirtObject || shirtObject.timestamp.toString() === req.cookies[cookie].timestamp.toString()){
 						add = false;
 					}
-					shirtCount++;
 				}
 			}
 			if(add){

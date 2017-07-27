@@ -52,8 +52,12 @@ var calculateCost = function(shirtsArray) {
 	shirtsArray.forEach(function(shirt) {
 		var shirtCost = 0;
 		if(shirt.name && shirt.number){
+			var sleeveCost = 0;
+			if(shirt.sleeve = "Yes") {
+				sleeveCost = 10;
+			}
 			shirtCost = shirt.name.replace(/ /g,"").length + (shirt.number.replace(/ /g,"").length*5)
-			cost = cost + parseInt(shirtCost)
+			cost = cost + parseInt(shirtCost) + sleeveCost;
 		}
 	});
 	return cost;

@@ -20,6 +20,9 @@ module.exports = {
 		], function (err, result) {
 			res.redirect("/userOrders")
 		});
+	},
+	statusesForOrderNo: function(orderNumber, callback){
+		databaseClient.statusesForOrderNo(orderNumber, callback);
 	}
 }
 

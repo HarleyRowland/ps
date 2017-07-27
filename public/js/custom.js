@@ -28,7 +28,7 @@ $(document).on('change','.playerOption',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		var playerNumberArray = player.split("-");
+		var playerNumberArray = player.split(" - ");
 		var name = playerNumberArray[0].trim();
 		var number = playerNumberArray[1].trim();
 		var shirtCost = name.length + number.length*5
