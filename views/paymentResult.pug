@@ -1,1 +1,6 @@
-h2 You successfully paid <strong>#{finalCost}</strong>!
+include header.pug
+div.page.paymentSuccess
+	h2 You successfully paid <strong>#{data.totalCost}</strong>!
+
+include footer.pug
+

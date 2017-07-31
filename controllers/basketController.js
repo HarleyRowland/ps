@@ -1,21 +1,25 @@
  module.exports = {
 	buildBasket: function(res, req, shirtObject, callback){
-		var shirtCount = -1;
 		var add = true;
 		var shirtsArray = []
-		console.log(shirtObject.timestamp)
+		var highestNumber = 0;
+		console.log(req.cookies)
 		if(shirtObject){
 			for ( cookie in req.cookies ) {
-				console.log(cookie)
 				if(cookie.includes("shirt")){
-					console.log(req.cookies[cookie])
+					if(highestNumber < parseInt(cookie.split("shirt")[1])){
+						highestNumber = parseInt(cookie.split("shirt")[1])
+					}
 					if(!shirtObject || shirtObject.timestamp.toString() === req.cookies[cookie].timestamp.toString()){
 						add = false;
 					}
+
 				}
 			}
+
 			if(add){
-		  		res.cookie("shirt"+shirtCount, shirtObject)
+				highestNumber++;
+		  		res.cookie("shirt"+highestNumber, shirtObject)
 		  		shirtsArray.push(shirtObject)
 			}
 		}

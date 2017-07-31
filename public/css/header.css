@@ -28,3 +28,16 @@
 .links a:hover {
 	color: #9DE4FF;
 }
+
+.top {
+	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+}
+
+a.link {
+	font-size: 20px;
+	padding-left: 50px;
+	padding-right: 50px;
+	color: #323B7E;
+}

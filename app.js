@@ -48,6 +48,7 @@ app.post("/paymentResult", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
+  
   if(req.body.stripeEmail && req.query.cost && req.query.shirtArray){
     paymentController.makePayment(req, res);
   } else {

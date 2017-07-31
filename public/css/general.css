@@ -2,8 +2,14 @@ body * {
 	font-family: 'Dosis', sans-serif !important;
 }
 
-.title {
+.title:not(h1) {
 	padding: 30px;
+	color: #323B7E;
+}
+
+h1.title {
+	/*padding:50px;*/
+	padding-bottom: 30px;
 	color: #323B7E;
 }
 

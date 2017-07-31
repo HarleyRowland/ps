@@ -1,12 +1,15 @@
-include headerFlow.pug
+include header.pug
 div.hero.page
 	div.content
-		h1 What Player Do You Want On Your Shirt?
+		h1.title What Player Do You Want On Your Shirt?
 		div.select
 			select.playerOption
 				option(value='') Please Select
 				each player, index in data.players
 					option #{player} - #{data.numbers[index]}
+		div.basket.hiddenFirst
+				p Price: 
+					span.price
 		span.linkToCustom Can't find who you are looking for? 
 			a(href="/heroOrCustom?strip=" + data.strip + "&club=" + data.club + "&printingType=custom&deliveryType=" + data.deliveryType +"&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent) Input them yourself.
 		div.hiddenFirst.content.heroButton

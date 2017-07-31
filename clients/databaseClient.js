@@ -7,7 +7,7 @@ module.exports = {
 	newOrder: function(req, callback){
 		var shirtsQueries = [];
 		var address = buildAddress(req.query);
-		var orderQuery = 'INSERT INTO orders(name, email, address, cost) VALUES (\'' + req.query.name + '\', \'' + req.body.stripeEmail + '\', \'' + address + '\', ' + req.query.cost + ');'
+		var orderQuery = 'INSERT INTO orders(name, email, address, mobile, cost) VALUES (\'' + req.query.name + '\', \'' + req.body.stripeEmail + '\', \'' + address + '\', \'' + mobile + '\', ' + req.query.cost + ');'
 		shirtsQueries.push(orderQuery);
 
 		var getID = '(SELECT ordernumber FROM orders WHERE ordernumber = (select max(orderNumber) from orders WHERE email=\'' + req.body.stripeEmail + '\'))'
@@ -48,7 +48,7 @@ module.exports = {
 		query("INSERT", statusQuery, callback);
 	},
 	statusesForOrderNo: function(ordernumber, callback){
-		var orderNoQuery = 'SELECT * FROM orders WHERE ordernumber=' + ordernumber;
+		var orderNoQuery = 'SELECT o.*, s.*, sh.* FROM orders o INNER JOIN statuses s ON o.ordernumber = s.ordernumber INNER JOIN shirts sh ON s.ordernumber=sh.ordernumber WHERE o.ordernumber=' + ordernumber + ';'
 		query('SELECT', orderNoQuery, callback)
 	}
 }
@@ -93,7 +93,7 @@ var buildAddress = function(query){
 	if(query.line2 != ""){
 		address = address + ", " + query.line2.trim();
 	}
-	address = address + ", " + query.town.trim() + ", " + query.county.trim() + ", " + query.postcode.trim(); 
+	address = address + ", " + query.town.trim() + ", " + query.county.trim() + ", " + query.postcode.trim() + ", " + query.country.trim();
 
 	return address;
 }

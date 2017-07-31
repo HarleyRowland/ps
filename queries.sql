@@ -7,6 +7,7 @@ CREATE TABLE orders(
    name VARCHAR(400) NOT NULL,
    address VARCHAR(400) NOT NULL,
    email VARCHAR(400) NOT NULL,
+   telephone VARCHAR(400) NOT NULL,
    cost INT NOT NULL
 );
 
@@ -32,20 +33,20 @@ CREATE TABLE shirts(
    letter VARCHAR(400)
 );
 
-INSERT INTO orders(name, address, email, cost) 
-   VALUES ('James Adams', '123 test lane, test street, test', 'test@gmail.com', 25);
+INSERT INTO orders(name, address, email, mobile, cost) 
+   VALUES ('James Adams', '123 test lane, test street, test', '07777777777', 'test@gmail.com', 25);
 
-INSERT INTO orders(name, address, email, cost) 
-   VALUES ('Harley Rowland', '82 test road, test street, test', 'test1@gmail.com', 32);
+INSERT INTO orders(name, address, email, mobile, cost) 
+   VALUES ('Harley Rowland', '82 test road, test street, test', '07777777777', 'test1@gmail.com', 32);
 
-INSERT INTO orders(name, address, email, cost) 
-   VALUES ('Sam Jones', '82 test road, test street, test', 'test1@gmail.com', 29);
+INSERT INTO orders(name, address, email, mobile, cost) 
+   VALUES ('Sam Jones', '82 test road, test street, test', '07777777777', 'test1@gmail.com', 29);
 
-INSERT INTO orders(name, address, email, cost) 
-   VALUES ('Tom Smith', '26 test street, test street, test', 'test2@gmail.com', 27);
+INSERT INTO orders(name, address, email, mobile, cost) 
+   VALUES ('Tom Smith', '26 test street, test street, test', '07777777777', 'test2@gmail.com', 27);
 
-INSERT INTO orders(name, address, email, cost) 
-   VALUES ('Ryan Johannson', '6 test avenue, test street, test', 'test3@gmail.com', 25);
+INSERT INTO orders(name, address, email, mobile, cost) 
+   VALUES ('Ryan Johannson', '6 test avenue, test street, test', '07777777777', 'test3@gmail.com', 25);
 
 INSERT INTO statuses(orderNumber, dateChanged, description)
    VALUES (1, now(), 'Waiting for shirt');

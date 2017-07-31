@@ -58,3 +58,8 @@
 	margin: 20px;
 	font-size: 20px;
 }
+
+.removeBasket * {
+	color: #323B7E;
+	font-size: 20px;
+}

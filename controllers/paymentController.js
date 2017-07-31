@@ -7,10 +7,12 @@ var databaseClient = require('../clients/databaseClient.js')
 module.exports = {
 	paymentBuilder: function(req, key, callback) {
 		var shirtsArray = getCookies(req);
-		var cost = calculateCost(shirtsArray);
+		var shirtCost = calculateCost(shirtsArray);
+		var deliveryCost = delCost(shirtsArray);
+		var totalCost = shirtCost + deliveryCost;
 		var jsonArray = JSON.stringify(shirtsArray);
 
-		var data = { data: {jsonArray: jsonArray, cost: cost, key: key}}
+		var data = { data: {jsonArray: jsonArray, deliveryCost: deliveryCost, shirtCost: shirtCost, totalCost: totalCost, key: key}}
 		
 		callback("payment.pug", data);
 	},
@@ -24,15 +26,18 @@ module.exports = {
 		        emailClient.sendEmail("payment", req.body.stripeEmail, orderNumber, callback)
 		    }
 		], function (err, result) {
-			console.log("hello")
 			var callback = function(err, charge){
 				if(err) {
 					res.render("paymentFailure.pug")
 				} else {
+					for ( cookie in req.cookies ) {
+						res.clearCookie(cookie);
+					}
+					var data = { data: {}}
 					res.render("paymentResult.pug")
 				}
 			}	
-			stripeClient.makePayment(req.query.cost*100, req.body.stripeEmail, req.body.stripeToken, callback)
+			stripeClient.makePayment(parseInt(req.query.cost)*100, req.body.stripeEmail, req.body.stripeToken, callback)
 		});
 	}
 }
@@ -61,4 +66,8 @@ var calculateCost = function(shirtsArray) {
 		}
 	});
 	return cost;
+}
+
+var delCost = function(shirtsArray) {
+	return 4;
 }

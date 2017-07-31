@@ -1,44 +1,43 @@
-include headerFlow.pug
+include header.pug
 div.confirmation.page
-	div.content
-		h1.title Confirm Your Shirt
-		div.shirt
-			div.row
-				if data.colour
-					div.kitImage.small-12.medium-6.large-4.columns
-						img(src="/public/images/kits/" + data.colour + ".gif")
-				else
-					div.kitImage.small-12.medium-6.large-4.columns
-						img(src="/public/images/kits/" + data.club + "-" + data.strip + ".gif")
-				div.info.small-12.medium-6.large-8.columns
-					div.details.row
-						div.title
-							if data.colour
-								h3 Customised Shirt
-							else 
-								h3 #{data.fullClubName}
-						div.small-12.medium-6.columns
-							div
-								h5 Kit Name: #{data.name} 
+	h1.title Confirm Your Shirt
+	div.shirt
+		div.row
+			if data.colour
+				div.kitImage.small-12.medium-6.large-4.columns
+					img(src="/public/images/kits/" + data.colour + ".gif")
+			else
+				div.kitImage.small-12.medium-6.large-4.columns
+					img(src="/public/images/kits/" + data.club + "-" + data.strip + ".gif")
+			div.info.small-12.medium-6.large-8.columns
+				div.details.row
+					div.title
+						if data.colour
+							h3 Customised Shirt
+						else 
+							h3 #{data.fullClubName}
+					div.small-12.medium-6.columns
+						div
+							h5 Kit Name: #{data.name} 
+						div 
+							h5 Kit Number: #{data.number} 
+						div 
+							h5 Font: #{data.fullStyle} 
+					div.small-12.medium-6.columns
+						if data.colour
 							div 
-								h5 Kit Number: #{data.number} 
+								h5 Shirt Colour: #{data.colour} 
 							div 
-								h5 Font: #{data.fullStyle} 
-						div.small-12.medium-6.columns
-							if data.colour
-								div 
-									h5 Shirt Colour: #{data.colour} 
-								div 
-									h5 Letter Style: #{data.letter} 
-								div 
-									h5 Sleeves: #{data.sleeve}
-							else 
-								div 
-									h5 Strip: #{data.fullStrip} 
-								div 
-									h5 Sleeves: #{data.sleeve}
-					div
-						h3 Total Cost For Shirt: £#{data.fullCost}
+								h5 Letter Style: #{data.letter} 
+							div 
+								h5 Sleeves: #{data.sleeve}
+						else 
+							div 
+								h5 Strip: #{data.fullStrip} 
+							div 
+								h5 Sleeves: #{data.sleeve}
+				div
+					h3 Total Cost For Shirt: £#{data.fullCost}
 	div.bottom
 		div.row
 			div.action.small-12.medium-2.columns

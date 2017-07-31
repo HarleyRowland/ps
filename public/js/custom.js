@@ -32,6 +32,7 @@ $(document).on('change','.playerOption',function(){
 		var name = playerNumberArray[0].trim();
 		var number = playerNumberArray[1].trim();
 		var shirtCost = name.length + number.length*5
+		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter)");
 		$(".hero .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style +
@@ -96,18 +97,22 @@ $(document).on('change','.sleeveOption',function(){
 });
 
 $( document ).ready(function() {
+			console.log(local_data)
+
 	if ($("a.confirmShirt").length){
     	var shirtObject = JSON.stringify(buildShirtObject(local_data))
 		$("a.confirmShirt").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
 	}
 	$(".stripe-button-el").on("click", function(){
 		var name =  $('.name').val();
+		var telephone =  $('.telephone').val();
 		var line1 =  $('.line1').val();
 		var line2 =  $('.line2').val();
 		var town =  $('.town').val();
 		var county =  $('.county').val();
 		var postcode =  $('.postcode').val();
-		$(".paymentForm form").attr("action", "/paymentResult?name="+ name +"&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&cost=" + local_data.cost + "&shirtArray=" + local_data.jsonArray)
+		var country =  $('.country').val();
+		$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&telephone=" + telephone + "&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&country=" + country + "&cost=" + local_data.totalCost + "&shirtArray=" + local_data.jsonArray)
 	});
 	if ($("a.yes").length){
     	local_data.sleeve = "Yes"
@@ -131,7 +136,7 @@ $(document).on('input','.shirtName',function(){
 		var shirtCost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
-		$(".price").text("£" + shirtCost);
+		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter)");
 		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +

@@ -1,55 +1,56 @@
 include header.pug
 div.basket
+	div.content
 	h1.title Your Basket
-	div.shirts
-		if data.shirtsArray.length > 0
-			div.another
-				a(href="/service") Add Another?	
-			each shirt in data.shirtsArray
-				div.shirt
-					div.row
-						if shirt.colour
-							div.kitImage.small-12.medium-6.large-4.columns
-								img(src="/public/images/kits/" + shirt.colour + ".gif")
-						else
-							div.kitImage.small-12.medium-6.large-4.columns
-								img(src="/public/images/kits/" + shirt.club + "-" + shirt.strip + ".gif")
-						div.info.small-12.medium-6.large-8.columns
-							div.details.row
-								div.title
-									if shirt.colour
-										h3 Customised Shirt
-									else 
-										h3 #{shirt.fullClubName}
-								div.small-12.large-6.columns
-									div
-										h5 Kit Name: #{shirt.name} 
-									div 
-										h5 Kit Number: #{shirt.number} 
-									div 
-										h5 Font: #{shirt.fullStyle} 
-								div.small-12.large-6.columns
-									if shirt.colour
+		div.shirts
+			if data.shirtsArray.length > 0
+				div.another
+					a(href="/service") Add Another?	
+				each shirt in data.shirtsArray
+					div.shirt
+						div.row
+							if shirt.colour
+								div.kitImage.small-12.medium-6.large-4.columns
+									img(src="/public/images/kits/" + shirt.colour + ".gif")
+							else
+								div.kitImage.small-12.medium-6.large-4.columns
+									img(src="/public/images/kits/" + shirt.club + "-" + shirt.strip + ".gif")
+							div.info.small-12.medium-6.large-8.columns
+								div.details.row
+									div.title
+										if shirt.colour
+											h3 Customised Shirt
+										else 
+											h3 #{shirt.fullClubName}
+									div.small-12.large-6.columns
+										div
+											h5 Kit Name: #{shirt.name} 
 										div 
-											h5 Shirt Colour: #{shirt.colour} 
+											h5 Kit Number: #{shirt.number} 
 										div 
-											h5 Letter Style: #{shirt.letter} 
-										div 
-											h5 Sleeves: #{shirt.sleeve}
-									else 
-										div 
-											h5 Strip: #{shirt.fullStrip} 
-										div 
-											h5 Sleeves: #{shirt.sleeve}
-							div
-								h4 Total Cost For Shirt: £#{shirt.fullCost}
-							div.delete
-								a(href="/deleteShirtFromBasket?timestamp=" + shirt.timestamp) Remove From Basket
-		else 
-			div.emptyBasket
-				h5 You have no shirts in your basket. 
-					a(href="/service") Add one here
-					span .
+											h5 Font: #{shirt.fullStyle} 
+									div.small-12.large-6.columns
+										if shirt.colour
+											div 
+												h5 Shirt Colour: #{shirt.colour} 
+											div 
+												h5 Letter Style: #{shirt.letter} 
+											div 
+												h5 Sleeves: #{shirt.sleeve}
+										else 
+											div 
+												h5 Strip: #{shirt.fullStrip} 
+											div 
+												h5 Sleeves: #{shirt.sleeve}
+								div
+									h4 Total Cost For Shirt: £#{shirt.fullCost}
+								div.removeBasket
+									a(href="/deleteShirtFromBasket?timestamp=" + shirt.timestamp) Remove From Basket
+			else 
+				div.emptyBasket
+					h5 You have no shirts in your basket. 
+						a(href="/service") Add one here
+						span .
 	if data.shirtsArray.length > 0 
 		div.overallActions
 			div

@@ -26,7 +26,7 @@
 }
 
 .page {
-	max-height: 100%;
+	height: 120%;
 }
 
 .page .choice > div {
@@ -61,7 +61,7 @@
 }
 
 
-.pageInfo {
+.pageInfo, .pageInfoSleeve {
 	font-size: 20px;
 }
 
