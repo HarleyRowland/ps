@@ -3,48 +3,58 @@
 		var add = true;
 		var shirtsArray = []
 		var highestNumber = 0;
-		console.log(req.cookies)
-		if(shirtObject){
-			for ( cookie in req.cookies ) {
-				if(cookie.includes("shirt")){
-					if(highestNumber < parseInt(cookie.split("shirt")[1])){
-						highestNumber = parseInt(cookie.split("shirt")[1])
-					}
-					if(!shirtObject || shirtObject.timestamp.toString() === req.cookies[cookie].timestamp.toString()){
-						add = false;
-					}
-
-				}
-			}
-
-			if(add){
-				highestNumber++;
-		  		res.cookie("shirt"+highestNumber, shirtObject)
-		  		shirtsArray.push(shirtObject)
-			}
-		}
+		var shirtCount = 0;
 		for ( cookie in req.cookies ) {
 			if(cookie.includes("shirt")){
-				shirtsArray.push(req.cookies[cookie]);
+				console.log(cookie)
+				shirtCount++;
+				if(highestNumber < parseInt(cookie.split("shirt")[1])){
+					highestNumber = parseInt(cookie.split("shirt")[1])
+				}
+
+				if(!shirtObject || shirtObject.timestamp.toString() === req.cookies[cookie].timestamp.toString()){
+					console.log("hello")
+					add = false;
+				}
+
 			}
 		}
-		var cost = 0;
-		shirtsArray.forEach(function(shirt){
-			cost = cost + parseInt(shirt.fullCost)
-			shirt.fullClub = nameConverter(shirt.club)
-		})
+		console.log(highestNumber)
+		if(shirtObject && (add || shirtCount == 0)){
+			console.log("hi")
+			shirtCount++;
+			highestNumber++;
+	  		res.cookie("shirt"+highestNumber, shirtObject)
+	  		shirtsArray.push(shirtObject)
+		}
+		if(shirtCount > 0) {
+			for ( cookie in req.cookies ) {
+				if(cookie.includes("shirt")){
+					shirtsArray.push(req.cookies[cookie]);
+				}
+			}
+			var cost = 0;
+			shirtsArray.forEach(function(shirt){
+				cost = cost + parseInt(shirt.fullCost)
+				shirt.fullClub = nameConverter(shirt.club)
+			})			
+		}
 
-		var data = { data: { shirtsArray: shirtsArray, cost: cost } }
+		var deliveryTypes = deliveryMethods(shirtCount)
+
+		var data = { data: { shirtsArray: shirtsArray, cost: cost, deliveryTypes: deliveryTypes } }
 
 		callback("basket.pug", data)
 	},
 
 	deleteCookie: function(res, req, timestamp, callback){
 		var shirtsArray = []
+		var shirtCount = 0;
 		for ( cookie in req.cookies ) {
 			if(timestamp == "all"){
 				res.clearCookie(cookie);
 			} else if(cookie.includes("shirt") && req.cookies[cookie].timestamp.toString() != timestamp){
+				shirtCount++;
 				shirtsArray.push(req.cookies[cookie]);
 			} else if(req.cookies[cookie].timestamp.toString() === timestamp){
 				res.clearCookie(cookie);
@@ -55,12 +65,28 @@
 			cost = cost + parseInt(shirt.shirtCost)
 			shirt.fullClub = nameConverter(shirt.club)
 		})
+		var deliveryTypes = deliveryMethods(shirtCount)
 
-		var data = { data: { shirtsArray: shirtsArray, cost: cost } }
+		var data = { data: { shirtsArray: shirtsArray, cost: cost, deliveryTypes: deliveryTypes } }
 
 		callback("basket.pug", data)
 	}
 }
+
+
+var deliveryMethods = function(shirtCount){
+	var deliveryTypes = ["2nd Class, Not Signed - £3.48", "1st Class, Not Signed - £4.08", "2nd Class, Signed - £4.68", "1st Class, Signed - £5.28"]
+	if(shirtCount < 2){
+		deliveryTypes.push("Guarenteed Before 1pm, Signed - £8.70")
+	} else if(shirtCount > 1 && shirtCount < 4){
+		deliveryTypes.push("Guarenteed Before 1pm, Signed - £10.26")
+	} else if(shirtCount > 3){
+		deliveryTypes.push("Guarenteed Before 1pm, Signed - £13.20")
+	}
+	
+	return deliveryTypes;
+}
+
 
 var nameConverter = function(name){
 	if(name == "arsenal"){

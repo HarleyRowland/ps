@@ -25,10 +25,6 @@
 	color: #323B7E;
 }
 
-.page {
-	height: 120%;
-}
-
 .page .choice > div {
 	border: 3px solid #323B7E;
 }
@@ -100,6 +96,11 @@
 	border-bottom: #919191 solid 1px;
 }
 
+.club .stats {
+	margin-top: 50px;
+	margin-bottom: 20px;
+}
+
 .club h3 {
 	height: 50px;
 	margin-bottom: 30px;
@@ -136,15 +137,34 @@
 
 .form .formLabel {
 	display: inline-block;
-	width: 100px;
+	width: 150px;
+	font-size: 20px;
 }
 
 .form > form > div {
 	margin: 10px;
 }
 
-.form input {
-	width: 500px;
+.field {
+	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+}
+
+.form input, .form select, .form textarea {
+	display: inline-block;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 70%;
+	max-width: 70%;
+}
+
+.form textarea {
+	height: 150px;
+}
+
+.form #comments {
+	margin-bottom: 30px;
 }
 
 .confirmation {

@@ -6,9 +6,11 @@ div.teams.page
 			each club, index in data.clubs
 				div.club.small-12.medium-4.large-3.columns
 					h3 #{data.clubsFull[index]}
-					div.crest
-						img(src="/public/images/crests/" + club + ".png")
+					div.stats
+						p Location: #{data.locations[index]}
+						p Stadium: #{data.stadiums[index]}
+						p Stadium: #{data.capacity[index]}
 					div.btnDiv
-						a.action(href="/strip?deliveryType=" + data.deliveryType + "&printingType=" + data.printingType + "&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent + "&club=" + club)
+						a.action(href="/strip?deliveryType=" + data.deliveryType + "&printingType=" + data.printingType + "&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent + "&club=" + club + "&childOrAdult=" + data.childOrAdult)
 							span Select
 	include footerFlow.pug

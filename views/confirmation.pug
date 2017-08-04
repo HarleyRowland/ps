@@ -22,7 +22,10 @@ div.confirmation.page
 						div 
 							h5 Kit Number: #{data.number} 
 						div 
-							h5 Font: #{data.fullStyle} 
+							h5 Font: #{data.fullStyle}
+						if data.colour
+							div 
+								h5 Size: #{data.childOrAdult} 
 					div.small-12.medium-6.columns
 						if data.colour
 							div 
@@ -36,6 +39,8 @@ div.confirmation.page
 								h5 Strip: #{data.fullStrip} 
 							div 
 								h5 Sleeves: #{data.sleeve}
+							div 
+								h5 Size: #{data.childOrAdult} 
 				div
 					h3 Total Cost For Shirt: £#{data.fullCost}
 	div.bottom

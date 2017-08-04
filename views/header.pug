@@ -1,24 +1,35 @@
 html
 	head
 		title Premier Shirts
+		meta(charset="utf-8")
+
 		style 
+			include ../public/css/foundation.css
 			include ../public/css/general.css
 			include ../public/css/page.css
 			include ../public/css/header.css
-			include ../public/css/payment.css
 			include ../public/css/basket.css
 			include ../public/css/footer.css
-			include ../public/css/foundation.css
 		script(type='text/javascript' src='public/js/jquery.js')
 		script(type='text/javascript' src='public/js/styleText.js')
 		script(type='text/javascript').
 			var local_data = !{JSON.stringify(data)};
 		script(type='text/javascript' src='public/js/custom.js')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Dosis')
+		link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css")
 	body
-		div.top
-			a.link(href="/service") Printing
-			a.link(href="/contact") Contact
-			a(href="/")
-				img(src="/public/images/logo.jpeg")
-			a.link(href="/basket") Basket
+		div.cookiePermission
+			span We use cookies. By continuing to use our site you give us permission to use cookies on your browser.
+			i.fa.fa-times(aria-hidden="true")
+		div.top.row.show-for-small
+			div.medium-offset-2.medium-2.columns
+				a.link(href="/service") Printing
+			div.medium-4
+				a(href="/")
+					img(src="/public/images/logo.jpeg")
+			div.medium-2.columns
+				a.link(href="/contact") Contact
+			div.basketHeader.medium-2.columns
+				a(href="/basket")
+					i.fa.fa-shopping-cart(aria-hidden="true")
+					span.basketSize ( 0 )

@@ -1,6 +1,31 @@
+.cookiePermission {
+	width: 100%;
+	left: 0;
+	top: 0;
+	background-color: red;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	padding: 5px;
+	padding-left: 30px;
+	display: flex;
+ 	align-items: center;
+ 	display: none;
+}
+
+.cookiePermission .fa-times {
+	padding-top: 5px;
+	position: absolute;
+	color: white;
+	right: 0;
+	padding-right: 30px;
+	cursor: pointer;
+}
+
 .header {
 	height: 80px;
 	border-bottom: #323B7E solid 3px;
+
 }
 
 .logo {
@@ -33,11 +58,16 @@
 	display: flex;
  	justify-content: center;
  	align-items: center;
+ 	border-bottom: #323B7E solid 1px;
 }
 
 a.link {
 	font-size: 20px;
-	padding-left: 50px;
-	padding-right: 50px;
 	color: #323B7E;
+	transition: 1s;
+}
+
+a.link:hover {
+	color: #323B7E;
+	text-decoration: underline;
 }

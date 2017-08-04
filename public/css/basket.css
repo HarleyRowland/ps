@@ -14,15 +14,29 @@
 }
 
 .kitImage img {
-	height: 300px !important;
+	height: 300px;
 }
 
+.notKitImage {
+	height: 300px;
+	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+}
+
+.notKitImage img{
+	height: 200px;
+	width: 200px;
+}
+
+.deliveryOption {
+	width: 65%;
+}
 
 .basket .shirt > .row{
 	margin: 0px;
 	width: 100%;
 }
-
 
 .basket .shirt h5 {
 	padding-bottom: 15px;
@@ -57,6 +71,10 @@
 .another {
 	margin: 20px;
 	font-size: 20px;
+}
+
+.another:hover {
+	text-decoration: underline;
 }
 
 .removeBasket * {

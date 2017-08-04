@@ -32,7 +32,10 @@ $(document).on('change','.playerOption',function(){
 		var name = playerNumberArray[0].trim();
 		var number = playerNumberArray[1].trim();
 		var shirtCost = name.length + number.length*5
-		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter)");
+		if(shirtCost < 25) {
+			shirtCost = 25;
+		}
+		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter - £25 minimum)");
 		$(".hero .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style +
@@ -40,7 +43,8 @@ $(document).on('change','.playerOption',function(){
 			"&strip=" + local_data.strip +
 			"&name=" + name +
 			"&number=" + number +
-			"&shirtCost=" + shirtCost
+			"&shirtCost=" + shirtCost + 
+			"&childOrAdult=" + local_data.childOrAdult
 		)
 	}
 });
@@ -64,7 +68,8 @@ $(document).on('change','.colourOption',function(){
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style +
 			"&premOrDifferent=" + local_data.premOrDifferent +
-			"&colour=" + colour
+			"&colour=" + colour + 
+			"&childOrAdult=" + local_data.childOrAdult
 		)
 	}
 });
@@ -80,7 +85,8 @@ $(document).on('change','.letterOption',function(){
 			"&style=" + local_data.style  +
 			"&premOrDifferent=" + local_data.premOrDifferent +
 			"&colour=" + local_data.colour +
-			"&letter=" + letter
+			"&letter=" + letter + 
+			"&childOrAdult=" + local_data.childOrAdult
 		)
 	}
 });
@@ -96,9 +102,45 @@ $(document).on('change','.sleeveOption',function(){
 	}
 });
 
-$( document ).ready(function() {
-			console.log(local_data)
+$(document).on('change','.deliveryOption',function(){
+	var totalCost = parseFloat(local_data.cost);
+	var deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+	var deliveryOption = $('.deliveryOption').find(":selected").text();
+	$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
+	$(".basket .payment a").attr("href", "/payment?deliveryOption=" + deliveryOption)
+});
 
+$( document ).ready(function() {
+	var shirtCount = 0;
+	var cookies = document.cookie.toString().split(";")
+	var acceptedCookies = document.cookie.toString().includes("cookiePermission=true")
+	cookies.forEach(function(cookie) {
+		if(!acceptedCookies || acceptedCookies == undefined){
+			$(".cookiePermission").show();
+		}
+		if(cookie.includes("shirt")){
+			shirtCount++;
+		}
+	});
+
+	$(".fa-times").on("click", function(){
+		document.cookie = "cookiePermission=true";
+		$(".cookiePermission").hide();	
+	});
+
+	if ($(".totalCost").length){
+    	var totalCost = parseFloat(local_data.cost);
+    	var deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+    	var deliveryOption = $('.deliveryOption').find(":selected").text();
+    	$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
+    	$(".basket .payment a").attr("href", "/payment?deliveryOption=" + deliveryOption)
+	}
+
+	if ($("a.confirmShirt").length){
+    	var shirtObject = JSON.stringify(buildShirtObject(local_data))
+		$("a.confirmShirt").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
+	}
+	$(".basketSize").text("(  " + shirtCount + "  )");
 	if ($("a.confirmShirt").length){
     	var shirtObject = JSON.stringify(buildShirtObject(local_data))
 		$("a.confirmShirt").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
@@ -112,7 +154,8 @@ $( document ).ready(function() {
 		var county =  $('.county').val();
 		var postcode =  $('.postcode').val();
 		var country =  $('.country').val();
-		$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&telephone=" + telephone + "&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&country=" + country + "&cost=" + local_data.totalCost + "&shirtArray=" + local_data.jsonArray)
+		var date =  $('.date').val();
+		$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&telephone=" + telephone + "&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&country=" + country + "&cost=" + local_data.totalCost + "&shirtArray=" + local_data.jsonArray + "&date=" + date + "&deliveryOption=" + local_data.deliveryOption)
 	});
 	if ($("a.yes").length){
     	local_data.sleeve = "Yes"
@@ -134,9 +177,12 @@ $(document).on('input','.shirtName',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		var shirtCost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
+		if(shirtCost < 25){
+			shirtCost = 25;
+		}
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
-		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter)");
+		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter - £25 minimum)");
 		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +
@@ -147,7 +193,8 @@ $(document).on('input','.shirtName',function(){
 			"&strip=" + local_data.strip  +
 			"&name=" + name +
 			"&number=" + number +
-			"&shirtCost=" + shirtCost
+			"&shirtCost=" + shirtCost + 
+			"&childOrAdult=" + local_data.childOrAdult
 		)
 	}
 });
@@ -160,9 +207,12 @@ $(document).on('input','.shirtNumber',function(){
 		$(".basket").css("display", "none");
 	} else {
 		var shirtCost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
+		if(shirtCost < 25){
+			shirtCost = 25;
+		}
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
-		$(".price").text("£" + shirtCost);
+		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter - £25 minimum)");
 		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +
@@ -173,7 +223,8 @@ $(document).on('input','.shirtNumber',function(){
 			"&strip=" + local_data.strip +
 			"&name=" + name +
 			"&number=" + number +
-			"&shirtCost=" + shirtCost
+			"&shirtCost=" + shirtCost + 
+			"&childOrAdult=" + local_data.childOrAdult
 		)
 	}
 });
@@ -184,6 +235,7 @@ var buildShirtObject = function(data){
 			return {
 				printingType: data.printingType,
 				deliveryType: data.deliveryType,
+				childOrAdult: data.childOrAdult,
 				style: data.style,
 				club: data.club,
 				strip: data.strip,
@@ -198,6 +250,7 @@ var buildShirtObject = function(data){
 	      	return {
 				printingType: data.printingType,
 				deliveryType: data.deliveryType,
+				childOrAdult: data.childOrAdult,
 				style: data.style,
 				club: data.club,
 				strip: data.strip,
@@ -212,6 +265,7 @@ var buildShirtObject = function(data){
 	    	return {
 				printingType: data.printingType,
 				deliveryType: data.deliveryType,
+				childOrAdult: data.childOrAdult,
 				style: data.style,
 				colour: data.colour,
 				letter: data.letter,

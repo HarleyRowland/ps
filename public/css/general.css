@@ -1,5 +1,9 @@
-body * {
+body *:not(.fa) {
 	font-family: 'Dosis', sans-serif !important;
+}
+
+.fa {
+	color: #323B7E;
 }
 
 .title:not(h1) {
@@ -8,9 +12,9 @@ body * {
 }
 
 h1.title {
-	/*padding:50px;*/
-	padding-bottom: 30px;
+	padding-bottom: 20px !important;
 	color: #323B7E;
+	font-size: 30px;
 }
 
 .page {
@@ -29,6 +33,22 @@ h1.title {
 
 .optionSubtitle {
 	height: 80px;
+}
+
+.basket:hover {
+	text-decoration: none !important;
+}
+
+.basketHeader * {
+	color: #323B7E !important;	
+}
+
+.basket *:hover {
+	text-decoration: none !important;
+}
+
+.basketSize {
+	padding-left: 10px;
 }
 
 @media only screen and (min-width: 39em) and (max-width: 64em) { 

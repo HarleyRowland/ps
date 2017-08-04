@@ -1,0 +1,21 @@
+include header.pug
+div.childOrAdult.page
+	div.content
+		h1.title Adult or Child?
+		p.pageInfo Do you have an adults shirt or a child's shirt?
+		div.choices.row
+			div.choice.small-12.medium-6.columns
+				div.heroPrinting
+					h3.optionTitle Adult
+					h5.optionSubTitle Any adult's shirt male or female fitted.
+					div.action
+						a.btn(href="/printingType?childOrAdult=Adult&deliveryType=" + data.deliveryType +"&style=" + data.style)
+							span Select
+			div.choice.small-12.medium-6.columns
+				div.customPrinting
+					h3.optionTitle Child
+					h5.optionSubTitle Any size smaller than adult's.
+					div.action
+						a.btn(href="/printingType?childOrAdult=Child&deliveryType=" + data.deliveryType +"&style=" + data.style)
+							span Select
+	include footerFlow.pug

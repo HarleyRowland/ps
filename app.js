@@ -41,7 +41,11 @@ app.get("/payment", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  paymentController.paymentBuilder(req, keyPublishable, callback);
+  if(!req.query.shirtsArray){
+    res.redirect("/")
+  } else {
+    paymentController.paymentBuilder(req, keyPublishable, callback);
+  }
 })
 
 app.post("/paymentResult", (req, res) => {
@@ -117,7 +121,7 @@ app.get("/printingType", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style){
+  if(req.query.deliveryType && req.query.style && req.query.childOrAdult) {
     flowController.selectTemplate("printingType.pug", req, callback);
   }
 })
@@ -146,6 +150,15 @@ app.get("/strip", (req, res) => {
   }
   if(req.query.deliveryType && req.query.style && req.query.printingType && req.query.club){
     flowController.selectTemplate("strip.pug", req, callback);
+  }
+})
+
+app.get("/childOrAdult", (req, res) => {
+  var callback = function(template, data, err){
+    res.render(template, data);
+  }
+  if(req.query.deliveryType && req.query.style){
+    flowController.selectTemplate("childOrAdult.pug", req, callback);
   }
 })
 

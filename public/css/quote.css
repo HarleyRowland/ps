@@ -1,3 +1,17 @@
-.field:not(#name):not(#email):not(#pro) {
-	display: none;
+.form .formLabel {
+	display: inline-block;
+	width: 100px;
+}
+
+.form > form > div {
+	margin: 10px;
+}
+
+.form input {
+	width: 500px;
+}
+
+select.letterSelect {
+	width: 100px !important;
+	/*display: inline-block;*/
 }

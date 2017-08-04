@@ -7,7 +7,11 @@ module.exports = {
 			data: req.query
 		} 
 		if(view == "club.pug"){
-			viewFields.data.clubsFull = buildClubsArray()
+			var clubStats = buildClubsArray()
+			viewFields.data.clubsFull = clubStats[0]
+			viewFields.data.locations = clubStats[1]
+			viewFields.data.stadiums = clubStats[2]
+			viewFields.data.capacity = clubStats[3]
 			viewFields.data.clubs = []
 			viewFields.data.clubsFull.forEach(function(club){
 				viewFields.data.clubs.push(nameConverter(club))
@@ -51,9 +55,14 @@ var howManyStrips = function(club){
 }
 
 var buildClubsArray = function() {
-	var clubs = fs.readFileSync('./public/teamList.txt', 'utf8');
-	var clubsArray = clubs.split(",");
-	return clubsArray;
+	var teamStats = fs.readFileSync('./public/teamList.txt', 'utf8');
+	var teamStatsArray = teamStats.split("\n");
+	var names = teamStatsArray[0].split(",")
+	var locations = teamStatsArray[1].split(",")
+	var stadium = teamStatsArray[2].split(",")
+	var capacity = teamStatsArray[3].split(",")
+	
+	return [names,locations,stadium,capacity];
 }
 
 var getPlayersAndNumbers = function(club){

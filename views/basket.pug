@@ -10,7 +10,7 @@ div.basket
 					div.shirt
 						div.row
 							if shirt.colour
-								div.kitImage.small-12.medium-6.large-4.columns
+								div.notKitImage.small-12.medium-6.large-4.columns
 									img(src="/public/images/kits/" + shirt.colour + ".gif")
 							else
 								div.kitImage.small-12.medium-6.large-4.columns
@@ -29,6 +29,9 @@ div.basket
 											h5 Kit Number: #{shirt.number} 
 										div 
 											h5 Font: #{shirt.fullStyle} 
+										if data.colour
+											div 
+												h5 Size: #{shirt.childOrAdult} 
 									div.small-12.large-6.columns
 										if shirt.colour
 											div 
@@ -42,6 +45,8 @@ div.basket
 												h5 Strip: #{shirt.fullStrip} 
 											div 
 												h5 Sleeves: #{shirt.sleeve}
+											div 
+												h5 Size: #{shirt.childOrAdult} 
 								div
 									h4 Total Cost For Shirt: £#{shirt.fullCost}
 								div.removeBasket
@@ -54,6 +59,11 @@ div.basket
 	if data.shirtsArray.length > 0 
 		div.overallActions
 			div
+				div  
+					span.formLabel Delivery Methods: 
+					select.deliveryOption
+						each deliveryMethod in data.deliveryTypes
+							option  #{deliveryMethod}
 				div.totalCost
 					h4 Total Cost: £#{data.cost}
 				div.payment

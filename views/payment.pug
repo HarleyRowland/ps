@@ -1,46 +1,50 @@
 include header.pug
 div.page.payment
-  div.content
-    h1.title Payment
-    div.addressForm
-      div
-        div.formLabel Name: 
-        input.name
-      div  
-        div.formLabel Phone: 
-        input.telephone
-      div
-        div.formLabel Line 1: 
-        input.line1
-      div  
-        div.formLabel Line 2: 
-        input.line2
-      div  
-        div.formLabel Town/City: 
-        input.town
-      div  
-        div.formLabel County: 
-        input.county
-      div  
-        div.formLabel Postcode: 
-        input.postcode
-      div  
-        div.formLabel Country: 
-        input.country
-    div.paymentForm
-      form(action="/paymentResult", method="post")
-        article
-          label.breakdown
-            h5 Price Breakdown
-            div Shirt Cost: £!{data.shirtCost}
-            div Delivery Cost: £!{data.deliveryCost}
-            div Toal Cost: £!{data.totalCost}
-        script(
-          src="//checkout.stripe.com/v2/checkout.js",
-          class="stripe-button",
-          data-key=data.key,
-          data-locale="auto",
-          data-description="Premier Shirts",
-          data-currency="GBP",
-          data-amount=data.totalCost*100)
+	div.content
+		h1.title Payment
+		div.form.addressForm
+			div
+				div.formLabel Name: 
+				input.name
+			div  
+				div.formLabel Phone: 
+				input.telephone
+			div
+				div.formLabel Line 1: 
+				input.line1
+			div  
+				div.formLabel Line 2: 
+				input.line2
+			div  
+				div.formLabel Town/City: 
+				input.town
+			div  
+				div.formLabel County: 
+				input.county
+			div  
+				div.formLabel Postcode: 
+				input.postcode
+			div  
+				div.formLabel Country: 
+				input.country
+			if data.deliveryType == "deliver"
+				div  
+					div.formLabel Date of Delivery: 
+					input.date(type="date")
+		div.paymentForm
+			form(action="/paymentResult", method="post")
+				article
+					label.breakdown
+						h5 Price Breakdown
+						div Shirt Cost: £!{data.shirtCost}
+						div Delivery Cost: £!{data.deliveryCost}
+						div Toal Cost: £!{data.totalCost}
+				script(
+					src="//checkout.stripe.com/v2/checkout.js",
+					class="stripe-button",
+					data-key=data.key,
+					data-locale="auto",
+					data-description="Premier Shirts",
+					data-currency="GBP",
+					data-amount=data.totalCost*100)
 include footer.pug

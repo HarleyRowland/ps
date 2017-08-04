@@ -9,13 +9,13 @@ div.premOrDifferent.page
 					h3.optionTitle Premier League Shirt
 					h5.optionSubTitle A team in the current English Premier League.
 					div.action
-						a.btn(href="/club?premOrDifferent=prem&printingType=" + data.printingType + "&deliveryType=" + data.deliveryType +"&style=" + data.style)
+						a.btn(href="/club?premOrDifferent=prem&printingType=" + data.printingType + "&deliveryType=" + data.deliveryType +"&style=" + data.style + "&childOrAdult=" + data.childOrAdult)
 							span Select
 			div.choice.small-12.medium-6.columns
 				div.customPrinting
 					h3.optionTitle Different League
 					h5.optionSubtitle A team not currently in the English Premier League.
 					div.action
-						a.btn(href="/colour?premOrDifferent=different&printingType=custom&deliveryType=" + data.deliveryType +"&style=" + data.style)
+						a.btn(href="/colour?premOrDifferent=different&printingType=custom&deliveryType=" + data.deliveryType +"&style=" + data.style + "&childOrAdult=" + data.childOrAdult)
 							span Select
 	include footerFlow.pug
