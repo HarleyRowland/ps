@@ -23,12 +23,23 @@ module.exports = {
 	},
 
 	makePayment: function(req, res){
+		var orNo = -1;
+		var name = "";
+		var cost = -1;
 		async.waterfall([
 		    function(callback) {
 		        databaseClient.newOrder(req, callback);
 		    },
+		    function(callback){
+		    	console.log("hi")
+		    	databaseClient.getIDForOrder(req.body.stripeEmail, callback)
+		    },
 		    function(orderNumber, callback) {
-		        emailClient.sendEmail("payment", req.body.stripeEmail, orderNumber, callback)
+		    	orNo = orderNumber[0].ordernumber
+		    	name = orderNumber[0].name
+		    	cost = orderNumber[0].cost
+		        emailClient.sendEmail("payment", req.body.stripeEmail, name, cost, orNo)
+		        callback(null, 'done')
 		    }
 		], function (err, result) {
 			var callback = function(err, charge){
@@ -41,6 +52,9 @@ module.exports = {
 						}
 					}
 					var data = { data: req.query }
+					data.data.cost = req.query.cost;
+					data.data.orderNumber = orNo;
+					data.data.shirtArray = JSON.parse(data.data.shirtArray)
 					console.log(data);
 					res.render("paymentResult.pug", data )
 				}

@@ -13,22 +13,22 @@ var transporterDetails = {
 }
 
 module.exports = {
-	sendEmail: function(subject, toEmailAddress, orderNumber, callback){
+	sendEmail: function(subject, toEmailAddress, name, cost, orderNumber){
 		var transporter = nodemailer.createTransport(transporterDetails);
+		var html = "";
+		if(subject = "Payment"){
+			html = getPaymentHTML(name, cost, orderNumber);
+		}
 		var mailOptions = {
 			from: 'harleyrowland17@gmail.com',
 			to: toEmailAddress,
 			subject: subject + " - " + orderNumber,
-			html: fs.readFileSync('emailTemplates/' + subject + '.txt', 'utf8')
+			html: html
 		};
-		transporter.sendMail(mailOptions, function(err, info){
-			if(err){
-				console.log(err);
-				callback(err);
-			} else {
-				console.log(info);
-				callback()
-			};
-		});
+		transporter.sendMail(mailOptions);
 	}
+}
+
+var getPaymentHTML = function(name, cost, orderNumber){
+	return "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of the order number " + orderNumber + ".</p><p>The total cost for your order is £" + cost + ".</p><p>Please send or bring your shirt to 123 Test Lane, Test. We will notify you when we have recieved your shirt.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
 }

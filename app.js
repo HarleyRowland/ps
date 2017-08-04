@@ -41,11 +41,8 @@ app.get("/payment", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(!req.query.shirtsArray){
-    res.redirect("/")
-  } else {
-    paymentController.paymentBuilder(req, keyPublishable, callback);
-  }
+
+  paymentController.paymentBuilder(req, keyPublishable, callback);
 })
 
 app.post("/paymentResult", (req, res) => {

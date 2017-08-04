@@ -1,7 +1,7 @@
 include header.pug
-div.basket
+div.page.basket
 	div.content
-	h1.title Your Basket
+		h1.title Your Basket
 		div.shirts
 			if data.shirtsArray.length > 0
 				div.another
@@ -52,23 +52,23 @@ div.basket
 								div.removeBasket
 									a(href="/deleteShirtFromBasket?timestamp=" + shirt.timestamp) Remove From Basket
 			else 
-				div.emptyBasket
-					h5 You have no shirts in your basket. 
-						a(href="/service") Add one here
-						span .
-	if data.shirtsArray.length > 0 
-		div.overallActions
-			div
-				div  
-					span.formLabel Delivery Methods: 
-					select.deliveryOption
-						each deliveryMethod in data.deliveryTypes
-							option  #{deliveryMethod}
-				div.totalCost
-					h4 Total Cost: £#{data.cost}
-				div.payment
-					a(href="/payment") Make Payment		
-				div.delete
-					a(href="/deleteShirtFromBasket?timestamp=all") Empty Your Basket		
+					div.emptyBasket
+						h5 You have no shirts in your basket. 
+							a(href="/service") Add one here
+							span .
+		if data.shirtsArray.length > 0 
+			div.overallActions
+				div
+					div  
+						span.formLabel Delivery Methods: 
+						select.deliveryOption
+							each deliveryMethod in data.deliveryTypes
+								option  #{deliveryMethod}
+					div.totalCost
+						h4 Total Cost: £#{data.cost}
+					div.payment
+						a(href="/payment") Make Payment		
+					div.delete
+						a(href="/deleteShirtFromBasket?timestamp=all") Empty Your Basket		
 
 include footer.pug

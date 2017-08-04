@@ -6,8 +6,9 @@ var conString = 'postgres://wjjqnjduyhktca:8ef3e929ad76924d6892432179d558d24dfb7
 module.exports = {
 	newOrder: function(req, callback){
 		var shirtsQueries = [];
+		console.log(req.query)
 		var address = buildAddress(req.query);
-		var orderQuery = 'INSERT INTO orders(name, email, address, mobile, cost, deliveryOption) VALUES (\'' + req.query.name + '\', \'' + req.body.stripeEmail + '\', \'' + address + '\', \'' + req.query.telephone + '\', ' + req.query.cost + '\', ' + req.query.deliveryOption + ');'
+		var orderQuery = 'INSERT INTO orders(name, email, address, telephone, cost, deliveryOption) VALUES (\'' + req.query.name + '\', \'' + req.body.stripeEmail + '\', \'' + address + '\', \'' + req.query.telephone + '\', ' + req.query.cost + ', \'' + req.query.deliveryOption + '\');'
 		shirtsQueries.push(orderQuery);
 
 		var getID = '(SELECT ordernumber FROM orders WHERE ordernumber = (select max(orderNumber) from orders WHERE email=\'' + req.body.stripeEmail + '\'))'
@@ -17,21 +18,22 @@ module.exports = {
 		var shirts = JSON.parse(req.query.shirtArray)
 		shirts.forEach(function(shirt) {
 			if(shirt.club && shirt.strip){
-				var query = 'INSERT INTO shirts(orderNumber, sleeve, kitName, kitNumber, deliveryType, printingType, style, club, strip) VALUES (' + getID + ', \'' + shirt.sleeve + '\', \'' + shirt.name + '\', \'' + shirt.number + '\', \'' + shirt.deliveryType + '\', \'' + shirt.printingType + '\', \'' + shirt.style + '\', \'' + shirt.club + '\', \'' + shirt.strip + '\')'
+				var query = 'INSERT INTO shirts(orderNumber, sleeve, kitName, kitNumber, deliveryType, printingType, adultorchild, style, club, strip) VALUES (' + getID + ', \'' + shirt.sleeve + '\', \'' + shirt.name + '\', \'' + shirt.number + '\', \'' + shirt.deliveryType + '\', \'' + shirt.printingType + '\', \'' + shirt.childOrAdult + '\', \'' + shirt.style + '\', \'' + shirt.club + '\', \'' + shirt.strip + '\')'
 				shirtsQueries.push(query)
 			} else if(shirt.colour && shirt.letter){
-				var query = 'INSERT INTO shirts(orderNumber, sleeve, kitName, kitNumber, deliveryType, printingType, colour, letter, strip) VALUES (' + getID + ', \'' + shirt.sleeve + '\', \'' + shirt.name + '\', \'' + shirt.number + '\', \'' + shirt.deliveryType + '\', \'' + shirt.printingType + '\', \'' + shirt.style + '\', \'' + shirt.colour + '\', \'' + shirt.letter + '\')'
+				var query = 'INSERT INTO shirts(orderNumber, sleeve, kitName, kitNumber, deliveryType, printingType, adultorchild, style colour, letter) VALUES (' + getID + ', \'' + shirt.sleeve + '\', \'' + shirt.name + '\', \'' + shirt.number + '\', \'' + shirt.deliveryType + '\', \'' + shirt.printingType + '\', \'' + shirt.childOrAdult + '\', \'' + shirt.style + '\', \'' + shirt.colour + '\', \'' + shirt.letter + '\')'
 				shirtsQueries.push(query)
 			}
 		})
 
 		async.eachSeries(shirtsQueries, function(sql, cb) {
+			console.log(sql);
 		    query("INSERT", sql, cb)
 		}, function(err) {
 		    if( err ) {
 		    	callback(err)
 		    } else {
-		    	callback(null, getID)
+		    	callback()
 		    }
 		});
 	},
@@ -39,12 +41,16 @@ module.exports = {
 		var sql = 'SELECT  o.*, sh.*, s.description, s.dateChanged FROM ( SELECT  s.ordernumber, MAX(s.dateChanged) AS maxDate FROM statuses s GROUP BY s.ordernumber) d JOIN statuses s ON s.ordernumber = d.ordernumber AND s.dateChanged = d.maxDate JOIN orders o ON o.ordernumber = s.ordernumber JOIN shirts sh ON o.ordernumber = sh.ordernumber;'
 		query("SELECT", sql, callback);
 	},
+	getIDForOrder: function(email, callback){
+		var getID = 'SELECT * FROM orders WHERE ordernumber = (select max(orderNumber) from orders WHERE email=\'' + email + '\')';
+		query("SELECTID", getID, callback)
+	},
 	updateOrder: function(orderNumber, shirtid, description, callback){
 		var statusQuery = 'INSERT INTO statuses(orderNumber, dateChanged, description) VALUES (\'' + orderNumber + '\', now(), \'' + description + '\');'
 		query("INSERT", statusQuery, callback);
 	},
 	getEmail: function(orderNumber, callback){
-		var statusQuery = 'SELECT email FROM orders WHERE ordernumber=' + orderNumber + ';'
+		var statusQuery = 'SELECT * FROM orders WHERE ordernumber=' + orderNumber + ';'
 		query("INSERT", statusQuery, callback);
 	},
 	statusesForOrderNo: function(ordernumber, callback){
@@ -68,6 +74,7 @@ var query = function(type, sqlQuery, callback) {
 
   	var rows = []
 	result.on('error', function(err) {
+		console.log("pg", err)
 	    return callback(err)
 	});
 
@@ -80,8 +87,10 @@ var query = function(type, sqlQuery, callback) {
 	result.on('end', function() {
 	    client.end();
 	    if(type == "SELECT"){
-	    	console.log(rows);
 	    	callback(null, "userUpdates.pug", rows);
+		} else if("SELECTID"){
+	    	console.log("THE ROWS: ",rows);
+			callback(null, rows);
 		} else {
 			callback()
 		}

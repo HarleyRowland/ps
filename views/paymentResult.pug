@@ -1,6 +1,54 @@
 include header.pug
 div.page.paymentSuccess
-	h2 You successfully paid <strong> </strong>!
-
+	div.content
+		h2.title You successfully paid!
+		p.pageInfo Please post or bring your shirts to 123 Test House, Test Road, Ashford, Kent TN23 TTT.
+		p.pageInfo The total cost for your order is 
+			strong £#{data.cost}
+		p.pageInfo Your order number is:
+			strong #{data.orderNumber}
+		div.shirts
+			h4 Order Summary
+			each shirt in data.shirtArray
+				div.shirt
+					div.row
+						if shirt.colour
+							div.notKitImage.small-12.medium-6.large-4.columns
+								img(src="/public/images/kits/" + shirt.colour + ".gif")
+						else
+							div.kitImage.small-12.medium-6.large-4.columns
+								img(src="/public/images/kits/" + shirt.club + "-" + shirt.strip + ".gif")
+						div.info.small-12.medium-6.large-8.columns
+							div.details.row
+								div.title
+									if shirt.colour
+										h3 Customised Shirt
+									else 
+										h3 #{shirt.fullClubName}
+								div.small-12.large-6.columns
+									div
+										h5 Kit Name: #{shirt.name} 
+									div 
+										h5 Kit Number: #{shirt.number} 
+									div 
+										h5 Font: #{shirt.fullStyle} 
+									if data.colour
+										div 
+											h5 Size: #{shirt.childOrAdult} 
+								div.small-12.large-6.columns
+									if shirt.colour
+										div 
+											h5 Shirt Colour: #{shirt.colour} 
+										div 
+											h5 Letter Style: #{shirt.letter} 
+										div 
+											h5 Sleeves: #{shirt.sleeve}
+									else 
+										div 
+											h5 Strip: #{shirt.fullStrip} 
+										div 
+											h5 Sleeves: #{shirt.sleeve}
+										div 
+											h5 Size: #{shirt.childOrAdult} 
 include footer.pug
 

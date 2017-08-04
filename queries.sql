@@ -51,6 +51,7 @@ INSERT INTO orders(name, address, email, telephone, deliverydate, deliveryOption
 INSERT INTO orders(name, address, email, telephone, deliverydate, deliveryOption, cost) 
    VALUES ('Ryan Johannson', '6 test avenue, test street, test', '07777777777', 'test3@gmail.com', '1991-12-01', '2nd', 25);
 
+
 INSERT INTO statuses(orderNumber, dateChanged, description)
    VALUES (1, now(), 'Waiting for shirt');
 

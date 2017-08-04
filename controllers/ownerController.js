@@ -7,6 +7,8 @@ module.exports = {
 		databaseClient.getAllOrders(callback)
 	},
 	updateOrder: function(req, res){
+		var email = "";
+		var name = "";
 		async.waterfall([
 		    function(callback) {
 		        databaseClient.getEmail(req.query.orderNumber, callback);
