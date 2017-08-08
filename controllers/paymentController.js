@@ -31,7 +31,6 @@ module.exports = {
 		        databaseClient.newOrder(req, callback);
 		    },
 		    function(callback){
-		    	console.log("hi")
 		    	databaseClient.getIDForOrder(req.body.stripeEmail, callback)
 		    },
 		    function(orderNumber, callback) {
@@ -81,7 +80,7 @@ var calculateCost = function(shirtsArray) {
 		if(shirt.name && shirt.number){
 			var sleeveCost = 0;
 			if(shirt.sleeve = "Yes") {
-				sleeveCost = 10;
+				sleeveCost = 7.5;
 			}
 			shirtCost = shirt.name.replace(/ /g,"").length + (shirt.number.replace(/ /g,"").length*5)
 			if(shirtCost < 25) {

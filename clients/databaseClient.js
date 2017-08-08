@@ -51,7 +51,8 @@ module.exports = {
 	},
 	getEmail: function(orderNumber, callback){
 		var statusQuery = 'SELECT * FROM orders WHERE ordernumber=' + orderNumber + ';'
-		query("INSERT", statusQuery, callback);
+		console.log(statusQuery)
+		query("SELECTID", statusQuery, callback);
 	},
 	statusesForOrderNo: function(ordernumber, callback){
 		var orderNoQuery = 'SELECT o.*, s.*, sh.* FROM orders o INNER JOIN statuses s ON o.ordernumber = s.ordernumber INNER JOIN shirts sh ON s.ordernumber=sh.ordernumber WHERE o.ordernumber=' + ordernumber + ';'

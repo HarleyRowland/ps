@@ -32,10 +32,10 @@ $(document).on('change','.playerOption',function(){
 		var name = playerNumberArray[0].trim();
 		var number = playerNumberArray[1].trim();
 		var shirtCost = name.length + number.length*5
-		if(shirtCost < 25) {
-			shirtCost = 25;
+		if(shirtCost < 20) {
+			shirtCost = 20;
 		}
-		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter - £25 minimum)");
+		$(".price").text("£" + shirtCost + " (£20 minimum - 8 letters and 2 numbers, or 12 letters 1 number, with additional letters at £1 and numbers at £4)");
 		$(".hero .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style +
@@ -123,9 +123,21 @@ $( document ).ready(function() {
 		}
 	});
 
-	$(".fa-times").on("click", function(){
-		document.cookie = "cookiePermission=true";
+	$(".cookiePermission .fa-times").on("click", function(){
 		$(".cookiePermission").hide();	
+	});
+
+	$(".emailSent .fa-times").on("click", function(){
+		$(".emailSent").hide();	
+	});
+
+	$(".top .fa-bars").on("click", function(){
+		$(".menuDisplay").show();	
+	});
+
+	$(".menuDisplay .fa-times").on("click", function(){
+		document.cookie = "cookiePermission=true";
+		$(".menuDisplay").hide();	
 	});
 
 	if ($(".totalCost").length){
@@ -177,12 +189,12 @@ $(document).on('input','.shirtName',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		var shirtCost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
-		if(shirtCost < 25){
-			shirtCost = 25;
+		if(shirtCost < 20){
+			shirtCost = 20;
 		}
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
-		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter - £25 minimum)");
+		$(".price").text("£" + shirtCost + " (£20 minimum - 8 letters and 2 numbers, or 12 letters 1 number, with additional letters at £1 and numbers at £4)");
 		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +
@@ -207,12 +219,12 @@ $(document).on('input','.shirtNumber',function(){
 		$(".basket").css("display", "none");
 	} else {
 		var shirtCost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
-		if(shirtCost < 25){
-			shirtCost = 25;
+		if(shirtCost < 20){
+			shirtCost = 20;
 		}
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
-		$(".price").text("£" + shirtCost + " (£1 per number £5 per letter - £25 minimum)");
+		$(".price").text("£" + shirtCost + " (£20 minimum - 8 letters and 2 numbers, or 12 letters 1 number, with additional letters at £1 and numbers at £4)");
 		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +
@@ -246,7 +258,7 @@ var buildShirtObject = function(data){
 				fullCost: data.fullCost,
 				timestamp: new Date()
 			}
-	    } else if(data.printingType == "custom" && data.premOrDifferent == "prem" && data.club && data.strip && data.name && data.number) {
+	    } else if(data.printingType == "custom" && data.club && data.strip && data.name && data.number) {
 	      	return {
 				printingType: data.printingType,
 				deliveryType: data.deliveryType,
@@ -261,7 +273,7 @@ var buildShirtObject = function(data){
 				fullCost: data.fullCost,
 				timestamp: new Date()
 			}
-	    } else if(data.printingType == "custom" && data.premOrDifferent == "different" && data.letter && data.colour && data.name && data.number){
+	    } else if(data.printingType == "custom" && data.letter && data.colour && data.name && data.number){
 	    	return {
 				printingType: data.printingType,
 				deliveryType: data.deliveryType,

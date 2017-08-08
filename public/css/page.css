@@ -47,6 +47,7 @@
 	border-radius: 10px;
 	width: 300px;
 }
+
 .content {
 	margin-bottom: 100px;
 }
@@ -74,6 +75,18 @@
 	display: flex;
  	justify-content: center;
  	align-items: center;
+}
+
+.shirtImages, .index .choices{
+	margin-top: 50px;
+}
+
+.shirtImage {
+	margin-top: 10px;
+}
+
+.getYours {
+	margin-top: 50px;
 }
 
 .action span, .action div {
@@ -284,4 +297,24 @@
 
 .paymentSuccess .overallActions * {
 	margin-top: 20px;
+}
+
+@media only screen and (max-width: 40em) { 
+	.topChoice > div {
+		margin-bottom: 0px;
+		border-radius: 10px 10px 0px 0px;
+	}
+
+	.middleChoice > div {
+		margin-top: 0px;
+		margin-bottom: 0px;
+		border-radius: 0px 0px 0px 0px;
+	}	
+
+	.bottomChoice > div {
+		margin-top: 0px;
+		border-radius: 0px 0px 10px 10px;
+	}
+
+
 }

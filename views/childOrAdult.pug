@@ -4,18 +4,18 @@ div.childOrAdult.page
 		h1.title Adult or Child?
 		p.pageInfo Do you have an adults shirt or a child's shirt?
 		div.choices.row
-			div.choice.small-12.medium-6.columns
+			div.choice.topChoice.small-12.medium-6.columns
 				div.heroPrinting
-					h3.optionTitle Adult
-					h5.optionSubTitle Any adult's shirt male or female fitted.
+					h3.optionTitle Adults
+					h5.optionSubTitle Perfect for any adult shirt, and suitable for larger children's shirts. Letters are approx. 53mm high and numbers approx. 256mm high.
 					div.action
 						a.btn(href="/printingType?childOrAdult=Adult&deliveryType=" + data.deliveryType +"&style=" + data.style)
 							span Select
-			div.choice.small-12.medium-6.columns
+			div.choice.bottomChoice.small-12.medium-6.columns
 				div.customPrinting
-					h3.optionTitle Child
-					h5.optionSubTitle Any size smaller than adult's.
+					h3.optionTitle Youths
+					h5.optionSubTitle Ideal for youth shirts up to roughly 8 years old. Letters are approx. 33m high and numbers approx. 163mm high.
 					div.action
-						a.btn(href="/printingType?childOrAdult=Child&deliveryType=" + data.deliveryType +"&style=" + data.style)
+						a.btn(href="/printingType?childOrAdult=Youth&deliveryType=" + data.deliveryType +"&style=" + data.style)
 							span Select
 	include footerFlow.pug

@@ -96,6 +96,20 @@ app.get("/statusesForOrderNo", (req, res) => {
   ownerController.statusesForOrderNo(req.query.orderNumber, callback);    
 })
 
+app.get("/sendQuoteEmail", (req, res) => {
+  var callback = function(err){
+    res.render("quote.pug", {emailSent: true});
+  }
+  ownerController.quoteEmail(req.query.name, req.query.email, req.query.league, req.query.club, req.query.strip, req.query.year, req.query.colour, req.query.letter, req.query.kitName, req.query.kitNumber, comments, callback);    
+})
+
+app.get("/sendQueryEmail", (req, res) => {
+  var callback = function(err){
+    res.render("contact.pug", {emailSent: true});
+  }
+  ownerController.queryEmail(req.query.name, req.query.number, req.query.email, req.query.comments, callback);    
+})
+
 app.get("/deleteShirtFromBasket", (req, res) => {
   var callback = function(template, data){
     res.render(template, data);

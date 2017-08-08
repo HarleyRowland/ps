@@ -36,19 +36,19 @@ CREATE TABLE shirts(
    letter VARCHAR(400)
 );
 
-INSERT INTO orders(name, address, email, telephone, deliverydate, deliveryOption, cost) 
-   VALUES ('James Adams', '123 test lane, test street, test', '07777777777', 'test@gmail.com', '1991-12-01', '1st', 25);
+INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
+   VALUES ('James Adams', '123 test lane, test street, test', '07777777777', 'harleyrowland17@gmail.com', '1991-12-01', '1st', 25);
 
-INSERT INTO orders(name, address, email, telephone, deliverydate, deliveryOption, cost) 
+INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
    VALUES ('Harley Rowland', '82 test road, test street, test', '07777777777', 'test1@gmail.com', '1991-12-01', '2nd', 32);
 
-INSERT INTO orders(name, address, email, telephone, deliverydate, deliveryOption, cost) 
+INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
    VALUES ('Sam Jones', '82 test road, test street, test', '07777777777', 'test1@gmail.com', '1991-12-01', '1st', 29);
 
-INSERT INTO orders(name, address, email, telephone, deliverydate, deliveryOption, cost) 
+INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
    VALUES ('Tom Smith', '26 test street, test street, test', '07777777777', 'test2@gmail.com', '1991-12-01', '1st', 27);
 
-INSERT INTO orders(name, address, email, telephone, deliverydate, deliveryOption, cost) 
+INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
    VALUES ('Ryan Johannson', '6 test avenue, test street, test', '07777777777', 'test3@gmail.com', '1991-12-01', '2nd', 25);
 
 

@@ -1,5 +1,40 @@
 include header.pug
 div.page.index
 	div.landing
-		
+		div.landingImage
+			h1.landingTitle Football Shirt  
+				br 
+				span Customisation
+	div.about
+		h2 Any Shirt, Styled Any Way You Want
+		div.shirtImages.row
+			div.shirtImage.small-6.medium-3.columns
+				img(src="/public/images/fix.jpg")
+			div.shirtImage.small-6.medium-3.columns
+				img(src="/public/images/halliday.jpg")
+			div.shirtImage.small-6.medium-3.columns
+				img(src="/public/images/janssen.jpg")
+			div.shirtImage.small-6.medium-3.columns
+				img(src="/public/images/morgan.jpg")
+		div.action.getYours
+			a.btn(href="/service")
+				span Get Yours Now
+	div.imageStrip
+	div.contact
+		h2 Get In Touch With Us
+		div.choices.row
+			div.choice.small-12.medium-6.columns
+				div.quote
+					h3.optionTitle Contact Us
+					h5.optionSubTitle Ask Us Anything!
+					div.action
+						a.btn(href="/contact")
+							span Contact
+			div.choice.small-12.medium-6.columns
+				div.contact
+					h3.optionTitle Get A Quote
+					h5.optionSubTitle Get a peronalised quote.
+					div.action
+						a.btn(href="/quote")
+							span Quote
 include footer.pug

@@ -2,7 +2,7 @@ html
 	head
 		title Premier Shirts
 		meta(charset="utf-8")
-
+		meta(name="viewport" content="width=device-width initial-scale=1")
 		style 
 			include ../public/css/foundation.css
 			include ../public/css/general.css
@@ -21,10 +21,14 @@ html
 		div.cookiePermission
 			span We use cookies. By continuing to use our site you give us permission to use cookies on your browser.
 			i.fa.fa-times(aria-hidden="true")
-		div.top.row.hide-for-small
+		if emailSent
+			div.emailSent
+				span Your message has been sent to our team. We aim to reply within 5 working days.
+				i.fa.fa-times(aria-hidden="true")
+		div.top.row.show-for-medium
 			div.medium-offset-2.medium-2.columns
 				a.link(href="/service") Printing
-			div.medium-4
+			div.medium-4.smallLogo
 				a(href="/")
 					img(src="/public/images/logo.jpeg")
 			div.medium-2.columns
@@ -33,3 +37,19 @@ html
 				a(href="/basket")
 					i.fa.fa-shopping-cart(aria-hidden="true")
 					span.basketSize ( 0 )
+		div.top.row.hide-for-medium
+			div.menu-bars.medium-2.columns
+				i.fa.fa-bars(aria-hidden="true")
+			div.medium-4.logo-menu
+				a(href="/")
+					img.logo-small(src="/public/images/logo-icon.jpeg")
+			div.basketHeader.medium-2.columns
+				a(href="/basket")
+					i.fa.fa-shopping-cart(aria-hidden="true")
+					span.basketSize ( 0 )
+			div.menuDisplay
+				i.fa.fa-times(aria-hidden="true")
+				a(href="/") Home
+				a(href="/service") Printing
+				a(href="/basket") Basket
+				a(href="/contact") Contact

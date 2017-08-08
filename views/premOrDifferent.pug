@@ -4,14 +4,14 @@ div.premOrDifferent.page
 		h1.title What Kind Of Shirt Do You Have?
 		p.pageInfo Is your shirt from a team in Premier League now or not.
 		div.choices.row
-			div.choice.small-12.medium-6.columns
+			div.choice.topChoice.small-12.medium-6.columns
 				div.heroPrinting
 					h3.optionTitle Premier League Shirt
 					h5.optionSubTitle A team in the current English Premier League.
 					div.action
 						a.btn(href="/club?premOrDifferent=prem&printingType=" + data.printingType + "&deliveryType=" + data.deliveryType +"&style=" + data.style + "&childOrAdult=" + data.childOrAdult)
 							span Select
-			div.choice.small-12.medium-6.columns
+			div.choice.bottomChoice.small-12.medium-6.columns
 				div.customPrinting
 					h3.optionTitle Different League
 					h5.optionSubtitle A team not currently in the English Premier League.

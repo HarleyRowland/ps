@@ -2,6 +2,43 @@ body *:not(.fa) {
 	font-family: 'Dosis', sans-serif !important;
 }
 
+.landingImage {
+	margin-top: 18px;
+	height: 70vh;
+ 	background:
+	    url("public/images/ball.jpeg");
+	    background-attachment: fixed;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;}
+
+.landingImage h1{
+	font-size: 70px;
+	padding-left: 15%;
+	font-weight: bolder;
+	color: white;
+	top: 20%;
+	position: absolute;
+}
+
+.form input, .form select, .form textarea {
+	border: solid 1px #818181;
+}
+
+.landingImage * {
+	color: white !important;
+}
+
+.imageStrip {
+	height: 400px;
+	background:
+	    url("public/images/seats.png");
+	    background-attachment: fixed;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;}
+}
+
 .fa {
 	color: #323B7E;
 }
@@ -35,6 +72,10 @@ h1.title {
 	height: 80px;
 }
 
+.childOrAdult .optionSubtitle {
+	height: 100px;
+}
+
 .basket:hover {
 	text-decoration: none !important;
 }
@@ -63,6 +104,24 @@ h1.title {
 	.optionSubtitle {
 		height: 130px;
 	}
+
+	.childOrAdult .optionSubtitle {
+		height: 170px;
+	}
+
+
+	.landingImage {
+		padding-top: 18px;
+	}
+
+	.landingImage h1{
+		font-size: 50px;
+		padding-left: 10%;
+		font-weight: bolder;
+		color: white;
+		top: 20%;
+		position: absolute;
+	}
 }
 
 @media only screen and (max-width: 40em) { 
@@ -89,5 +148,12 @@ h1.title {
 
 	.optionSubtitle {
 		height: 50px;
+	}
+	.childOrAdult .optionSubtitle {
+		height: 100px;
+	}
+
+	.form {
+		padding: 10px;
 	}
 }

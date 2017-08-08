@@ -3,33 +3,33 @@ div.page.payment
 	div.content
 		h1.title Payment
 		div.form.addressForm
-			div
-				div.formLabel Name: 
+			div.field
+				span.formLabel Name: 
 				input.name
-			div  
-				div.formLabel Phone: 
+			div.field  
+				span.formLabel Phone: 
 				input.telephone
-			div
-				div.formLabel Line 1: 
+			div.field
+				span.formLabel Line 1: 
 				input.line1
-			div  
-				div.formLabel Line 2: 
+			div.field 
+				span.formLabel Line 2: 
 				input.line2
-			div  
-				div.formLabel Town/City: 
+			div.field  
+				span.formLabel Town/City: 
 				input.town
-			div  
-				div.formLabel County: 
+			div.field  
+				span.formLabel County: 
 				input.county
-			div  
-				div.formLabel Postcode: 
+			div.field  
+				span.formLabel Postcode: 
 				input.postcode
-			div  
-				div.formLabel Country: 
+			div.field  
+				span.formLabel Country: 
 				input.country
 			if data.deliveryType == "deliver"
-				div  
-					div.formLabel Date of Delivery: 
+				div.field  
+					span.formLabel Date of Delivery: 
 					input.date(type="date")
 		div.paymentForm
 			form(action="/paymentResult", method="post")

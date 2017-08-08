@@ -7,7 +7,7 @@ module.exports = {
 			data: req.query
 		} 
 		if(view == "club.pug"){
-			var clubStats = buildClubsArray()
+			var clubStats = buildClubsArray(req.query.style)
 			viewFields.data.clubsFull = clubStats[0]
 			viewFields.data.locations = clubStats[1]
 			viewFields.data.stadiums = clubStats[2]
@@ -54,8 +54,14 @@ var howManyStrips = function(club){
 	return stripCount;
 }
 
-var buildClubsArray = function() {
-	var teamStats = fs.readFileSync('./public/teamList.txt', 'utf8');
+var buildClubsArray = function(style) {
+	var teamStats = ""
+	console.log(style)
+	if(style == "current") {
+		teamStats = fs.readFileSync('./public/teamListCurrent.txt', 'utf8');
+	} else {
+		teamStats = fs.readFileSync('./public/teamListPrevious.txt', 'utf8');	
+	}
 	var teamStatsArray = teamStats.split("\n");
 	var names = teamStatsArray[0].split(",")
 	var locations = teamStatsArray[1].split(",")
@@ -91,6 +97,8 @@ var nameConverter = function(club) {
 		return "everton"
 	} else if(club == "Huddersfield"){
 		return "huddersfield"
+	} else if(club == "Hull City") {
+		return"hull"
 	} else if(club == "Leicester City"){
 		return "leicesterCity"
 	} else if(club == "Liverpool"){
@@ -99,12 +107,16 @@ var nameConverter = function(club) {
 		return "manchesterCity"
 	} else if(club == "Manchester United"){
 		return "manu"
+	} else if(club == "Middlesborough") {
+		return"middlesborough"
 	} else if(club == "Newcastle United"){
 		return "newcastle"
 	} else if(club == "Southampton"){
 		return "southampton"
 	} else if(club == "Stoke City"){
 		return "stoke"
+	} else if(club == "Sunderland"){
+		return "sunderland"
 	} else if(club == "Swansea City"){
 		return "swansea"
 	} else if(club == "Tottenham Hotspur"){
