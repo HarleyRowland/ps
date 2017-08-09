@@ -16,6 +16,6 @@ config.database.host = process.env.databaseHost;
 config.database.ssl = process.env.databaseSsl;
 
 config.stripe = {};
-config.database.publishableKey = process.env.publishableKey;
+config.database.publishableKey = process.env.stripePublishableKey;
 config.database.secretKey = process.env.stripeSecretKey;
 module.exports = config;

@@ -157,3 +157,9 @@ h1.title {
 		padding: 10px;
 	}
 }
+
+@media only screen and (max-device-width: 1024px) {
+    .parallax {
+        background-attachment: scroll;
+    }
+}

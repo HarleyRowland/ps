@@ -1,12 +1,10 @@
-var config = require('../config.yaml')
+var config = require('../config.js');
 var pg = require('pg');
 var async = require('async');
-var conString = 'postgres://wjjqnjduyhktca:8ef3e929ad76924d6892432179d558d24dfb798a48f57223f75eef58c66dc2ac@ec2-23-21-96-159.compute-1.amazonaws.com/wjjqnjduyhktca&ssl=true'
 
 module.exports = {
 	newOrder: function(req, callback){
 		var shirtsQueries = [];
-		console.log(req.query)
 		var address = buildAddress(req.query);
 		var orderQuery = 'INSERT INTO orders(name, email, address, telephone, cost, deliveryOption) VALUES (\'' + req.query.name + '\', \'' + req.body.stripeEmail + '\', \'' + address + '\', \'' + req.query.telephone + '\', ' + req.query.cost + ', \'' + req.query.deliveryOption + '\');'
 		shirtsQueries.push(orderQuery);
@@ -62,12 +60,12 @@ module.exports = {
 
 var query = function(type, sqlQuery, callback) {
 	var client = new pg.Client({
-	    user: "wjjqnjduyhktca",
-	    password: "8ef3e929ad76924d6892432179d558d24dfb798a48f57223f75eef58c66dc2ac",
-	    database: "ddgf1kja4g6fpg",
-	    port: 5432,
-	    host: "ec2-23-21-96-159.compute-1.amazonaws.com",
-	    ssl: true
+	    user: config.database.user,
+	    password: config.database.password,
+	    database: config.database.name,
+	    port: config.database.port,
+	    host: config.database.host,
+	    ssl: config.database.ssl
   	});
 
   	client.connect()

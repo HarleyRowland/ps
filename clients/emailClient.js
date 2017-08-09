@@ -1,14 +1,14 @@
-var config = require('../config.yaml')
+var config = require('../config.js');
 var nodemailer = require("nodemailer")
 var databaseClient = require('./databaseClient.js')
 var fs = require("fs")
 
 var transporterDetails = {
-    service: "gmail",
-    host: "smtp.gmail.com",
+    service: config.email.service,
+    host: config.email.host,
     auth: {
-        user: "harleyrowland17@gmail.com",
-        pass: "Omg_0923"
+        user: config.email.email,
+        pass: config.email.password
     }
 }
 
@@ -19,6 +19,10 @@ module.exports = {
 	},
 	queryEmail: function(name, number, email, comments){
 		var transporter = nodemailer.createTransport(transporterDetails);
+		console.log(config.email.service)
+		console.log(config.email.host)
+		console.log(config.email.email)
+		console.log(config.email.password)
 		var mailOptions = {
 			from: 'harleyrowland17@gmail.com',
 			to: 'harleyrowland17@gmail.com',
@@ -33,7 +37,7 @@ var send = function(transporter, subject, toEmailAddress, name, cost, orderNumbe
 	if(subject == "Payment"){
 		var mailOptions = {
 			from: 'harleyrowland17@gmail.com',
-			to: toEmailAddress,
+			to: 'harleyrowland17@gmail.com',
 			subject: subject + " - Order Number: " + orderNumber,
 			html: "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of the order number " + orderNumber + ".</p><p>The total cost for your order is £" + cost + ".</p><p>Please send or bring your shirt to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD, Test. We will notify you when we have recieved your shirt.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
 		};
@@ -41,7 +45,7 @@ var send = function(transporter, subject, toEmailAddress, name, cost, orderNumbe
 	} else if( subject == "Shirt Received") {
 		var mailOptions = {
 			from: 'harleyrowland17@gmail.com',
-			to: toEmailAddress,
+			to: 'harleyrowland17@gmail.com',
 			subject: subject + " - Order Number: " + orderNumber,
 			html: "<p>Hello " + name + ",</p><p>We have recieved your order.</p><p>We will notify you as soon as your order is being sent back to you.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
 		};
@@ -49,7 +53,7 @@ var send = function(transporter, subject, toEmailAddress, name, cost, orderNumbe
 	} else if( subject == "Shirt Sent Back") {
 		var mailOptions = {
 			from: 'harleyrowland17@gmail.com',
-			to: toEmailAddress,
+			to: 'harleyrowland17@gmail.com',
 			subject: subject + " - Order Number: " + orderNumber,
 			html: "<p>Hello " + name + ",</p><p>Your order is on its way to you.</p><p>We hope you are happy with your customised shirt(s)!</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
 		};
