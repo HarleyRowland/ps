@@ -57,6 +57,13 @@ app.post("/paymentResult", (req, res) => {
   }
 })
 
+app.get("/webmail", (req, res) => {
+  res.writeHead(301,
+    {Location: 'http://greg-thompson.com/webmail'}
+  );
+  res.end();
+})
+
 app.get("/basket", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
@@ -100,7 +107,7 @@ app.get("/sendQuoteEmail", (req, res) => {
   var callback = function(err){
     res.render("quote.pug", {emailSent: true});
   }
-  ownerController.quoteEmail(req.query.name, req.query.email, req.query.league, req.query.club, req.query.strip, req.query.year, req.query.colour, req.query.letter, req.query.kitName, req.query.kitNumber, comments, callback);    
+  ownerController.quoteEmail(req.query.name, req.query.email, req.query.league, req.query.club, req.query.strip, req.query.year, req.query.colour, req.query.letter, req.query.kitName, req.query.kitNumber, req.query.comments, callback);    
 })
 
 app.get("/sendQueryEmail", (req, res) => {

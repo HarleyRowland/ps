@@ -17,6 +17,13 @@
 	border-radius: 10px;
 }
 
+.nameNumberLeft {
+	display: block;
+	font-size: small;
+	text-align: right;
+	padding-right: 100px;
+}
+
 .page h1 {
 	margin-top: 50px;
 }
@@ -54,7 +61,7 @@
 
 
 .page h1, .pageInfo {
-	padding-bottom: 50px;
+	padding-bottom: 10px;
 }
 
 

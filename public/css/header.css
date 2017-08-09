@@ -43,7 +43,7 @@
 	right: 0;
 	color: #000000;
 	font-weight: bolder;
-	font-size: 30px;
+	font-size: 50px;
 	margin: 10px;
 }
 
@@ -60,7 +60,6 @@
 .header {
 	height: 80px;
 	border-bottom: #323B7E solid 3px;
-
 }
 
 .logo {
@@ -72,8 +71,9 @@
 	height: 80px;
 }
 
-.logo-small {
-	height: 100%;
+.logo-small img {
+	height: 70px;
+	width: 160px !important;
 }
 
 .links {

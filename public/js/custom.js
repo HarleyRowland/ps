@@ -58,6 +58,8 @@ $(document).on('change','.proOption',function(){
 	}
 });
 
+
+
 $(document).on('change','.colourOption',function(){
 	var colour = $('.colourOption').find(":selected").text();
 	if(colour == "Please Select"){
@@ -117,10 +119,29 @@ $( document ).ready(function() {
 	cookies.forEach(function(cookie) {
 		if(!acceptedCookies || acceptedCookies == undefined){
 			$(".cookiePermission").show();
+			document.cookie = "cookiePermission=true";
 		}
 		if(cookie.includes("shirt")){
 			shirtCount++;
 		}
+	});
+
+	$(".shirtName").keyup(function(){
+	  	var charsLeft = 20 - $(".shirtName").val().length
+	  	if(charsLeft == 0){
+	  		$('.nameCharsLeft').text("0 Characters Left");      
+	  	} else {
+	  		$('.nameCharsLeft').text("Up to " + charsLeft + " Characters Left");      
+	  	}    
+	});
+
+	$(".shirtNumber").keyup(function(){
+	  	var charsLeft = 2 - $(".shirtNumber").val().length
+	  	if(charsLeft == 0){
+	  		$('.numberCharsLeft').text("0 Characters Left");      
+	  	} else {
+	  		$('.numberCharsLeft').text("Up to " + charsLeft + " Characters Left");      
+	  	}
 	});
 
 	$(".cookiePermission .fa-times").on("click", function(){
@@ -136,7 +157,6 @@ $( document ).ready(function() {
 	});
 
 	$(".menuDisplay .fa-times").on("click", function(){
-		document.cookie = "cookiePermission=true";
 		$(".menuDisplay").hide();	
 	});
 
@@ -167,8 +187,53 @@ $( document ).ready(function() {
 		var postcode =  $('.postcode').val();
 		var country =  $('.country').val();
 		var date =  $('.date').val();
-		$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&telephone=" + telephone + "&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&country=" + country + "&cost=" + local_data.totalCost + "&shirtArray=" + local_data.jsonArray + "&date=" + date + "&deliveryOption=" + local_data.deliveryOption)
+		var canSend = validatePaymentForm(name, telephone, line1, town, county, postcode, county);
+		if(canSend){
+			$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&telephone=" + telephone + "&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&country=" + country + "&cost=" + local_data.totalCost + "&shirtArray=" + local_data.jsonArray + "&date=" + date + "&deliveryOption=" + local_data.deliveryOption)
+			$('.stripe-button-el').removeAttr('disabled');
+		} else {
+			 $('.stripe-button-el').attr('disabled','disabled');
+		}
 	});
+
+	$(".quoteEmail").on("click", function(e){
+				e.preventDefault()
+
+		var name =  $('.name').val();
+		var email =  $('.email').val();
+		var league =  $('.league').val();
+		var club =  $('.club').val();
+		var strip =  $('.strip').val();
+		var year =  $('.year').val();
+		var colour =  $('.colour').val();
+		var letter =  $('.letter').val();
+		var shirtName =  $('.shirtName').val();
+		var shirtNumber =  $('.shirtNumber').val();
+		var comments =  $('.comments').val();
+		var canSend = validatePaymentForm(name, telephone, line1, town, county, postcode, county);
+		if(canSend){
+			$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&email=" + email + "&league=" + league + "&club=" + club + "&strip=" + strip + "&year=" + year + "&colour=" + colour + "&letter=" + letter + "&kitName=" + shirtName + "&kitNumber=" + shirtNumber + "&comments=" + comments)
+			$('.paymentForm *').removeAttr('disabled');
+		} else {
+			$('.paymentForm *').attr('disabled','disabled');
+		}
+	});
+
+	$(".quoteEmail").on("click", function(e){
+		var name =  $('.name').val();
+		var email =  $('.email').val();
+		var number =  $('.number').val();
+		var comments =  $('.comments').val();
+		var canSend = validateContactForm(name, telephone, line1, town, county, postcode, county);
+		if(canSend){
+			$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&email=" + email + "&league=" + league + "&club=" + club + "&strip=" + strip + "&year=" + year + "&colour=" + colour + "&letter=" + letter + "&kitName=" + shirtName + "&kitNumber=" + shirtNumber + "&comments=" + comments)
+			$('.paymentForm *').removeAttr('disabled');
+		} else {
+			e.preventDefault()
+			 $('.paymentForm *').attr('disabled','disabled');
+		}
+	});
+
 	if ($("a.yes").length){
     	local_data.sleeve = "Yes"
     	var shirtObject = JSON.stringify(buildShirtObject(local_data))
@@ -294,5 +359,104 @@ var buildShirtObject = function(data){
 	  } else {
 	    return {};
 	  }
+}
+
+var validateQueryForm = function(name, phone, email, comments){
+  var canSend = true;
+
+  if(name == ""){
+    $('.field .name').addClass('animated shake');
+    canSend = false;
+    $('.field .name').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .name').removeClass('shake');
+    });
+
+  }
+  if(phone+"".length < 11 ){
+    $('.field .telephone').addClass('animated shake');
+    canSend = false;
+    $('.field .telephone').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .telephone').removeClass('shake');
+    });
+  }
+  if(validateEmail(email)){
+    $('.field .line1line1').addClass('animated shake');
+    canSend = false;
+    $('.field .line1').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .line1').removeClass('shake');
+    });
+
+  }
+  if(comments == ""){
+    $('.field .town').addClass('animated shake');
+    canSend = false;
+    $('.field .town').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .town').removeClass('shake');
+    });
+  }
+  return canSend;
+}
+
+var validatePaymentForm = function(name, phone, line1, town, county, postcode, country){
+  var canSend = true;
+
+  if(name == ""){
+    $('.field .name').addClass('animated shake');
+    canSend = false;
+    $('.field .name').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .name').removeClass('shake');
+    });
+
+  }
+  if(phone+"".length < 11 ){
+    $('.field .telephone').addClass('animated shake');
+    canSend = false;
+    $('.field .telephone').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .telephone').removeClass('shake');
+    });
+  }
+  if(line1 == ""){
+    $('.field .line1line1').addClass('animated shake');
+    canSend = false;
+    $('.field .line1').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .line1').removeClass('shake');
+    });
+
+  }
+  if(town == ""){
+    $('.field .town').addClass('animated shake');
+    canSend = false;
+    $('.field .town').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .town').removeClass('shake');
+    });
+
+  }
+  if(county == ""){
+    $('.field .county').addClass('animated shake');
+    canSend = false;
+    $('.field .county').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .county').removeClass('shake');
+    });
+  }
+  if(postcode == ""){
+    $('.field .postcode').addClass('animated shake');
+    canSend = false;
+    $('.field .postcode').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .postcode').removeClass('shake');
+    });
+  }
+  if(country == ""){
+    $('.field .country').addClass('animated shake');
+    canSend = false;
+    $('.field .country').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .country').removeClass('shake');
+    });
+  }
+  return canSend;
+}
+
+var validateEmail = function(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
 }
 

@@ -6,25 +6,25 @@ div.page.quote
 		div.form
 			div.field#name
 				span.formLabel Name: 
-				input
+				input.name
 			div.field#email
 				span.formLabel Email: 
-				input
+				input.email
 			div.field#league  
 				span.formLabel League: 
-				input
+				input.league
 			div.field#club  
 				span.formLabel Club: 
-				input
+				input.club
 			div.field#strip  
 				span.formLabel Strip: 
-				input
+				input.strip
 			div.field#year  
 				span.formLabel Year: 
-				input
+				input.year
 			div.field#colour  
 				span.formLabel Shirt Colour: 
-				input
+				input.colour
 			div.field#letter  
 				span.formLabel Letter Shape: 
 				select.letterSelect
@@ -33,14 +33,14 @@ div.page.quote
 					option Curved
 			div.field#shirtName  
 				span.formLabel Shirt Name: 
-				input
+				input.shirtName
 			div.field#shirtNumber  
 				span.formLabel Shirt Number: 
-				input
+				input.shirtNumber
 			div.field#comments  
 				span.formLabel Extra Comments: 
-				textarea
+				textarea.comments
 			div.action.send
-				a.btn(href="/sendQuoteEmail")
+				a.quoteEmail.btn(href="/sendQuoteEmail")
 					span Request Quote
 include footer.pug

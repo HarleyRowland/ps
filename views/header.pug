@@ -6,6 +6,7 @@ html
 		style 
 			include ../public/css/foundation.css
 			include ../public/css/general.css
+			include ../public/css/animate.css
 			include ../public/css/page.css
 			include ../public/css/header.css
 			include ../public/css/basket.css
@@ -17,6 +18,7 @@ html
 		script(type='text/javascript' src='public/js/custom.js')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Dosis')
 		link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css")
+		link(rel="shortcut icon" href="/public/images/logo-icon.jpeg")
 	body
 		div.cookiePermission
 			span We use cookies. By continuing to use our site you give us permission to use cookies on your browser.
@@ -26,7 +28,9 @@ html
 				span Your message has been sent to our team. We aim to reply within 5 working days.
 				i.fa.fa-times(aria-hidden="true")
 		div.top.row.show-for-medium
-			div.medium-offset-2.medium-2.columns
+			div.medium-2.columns
+				a.link(href="/") Home
+			div.medium-2.columns
 				a.link(href="/service") Printing
 			div.medium-4.smallLogo
 				a(href="/")
@@ -40,9 +44,9 @@ html
 		div.top.row.hide-for-medium
 			div.menu-bars.medium-2.columns
 				i.fa.fa-bars(aria-hidden="true")
-			div.medium-4.logo-menu
+			div.medium-4.logo-menu.logo-small
 				a(href="/")
-					img.logo-small(src="/public/images/logo-icon.jpeg")
+					img(src="/public/images/logo-icon.jpeg")
 			div.basketHeader.medium-2.columns
 				a(href="/basket")
 					i.fa.fa-shopping-cart(aria-hidden="true")

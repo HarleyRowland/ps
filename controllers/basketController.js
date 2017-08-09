@@ -6,7 +6,6 @@
 		var shirtCount = 0;
 		for ( cookie in req.cookies ) {
 			if(cookie.includes("shirt")){
-				console.log(cookie)
 				shirtCount++;
 				if(highestNumber < parseInt(cookie.split("shirt")[1])){
 					highestNumber = parseInt(cookie.split("shirt")[1])
@@ -19,9 +18,7 @@
 
 			}
 		}
-		console.log(highestNumber)
 		if(shirtObject && (add || shirtCount == 0)){
-			console.log("hi")
 			shirtCount++;
 			highestNumber++;
 	  		res.cookie("shirt"+highestNumber, shirtObject)

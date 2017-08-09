@@ -135,7 +135,7 @@ h1.title {
 
 	.pageInfo {
 		font-size: 20px !important;
-		/*padding: 20px;*/
+		padding: 20px;
 	}
 
 	.optionTitle {
@@ -156,10 +156,15 @@ h1.title {
 	.form {
 		padding: 10px;
 	}
+    
+    h2 {
+    	font-size: 30px !important;
+    }
 }
 
 @media only screen and (max-device-width: 1024px) {
-    .parallax {
+    .landingImage, .imageStrip {
         background-attachment: scroll;
     }
+
 }

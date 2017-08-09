@@ -17,7 +17,7 @@ module.exports = {
 				viewFields.data.clubs.push(nameConverter(club))
 			});
 		} else if(view == "strip.pug"){
-			viewFields.data.clubs = howManyStrips(req.query.club)
+			viewFields.data.clubs = howManyStrips(req.query.club, req.query.style)
 		} else if(view == "hero.pug"){
 			var nameNumberTuple = getPlayersAndNumbers(req.query.club)
 			viewFields.data.players = nameNumberTuple[0]
@@ -31,7 +31,7 @@ module.exports = {
 		}
 		var sleeveCost = 0;
 		if(viewFields.data.sleeve == "Yes"){
-			sleeveCost = 10;
+			sleeveCost = 7.5;
 		}
 		viewFields.data.fullCost = parseInt(viewFields.data.shirtCost) + sleeveCost;
 		viewFields.data.fullClubName = tidyClient.clubName(viewFields.data.club)
@@ -43,9 +43,9 @@ module.exports = {
 	}
 }
 
-var howManyStrips = function(club){
+var howManyStrips = function(club, style){
 	var stripCount = 0;
-	var imageList = fs.readdirSync("public/images/kits");
+	var imageList = fs.readdirSync("public/images/kits/" + style);
 	imageList.forEach(function(imageList){
 		if(imageList.includes(club)){
 			stripCount = stripCount + 1;

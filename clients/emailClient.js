@@ -1,16 +1,38 @@
 var config = require('../config.js');
 var nodemailer = require("nodemailer")
+var smtpTransport = require("nodemailer-smtp-transport")
 var databaseClient = require('./databaseClient.js')
 var fs = require("fs")
 
-var transporterDetails = {
-    service: config.email.service,
-    host: config.email.host,
+// var transporterDetails = {
+//     service: config.email.service,
+//     host: config.email.host,
+//     auth: {
+//         user: config.email.email,
+//         pass: config.email.password
+//     }
+// }
+
+// var transporterDetails = {
+//     host: "aventador.websitewelcome.com",
+//     port: 465,
+//     auth: {
+//         user: "sales@premiershirts.co.uk",
+//         pass: "Gregiscool!"
+//     }
+// }
+
+var transporterDetails = smtpTransport({
+    host: 'aventador.websitewelcome.com',
+    port: 465,
+    secure: true,
     auth: {
-        user: config.email.email,
-        pass: config.email.password
-    }
-}
+        user: "sales@premiershirts.co.uk",
+        pass: "Gregiscool!"
+    },
+    maxConnections: 5,
+    maxMessages: 10
+})
 
 module.exports = {
 	sendEmail: function(subject, toEmailAddress, name, cost, orderNumber){
@@ -18,16 +40,34 @@ module.exports = {
 		send(transporter, subject, toEmailAddress, name, cost, orderNumber)
 	},
 	queryEmail: function(name, number, email, comments){
-		var transporter = nodemailer.createTransport(transporterDetails);
-		console.log(config.email.service)
-		console.log(config.email.host)
-		console.log(config.email.email)
-		console.log(config.email.password)
+		// var transporter = nodemailer.createTransport(transporterDetails);
+		var transporter = nodemailer.createTransport(smtpTransport('SMTP',{
+		        host: 'aventador.websitewelcome.com',
+		        port: 465,
+		        auth: {
+			        user: "sales@premiershirts.co.uk",
+			        pass: "Gregiscool!"
+			    },          
+		        authMethod:'NTLM',
+		        secure:false
+		    })
+		);
+		console.log("gello")
 		var mailOptions = {
-			from: 'harleyrowland17@gmail.com',
+			from: 'sales@premiershirts.co.uk',
 			to: 'harleyrowland17@gmail.com',
 			subject: "New Query From " + email,
 			html: "<p>Query email from: " + name + " (" + email + "/" + number + ")</p><p> The said: " + comments + "</p>"
+		};
+		transporter.sendMail(mailOptions);
+	},
+	quoteEmail: function(name, email, league, club, strip, year, colour, letter, kitName, kitNumber, comments){
+		var transporter = nodemailer.createTransport(transporterDetails);
+		var mailOptions = {
+			from: 'harleyrowland17@gmail.com',
+			to: 'harleyrowland17@gmail.com',
+			subject: "New Quote Request From " + email,
+			html: "<p>Quote email from: " + name + " (" + email + ")</p><p> The Quote: " + comments + "</p><ul><li>League: " + league + "</li><li>Club: " + club + "</li><li>Strip: " + strip + "</li><li>Year: " + year + "</li><li>Colour: " + colour + "</li><li>Letter: " + letter + "</li><li>Kit Name: " + kitName + "</li><li>Kit Number: " + kitNumber + "</li><li>Extra Comments: " + comments + "</li></ul>"
 		};
 		transporter.sendMail(mailOptions);
 	}
