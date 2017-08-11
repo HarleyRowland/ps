@@ -7,9 +7,8 @@ div.hero.page
 				option(value='') Please Select
 				each player, index in data.players
 					option #{player} - #{data.numbers[index]}
-		div.basket.hiddenFirst
-				p Price: 
-					span.price
+		div.basket
+				p All hero prints are £20.
 		span.linkToCustom Can't find who you are looking for? 
 			a(href="/heroOrCustom?strip=" + data.strip + "&club=" + data.club + "&printingType=custom&deliveryType=" + data.deliveryType +"&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent  + "&childOrAdult=" + data.childOrAdult) Input them yourself.
 		div.hiddenFirst.content.heroButton

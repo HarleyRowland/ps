@@ -31,11 +31,7 @@ $(document).on('change','.playerOption',function(){
 		var playerNumberArray = player.split(" - ");
 		var name = playerNumberArray[0].trim();
 		var number = playerNumberArray[1].trim();
-		var shirtCost = name.length + number.length*5
-		if(shirtCost < 20) {
-			shirtCost = 20;
-		}
-		$(".price").text("£" + shirtCost + " (£20 minimum - 8 letters and 2 numbers, or 12 letters 1 number, with additional letters at £1 and numbers at £4)");
+		var shirtCost = 20;
 		$(".hero .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style +
