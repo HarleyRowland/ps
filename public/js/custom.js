@@ -211,8 +211,10 @@ $( document ).ready(function() {
 		var shirtNumber =  $('.shirtNumber').val();
 		var comments =  $('.comments').val();
 		var canSend = validateQuoteForm(name, email, league, club, strip, year, colour, letter, shirtName, shirtNumber);
+		console.log(name, email, league, club, strip, year, colour, letter, shirtName, shirtNumber);
+		console.log(canSend)
 		if(canSend){
-			$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&email=" + email + "&league=" + league + "&club=" + club + "&strip=" + strip + "&year=" + year + "&colour=" + colour + "&letter=" + letter + "&kitName=" + shirtName + "&kitNumber=" + shirtNumber + "&comments=" + comments)
+			$(".quoteEmail").attr("href", "/sendQuoteEmail?name=" + name + "&email=" + email + "&league=" + league + "&club=" + club + "&strip=" + strip + "&year=" + year + "&colour=" + colour + "&letter=" + letter + "&kitName=" + shirtName + "&kitNumber=" + shirtNumber + "&comments=" + comments)
 			$('.paymentForm *').removeAttr('disabled');
 		} else {
 			$(this).unbind('submit').submit()
@@ -226,11 +228,9 @@ $( document ).ready(function() {
 		var comments =  $('.comments').val();
 		var canSend = validateContactForm(name, number, email, comments);
 		if(canSend){
-			$(".paymentForm form").attr("action", "/sendQueryEmail?name=" + name + "&email=" + email + "&number=" + number + "&comments=" + comments)
-			$('.paymentForm *').removeAttr('disabled');
+			$(".contactEmail").attr("href", "/sendQueryEmail?name=" + name + "&email=" + email + "&number=" + number + "&comments=" + comments)
 		} else {
 			e.preventDefault()
-			 $('.paymentForm *').attr('disabled','disabled');
 		}
 	});
 
