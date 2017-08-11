@@ -35,7 +35,7 @@ var nameConverter = function(name){
 		return "tottenham"
 	} else if(name == "Watford"){
 		return "watford"
-	} else if(name == "West Bromich Albion"){
+	} else if(name == "West Brom"){
 		return "westbrom"
 	} else if(name == "West Ham"){
 		return "westham"

@@ -1,11 +1,11 @@
 var async = require('async')
-var config = require('../config.yaml')
+var config = require('../config.js');
 var emailClient = require('../clients/emailClient.js')
 var stripeClient = require('../clients/stripeClient.js')
 var databaseClient = require('../clients/databaseClient.js')
 
 module.exports = {
-	paymentBuilder: function(req, key, callback) {
+	paymentBuilder: function(req, callback) {
 		var shirtsArray = getCookies(req);
 		var shirtCost = calculateCost(shirtsArray);
 		var deliveryCost = delCost(req.query.deliveryOption);
@@ -17,7 +17,7 @@ module.exports = {
 				postOrDeliver = "deliver"	
 			}
 		})
-		var data = { data: {jsonArray: jsonArray, deliveryCost: deliveryCost, shirtCost: shirtCost, totalCost: totalCost, key: key, deliveryType: postOrDeliver, deliveryOption: req.query.deliveryOption}}
+		var data = { data: {jsonArray: jsonArray, deliveryCost: deliveryCost, shirtCost: shirtCost, totalCost: totalCost, key: config.database.publishableKey, deliveryType: postOrDeliver, deliveryOption: req.query.deliveryOption}}
 		
 		callback("payment.pug", data);
 	},
@@ -37,12 +37,13 @@ module.exports = {
 		    	orNo = orderNumber[0].ordernumber
 		    	name = orderNumber[0].name
 		    	cost = orderNumber[0].cost
-		        emailClient.sendEmail("payment", req.body.stripeEmail, name, cost, orNo)
+		        emailClient.sendEmail("Payment", req.body.stripeEmail, name, cost, orNo)
 		        callback(null, 'done')
 		    }
 		], function (err, result) {
 			var callback = function(err, charge){
 				if(err) {
+					console.log(err)
 					res.render("paymentFailure.pug")
 				} else {
 					for ( cookie in req.cookies ) {
@@ -54,11 +55,10 @@ module.exports = {
 					data.data.cost = req.query.cost;
 					data.data.orderNumber = orNo;
 					data.data.shirtArray = JSON.parse(data.data.shirtArray)
-					console.log(data);
 					res.render("paymentResult.pug", data )
 				}
 			}	
-			stripeClient.makePayment(parseInt(req.query.cost)*100, req.body.stripeEmail, req.body.stripeToken, callback)
+			stripeClient.makePayment(parseFloat(req.query.cost)*100, req.body.stripeEmail, req.body.stripeToken, callback)
 		});
 	}
 }
@@ -83,10 +83,10 @@ var calculateCost = function(shirtsArray) {
 				sleeveCost = 7.5;
 			}
 			shirtCost = shirt.name.replace(/ /g,"").length + (shirt.number.replace(/ /g,"").length*5)
-			if(shirtCost < 25) {
-				shirtCost = 25;
+			if(shirtCost < 20) {
+				shirtCost = 20;
 			}
-			cost = cost + parseInt(shirtCost) + sleeveCost;
+			cost = cost + parseFloat(shirtCost) + sleeveCost;
 		}
 	});
 	return cost;

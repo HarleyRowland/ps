@@ -16,6 +16,8 @@ module.exports = {
 			return "Everton"
 		} else if(club == "huddersfield"){
 			return "Huddersfield"
+		} else if(club == "hull"){
+			return "Hull City"
 		} else if(club == "leicesterCity"){
 			return "Leicester City"
 		} else if(club == "liverpool"){
@@ -24,12 +26,16 @@ module.exports = {
 			return "Manchester City"
 		} else if(club == "manu"){
 			return "Manchester United"
+		} else if(club == "middlesborough"){
+			return "Middlesborough"
 		} else if(club == "newcastle"){
 			return "Newcastle United"
 		} else if(club == "southampton"){
 			return "Southampton"
 		} else if(club == "stoke"){
 			return "Stoke City"
+		} else if(club == "sunderland"){
+			return "Sunderland"
 		} else if(club == "swansea"){
 			return "Swansea City"
 		} else if(club == "tottenham"){
@@ -37,7 +43,7 @@ module.exports = {
 		} else if(club == "watford"){
 			return "Watford"
 		} else if(club == "westbrom"){
-			return "West Bromich Albion"
+			return "West Brom"
 		} else if(club == "westham"){
 			return "West Ham"
 		} else {

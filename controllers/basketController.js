@@ -32,7 +32,7 @@
 			}
 			var cost = 0;
 			shirtsArray.forEach(function(shirt){
-				cost = cost + parseInt(shirt.fullCost)
+				cost = cost + parseFloat(shirt.fullCost)
 				shirt.fullClub = nameConverter(shirt.club)
 			})			
 		}
@@ -59,7 +59,7 @@
 		}
 		var cost = 0;
 		shirtsArray.forEach(function(shirt){
-			cost = cost + parseInt(shirt.shirtCost)
+			cost = cost + parseFloat(shirt.shirtCost)
 			shirt.fullClub = nameConverter(shirt.club)
 		})
 		var deliveryTypes = deliveryMethods(shirtCount)
@@ -123,7 +123,7 @@ var nameConverter = function(name){
 	} else if(name == "watford"){
 		return "Watford"
 	} else if(name == "westbrom"){
-		return "West Bromich Albion"
+		return "West Brom"
 	} else if(name == "westham"){
 		return "West Ham"
 	} 

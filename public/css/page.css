@@ -84,6 +84,20 @@
  	align-items: center;
 }
 
+.confirmBottom {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	margin-bottom: 0px;
+	padding: 30px;
+	background-color: #FFFFFF;
+}
+
+.confirmBottom div {
+	margin-top: 30px;
+	width: 100%;
+}
+
 .shirtImages, .index .choices{
 	margin-top: 50px;
 }
@@ -306,6 +320,13 @@
 	margin-top: 20px;
 }
 
+.stripe-button-el {
+	display: none !important;
+}
+
+.paymentForm form {
+	margin-bottom: 30px;
+}
 @media only screen and (max-width: 40em) { 
 	.topChoice > div {
 		margin-bottom: 0px;
@@ -322,6 +343,38 @@
 		margin-top: 0px;
 		border-radius: 0px 0px 10px 10px;
 	}
+	.confirmation .shirt {
+	 	margin-bottom: 300px;
+	}
 
+
+	.buttons {
+		width: inherit;
+		margin-bottom: 200px;
+	}
+
+	.buttons .action div {
+		width: 50%;
+		display: inline-block;
+		margin-top: 20px;
+	}
+}
+
+@media only screen and (min-width: 40em) and (max-width: 64em) { 
+	.choices {
+		margin-bottom: 150px;
+	}
+
+
+	.buttons {
+		width: 100%;
+		margin-bottom: 200px;
+	}
+
+	.buttons .action div {
+		width: 50%;
+		display: inline-block;
+		margin-top: 20px;
+	}
 
 }

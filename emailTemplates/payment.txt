@@ -1,5 +1,0 @@
-<p>Hello,</p>
-
-<p>Thank you for your order. Your payment of £{{finalPrice}} has been recieved. We will notify you when we have recieved your shirt.</p>
-
-<p>We will print {{playerName}} as the name and {{playerNumber}} as the number on the back of your shirt.</p>

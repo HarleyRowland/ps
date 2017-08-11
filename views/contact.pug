@@ -6,18 +6,18 @@ div.strip.page
 		div.form
 			div.field#name
 				span.formLabel Name: 
-				input
+				input.name
 			div.field#email
 				span.formLabel Email: 
-				input
+				input.email
 			div.field#number  
 				span.formLabel Number: 
-				input
+				input.number
 			div.field#comments  
 				span.formLabel Extra Comments: 
-				textarea
+				textarea.comments
 			div.action.send
-				a.btn(href="/sendQueryEmail")
+				a.btn.contactEmail(href="/sendQueryEmail")
 					span Send Message
 
 include footer.pug

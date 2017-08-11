@@ -43,14 +43,25 @@ div.confirmation.page
 								h5 Size: #{data.childOrAdult} 
 				div
 					h3 Total Cost For Shirt: £#{data.fullCost}
-	div.bottom
+	div.bottom.show-for-medium
 		div.row
-			div.action.small-12.medium-2.columns
+			div.action.small-12.columns
 				a.btn(href="/")
 					span Home
-			div.action.small-12.medium-2.columns
+			div.action.small-12.columns
 				a.btn(href="/service")
 					span Start Again
-			div.action.small-12.medium-2.columns
+			div.action.small-12.columns
+				a.addToBasket.btn(href="/basket?shirtObject=" + data.shirtObject)
+					span Confirm
+	div.confirmBottom.hide-for-medium
+		div.row
+			div.action.small-12.columns
+				a.btn(href="/")
+					span Home
+			div.action.small-12.columns
+				a.btn(href="/service")
+					span Start Again
+			div.action.small-12.columns
 				a.addToBasket.btn(href="/basket?shirtObject=" + data.shirtObject)
 					span Confirm

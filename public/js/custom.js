@@ -177,7 +177,8 @@ $( document ).ready(function() {
     	var shirtObject = JSON.stringify(buildShirtObject(local_data))
 		$("a.confirmShirt").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
 	}
-	$(".stripe-button-el").on("click", function(){
+	$(".paymentButton").on("click", function(e){
+		e.preventDefault()
 		var name =  $('.name').val();
 		var telephone =  $('.telephone').val();
 		var line1 =  $('.line1').val();
@@ -188,17 +189,16 @@ $( document ).ready(function() {
 		var country =  $('.country').val();
 		var date =  $('.date').val();
 		var canSend = validatePaymentForm(name, telephone, line1, town, county, postcode, county);
+
 		if(canSend){
 			$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&telephone=" + telephone + "&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&country=" + country + "&cost=" + local_data.totalCost + "&shirtArray=" + local_data.jsonArray + "&date=" + date + "&deliveryOption=" + local_data.deliveryOption)
-			$('.stripe-button-el').removeAttr('disabled');
+			$(".stripe-button-el").click();
 		} else {
-			 $('.stripe-button-el').attr('disabled','disabled');
+			e.preventDefault();
 		}
 	});
 
 	$(".quoteEmail").on("click", function(e){
-				e.preventDefault()
-
 		var name =  $('.name').val();
 		var email =  $('.email').val();
 		var league =  $('.league').val();
@@ -206,27 +206,27 @@ $( document ).ready(function() {
 		var strip =  $('.strip').val();
 		var year =  $('.year').val();
 		var colour =  $('.colour').val();
-		var letter =  $('.letter').val();
+		var letter =  $('.letterSelect').val();
 		var shirtName =  $('.shirtName').val();
 		var shirtNumber =  $('.shirtNumber').val();
 		var comments =  $('.comments').val();
-		var canSend = validatePaymentForm(name, telephone, line1, town, county, postcode, county);
+		var canSend = validateQuoteForm(name, email, league, club, strip, year, colour, letter, shirtName, shirtNumber);
 		if(canSend){
 			$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&email=" + email + "&league=" + league + "&club=" + club + "&strip=" + strip + "&year=" + year + "&colour=" + colour + "&letter=" + letter + "&kitName=" + shirtName + "&kitNumber=" + shirtNumber + "&comments=" + comments)
 			$('.paymentForm *').removeAttr('disabled');
 		} else {
-			$('.paymentForm *').attr('disabled','disabled');
+			$(this).unbind('submit').submit()
 		}
 	});
 
-	$(".quoteEmail").on("click", function(e){
+	$(".contactEmail").on("click", function(e){
 		var name =  $('.name').val();
 		var email =  $('.email').val();
 		var number =  $('.number').val();
 		var comments =  $('.comments').val();
-		var canSend = validateContactForm(name, telephone, line1, town, county, postcode, county);
+		var canSend = validateContactForm(name, number, email, comments);
 		if(canSend){
-			$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&email=" + email + "&league=" + league + "&club=" + club + "&strip=" + strip + "&year=" + year + "&colour=" + colour + "&letter=" + letter + "&kitName=" + shirtName + "&kitNumber=" + shirtNumber + "&comments=" + comments)
+			$(".paymentForm form").attr("action", "/sendQueryEmail?name=" + name + "&email=" + email + "&number=" + number + "&comments=" + comments)
 			$('.paymentForm *').removeAttr('disabled');
 		} else {
 			e.preventDefault()
@@ -361,10 +361,10 @@ var buildShirtObject = function(data){
 	  }
 }
 
-var validateQueryForm = function(name, phone, email, comments){
+var validateContactForm = function(name, phone, email, comments){
   var canSend = true;
 
-  if(name == ""){
+  if(name+"" == ""){
     $('.field .name').addClass('animated shake');
     canSend = false;
     $('.field .name').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
@@ -373,25 +373,103 @@ var validateQueryForm = function(name, phone, email, comments){
 
   }
   if(phone+"".length < 11 ){
-    $('.field .telephone').addClass('animated shake');
+    $('.field .number').addClass('animated shake');
     canSend = false;
-    $('.field .telephone').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .telephone').removeClass('shake');
+    $('.field .number').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .number').removeClass('shake');
     });
   }
-  if(validateEmail(email)){
-    $('.field .line1line1').addClass('animated shake');
+  if(email+"" == "" || !validateEmail(email)){
+    $('.field .email').addClass('animated shake');
     canSend = false;
-    $('.field .line1').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .line1').removeClass('shake');
+    $('.field .email').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .email').removeClass('shake');
     });
 
   }
-  if(comments == ""){
-    $('.field .town').addClass('animated shake');
+  if(comments+"" == ""){
+    $('.field .comments').addClass('animated shake');
     canSend = false;
-    $('.field .town').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .town').removeClass('shake');
+    $('.field .comments').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .comments').removeClass('shake');
+    });
+  }
+  return canSend;
+}
+
+var validateQuoteForm = function(name, email, league, club, strip, year, colour, letter, shirtName, shirtNumber){
+  var canSend = true;
+
+  if(name+"" == ""){
+    $('.field .name').addClass('animated shake');
+    canSend = false;
+    $('.field .name').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .name').removeClass('shake');
+    });
+
+  }
+  if(email+"" == "" || !validateEmail(email)){
+    $('.field .email').addClass('animated shake');
+    canSend = false;
+    $('.field .email').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .email').removeClass('shake');
+    });
+
+  }
+  if(league+"" == ""){
+    $('.field .league').addClass('animated shake');
+    canSend = false;
+    $('.field .league').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .league').removeClass('shake');
+    });
+  }
+  if(club+"" == ""){
+    $('.field .club').addClass('animated shake');
+    canSend = false;
+    $('.field .club').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .club').removeClass('shake');
+    });
+  }
+  if(strip+"" == ""){
+    $('.field .strip').addClass('animated shake');
+    canSend = false;
+    $('.field .strip').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .strip').removeClass('shake');
+    });
+  }
+  if(year+"" == ""){
+    $('.field .year').addClass('animated shake');
+    canSend = false;
+    $('.field .year').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .year').removeClass('shake');
+    });
+  }
+  if(colour+"" == ""){
+    $('.field .colour').addClass('animated shake');
+    canSend = false;
+    $('.field .colour').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .colour').removeClass('shake');
+    });
+  }
+  if(letter+"" == "Please Select"){
+    $('.field .letterSelect').addClass('animated shake');
+    canSend = false;
+    $('.field .letterSelect').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .letterSelect').removeClass('shake');
+    });
+  }
+  if(shirtName+"" == ""){
+    $('.field .shirtName').addClass('animated shake');
+    canSend = false;
+    $('.field .shirtName').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .shirtName').removeClass('shake');
+    });
+  }
+  if(shirtNumber+"" == ""){
+    $('.field .shirtNumber').addClass('animated shake');
+    canSend = false;
+    $('.field .shirtNumber').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $('.field .shirtNumber').removeClass('shake');
     });
   }
   return canSend;
@@ -416,7 +494,7 @@ var validatePaymentForm = function(name, phone, line1, town, county, postcode, c
     });
   }
   if(line1 == ""){
-    $('.field .line1line1').addClass('animated shake');
+    $('.field .line1').addClass('animated shake');
     canSend = false;
     $('.field .line1').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
       $('.field .line1').removeClass('shake');

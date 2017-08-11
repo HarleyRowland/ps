@@ -2,6 +2,10 @@ body *:not(.fa) {
 	font-family: 'Dosis', sans-serif !important;
 }
 
+.pageInfo {
+	padding: 20px;
+}
+
 .landingImage {
 	margin-top: 18px;
 	height: 70vh;
@@ -135,7 +139,6 @@ h1.title {
 
 	.pageInfo {
 		font-size: 20px !important;
-		padding: 20px;
 	}
 
 	.optionTitle {
@@ -160,9 +163,7 @@ h1.title {
     h2 {
     	font-size: 30px !important;
     }
-}
-
-@media only screen and (max-device-width: 1024px) {
+    
     .landingImage, .imageStrip {
         background-attachment: scroll;
     }

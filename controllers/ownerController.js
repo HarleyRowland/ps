@@ -19,6 +19,7 @@ module.exports = {
 		        databaseClient.updateOrder(req.query.orderNumber, req.query.shirtid, req.query.description, callback);
 		    },
 		    function(order, callback) {
+		    	callback(null, null)
 		        emailClient.sendEmail(req.query.description, email, name, null, req.query.orderNumber)
 		    }
 		], function (err, result) {

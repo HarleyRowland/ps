@@ -42,7 +42,7 @@ app.get("/payment", (req, res) => {
     res.render(template, data);
   }
 
-  paymentController.paymentBuilder(req, keyPublishable, callback);
+  paymentController.paymentBuilder(req, callback);
 })
 
 app.post("/paymentResult", (req, res) => {

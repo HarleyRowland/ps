@@ -33,12 +33,11 @@ module.exports = {
 		if(viewFields.data.sleeve == "Yes"){
 			sleeveCost = 7.5;
 		}
-		viewFields.data.fullCost = parseInt(viewFields.data.shirtCost) + sleeveCost;
+		viewFields.data.fullCost = parseFloat(viewFields.data.shirtCost) + sleeveCost;
 		viewFields.data.fullClubName = tidyClient.clubName(viewFields.data.club)
 		viewFields.data.fullStrip = tidyClient.strip(viewFields.data.strip)
 		viewFields.data.fullStyle = tidyClient.style(viewFields.data.style)
 		viewFields.data.shirtObject = JSON.stringify(viewFields.data)
-		console.log(viewFields.data.shirtObject)
 		callback(viewFields)
 	}
 }
@@ -123,7 +122,7 @@ var nameConverter = function(club) {
 		return "tottenham"
 	} else if(club == "Watford"){
 		return "watford"
-	} else if(club == "West Bromich Albion"){
+	} else if(club == "West Brom"){
 		return "westbrom"
 	} else if(club == "West Ham"){
 		return "westham"
