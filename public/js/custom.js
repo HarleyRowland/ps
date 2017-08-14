@@ -121,7 +121,7 @@ $( document ).ready(function() {
 			shirtCount++;
 		}
 	});
-	
+
 	$(".shirtName").keyup(function(){
 	  	var charsLeft = 20 - $(".shirtName").val().length
 	  	if(charsLeft == 0){
@@ -482,7 +482,7 @@ var validatePaymentForm = function(name, phone, line1, town, county, postcode, c
     });
 
   }
-  if(phone+"".length < 11 ){
+  if(phone.length > 11 || phone.length < 9){
     $('.field .telephone').addClass('animated shake');
     canSend = false;
     $('.field .telephone').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
@@ -512,7 +512,7 @@ var validatePaymentForm = function(name, phone, line1, town, county, postcode, c
       $('.field .county').removeClass('shake');
     });
   }
-  if(postcode == ""){
+  if(postcode+"" == "" || !validatePostcode(postcode)){
     $('.field .postcode').addClass('animated shake');
     canSend = false;
     $('.field .postcode').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
@@ -534,3 +534,8 @@ var validateEmail = function(email) {
   return re.test(email);
 }
 
+
+var validatePostcode = function(postcode) {
+	var re = /^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$/;
+	return re.test(postcode);
+}

@@ -10,7 +10,7 @@ CREATE TABLE orders(
    telephone VARCHAR(400) NOT NULL,
    deliverydate VARCHAR(400),
    deliveryOption VARCHAR(400),
-   cost INT NOT NULL
+   cost DECIMAL NOT NULL
 );
 
 CREATE TABLE statuses(
@@ -37,20 +37,19 @@ CREATE TABLE shirts(
 );
 
 INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
-   VALUES ('James Adams', '123 test lane, test street, test', '07777777777', 'harleyrowland17@gmail.com', '1991-12-01', '1st', 25);
+   VALUES ('James Adams', '123 test lane, test street, test', '07777777777', 'harleyrowland17@gmail.com', '1991-12-01', '1st', 25.01);
 
 INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
-   VALUES ('Harley Rowland', '82 test road, test street, test', '07777777777', 'test1@gmail.com', '1991-12-01', '2nd', 32);
+   VALUES ('Harley Rowland', '82 test road, test street, test', '07777777777', 'test1@gmail.com', '1991-12-01', '2nd', 32.99);
 
 INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
-   VALUES ('Sam Jones', '82 test road, test street, test', '07777777777', 'test1@gmail.com', '1991-12-01', '1st', 29);
+   VALUES ('Sam Jones', '82 test road, test street, test', '07777777777', 'test1@gmail.com', '1991-12-01', '1st', 29.12);
 
 INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
-   VALUES ('Tom Smith', '26 test street, test street, test', '07777777777', 'test2@gmail.com', '1991-12-01', '1st', 27);
+   VALUES ('Tom Smith', '26 test street, test street, test', '07777777777', 'test2@gmail.com', '1991-12-01', '1st', 27.12);
 
 INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
-   VALUES ('Ryan Johannson', '6 test avenue, test street, test', '07777777777', 'test3@gmail.com', '1991-12-01', '2nd', 25);
-
+   VALUES ('Ryan Johannson', '6 test avenue, test street, test', '07777777777', 'test3@gmail.com', '1991-12-01', '2nd', 25.12);
 
 INSERT INTO statuses(orderNumber, dateChanged, description)
    VALUES (1, now(), 'Waiting for shirt');
