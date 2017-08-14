@@ -327,6 +327,11 @@
 .paymentForm form {
 	margin-bottom: 30px;
 }
+
+.note {
+	cursor: pointer;
+}
+
 @media only screen and (max-width: 40em) { 
 	.topChoice > div {
 		margin-bottom: 0px;

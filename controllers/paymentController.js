@@ -8,8 +8,13 @@ module.exports = {
 	paymentBuilder: function(req, callback) {
 		var shirtsArray = getCookies(req);
 		var shirtCost = calculateCost(shirtsArray);
+		var displayShirtCost = buildDisplayCost(shirtCost+"")
 		var deliveryCost = delCost(req.query.deliveryOption);
+		console.log(deliveryCost)
+		var displayDeliveryCost = buildDisplayCost(deliveryCost+"")
 		var totalCost = shirtCost + deliveryCost;
+		console.log(totalCost)
+		var displayTotalCost = buildDisplayCost(totalCost+"")
 		var jsonArray = JSON.stringify(shirtsArray);
 		var postOrDeliver = ""
 		shirtsArray.forEach(function(shirt){
@@ -17,8 +22,8 @@ module.exports = {
 				postOrDeliver = "deliver"	
 			}
 		})
-		var data = { data: {jsonArray: jsonArray, deliveryCost: deliveryCost, shirtCost: shirtCost, totalCost: totalCost, key: config.database.publishableKey, deliveryType: postOrDeliver, deliveryOption: req.query.deliveryOption}}
-		
+		var data = { data: {jsonArray: jsonArray, deliveryCost: deliveryCost, shirtCost: shirtCost, totalCost: totalCost, key: config.database.publishableKey, deliveryType: postOrDeliver, deliveryOption: req.query.deliveryOption, displayTotalCost: displayTotalCost, displayDeliveryCost: displayDeliveryCost, displayShirtCost: displayShirtCost}}
+		console.log(data)
 		callback("payment.pug", data);
 	},
 
@@ -90,6 +95,19 @@ var calculateCost = function(shirtsArray) {
 		}
 	});
 	return cost;
+}
+
+var buildDisplayCost = function(cost){
+	if(cost.includes(".")){
+		var splitCost = cost.split(".")[1];
+		if(splitCost.length < 2){
+			return cost + "0";
+		} else {
+			return cost;
+		}
+	} else {
+		return cost;
+	}
 }
 
 var deliveryMethods = function(shirtCount){

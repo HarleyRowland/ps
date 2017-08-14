@@ -1,1 +1,1 @@
-web: PUBLISHABLE_KEY=pk_test_E8qZGtY4G1RGeMAynC4Qhotl SECRET_KEY=sk_test_1kcw8fMEQTLfw0JIGi0aeW1r node app.js
+web: node app.js

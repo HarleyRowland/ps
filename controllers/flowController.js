@@ -34,6 +34,7 @@ module.exports = {
 			sleeveCost = 7.5;
 		}
 		viewFields.data.fullCost = parseFloat(viewFields.data.shirtCost) + sleeveCost;
+		viewFields.data.displayCost = buildDisplayCost(viewFields.data.fullCost+"")
 		viewFields.data.fullClubName = tidyClient.clubName(viewFields.data.club)
 		viewFields.data.fullStrip = tidyClient.strip(viewFields.data.strip)
 		viewFields.data.fullStyle = tidyClient.style(viewFields.data.style)
@@ -77,6 +78,19 @@ var getPlayersAndNumbers = function(club){
 	var numbers = playersAndNumbers[1].split(",")
 
 	return [players, numbers]
+}
+
+var buildDisplayCost = function(cost){
+	if(cost.includes(".")){
+		var splitCost = cost.split(".")[1];
+		if(splitCost.length < 2){
+			return cost + "0";
+		} else {
+			return cost;
+		}
+	} else {
+		return cost;
+	}
 }
 
 var nameConverter = function(club) {

@@ -12,7 +12,6 @@
 				}
 
 				if(!shirtObject || shirtObject.timestamp.toString() === req.cookies[cookie].timestamp.toString()){
-					console.log("hello")
 					add = false;
 				}
 
@@ -32,6 +31,7 @@
 			}
 			var cost = 0;
 			shirtsArray.forEach(function(shirt){
+				shirt.displayCost = buildDisplayCost(shirt.fullCost+"")
 				cost = cost + parseFloat(shirt.fullCost)
 				shirt.fullClub = nameConverter(shirt.club)
 			})			
@@ -84,6 +84,18 @@ var deliveryMethods = function(shirtCount){
 	return deliveryTypes;
 }
 
+var buildDisplayCost = function(cost){
+	if(cost.includes(".")){
+		var splitCost = cost.split(".")[1];
+		if(splitCost.length < 2){
+			return cost + "0";
+		} else {
+			return cost;
+		}
+	} else {
+		return cost;
+	}
+}
 
 var nameConverter = function(name){
 	if(name == "arsenal"){

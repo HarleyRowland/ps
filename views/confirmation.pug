@@ -42,7 +42,8 @@ div.confirmation.page
 							div 
 								h5 Size: #{data.childOrAdult} 
 				div
-					h3 Total Cost For Shirt: £#{data.fullCost}
+					h3 Total Cost For Shirt: £
+						span #{data.displayCost}
 	div.bottom.show-for-medium
 		div.row
 			div.action.small-12.columns

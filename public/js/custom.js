@@ -121,7 +121,7 @@ $( document ).ready(function() {
 			shirtCount++;
 		}
 	});
-
+	
 	$(".shirtName").keyup(function(){
 	  	var charsLeft = 20 - $(".shirtName").val().length
 	  	if(charsLeft == 0){

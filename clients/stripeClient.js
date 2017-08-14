@@ -1,4 +1,5 @@
-var keySecret = process.env.SECRET_KEY;
+var config = require('../config.js');
+var keySecret = config.database.secretKey;
 var stripe = require("stripe")(keySecret);
 
 module.exports = {

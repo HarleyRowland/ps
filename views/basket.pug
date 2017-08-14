@@ -48,7 +48,8 @@ div.page.basket
 											div 
 												h5 Size: #{shirt.childOrAdult} 
 								div
-									h4 Total Cost For Shirt: £#{shirt.fullCost}
+									h4 Total Cost For Shirt: £
+										span #{shirt.displayCost}
 								div.removeBasket
 									a(href="/deleteShirtFromBasket?timestamp=" + shirt.timestamp) Remove From Basket
 			else 
