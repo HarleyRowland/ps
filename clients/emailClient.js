@@ -53,7 +53,7 @@ var send = function(transporter, subject, toEmailAddress, name, cost, orderNumbe
 			from: config.email.email,
 			to: toEmailAddress,
 			subject: subject + " - Order Number: " + orderNumber,
-			html: "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of the order number " + orderNumber + ".</p><p>The total cost for your order is £" + cost + ".</p><p>Please send or bring your shirt to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD, Test. We will notify you when we have recieved your shirt.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
+			html: "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>Please send or bring your shirt to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD, Test. We will notify you when we have recieved your shirt.</p><p>If you have requested letters to be sent to you, we will notify you when they are on their way.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
 		};
 		transporter.sendMail(mailOptions, function(error, response){
 				console.log("after")
@@ -67,7 +67,7 @@ var send = function(transporter, subject, toEmailAddress, name, cost, orderNumbe
 			from: config.email.email,
 			to: toEmailAddress,
 			subject: subject + " - Order Number: " + orderNumber,
-			html: "<p>Hello " + name + ",</p><p>We have recieved your order.</p><p>We will notify you as soon as your order is being sent back to you.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
+			html: "<p>Hello " + name + ",</p><p>We have recieved your order.</p><p>We will notify you as soon as it is on its way back to you.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
 		};
 		transporter.sendMail(mailOptions);
 	} else if( subject == "Shirt Sent Back") {
@@ -75,7 +75,7 @@ var send = function(transporter, subject, toEmailAddress, name, cost, orderNumbe
 			from: config.email.email,
 			to: toEmailAddress,
 			subject: subject + " - Order Number: " + orderNumber,
-			html: "<p>Hello " + name + ",</p><p>Your order is on its way to you.</p><p>We hope you are happy with your customised shirt(s)!</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
+			html: "<p>Hello " + name + ",</p><p>Your order is on its way to you.</p><p>We Hope you are happy with everything!</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
 		};
 		transporter.sendMail(mailOptions, function(error, response){
 	        if(error){

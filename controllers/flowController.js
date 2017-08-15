@@ -19,7 +19,7 @@ module.exports = {
 		} else if(view == "strip.pug"){
 			viewFields.data.clubs = howManyStrips(req.query.club, req.query.style)
 		} else if(view == "hero.pug"){
-			var nameNumberTuple = getPlayersAndNumbers(req.query.club)
+			var nameNumberTuple = getPlayersAndNumbers(req.query.club, req.query.style)
 			viewFields.data.players = nameNumberTuple[0]
 			viewFields.data.numbers = nameNumberTuple[1]
 		}
@@ -71,8 +71,8 @@ var buildClubsArray = function(style) {
 	return [names,locations,stadium,capacity];
 }
 
-var getPlayersAndNumbers = function(club){
-	var club = fs.readFileSync('./public/teams/' + club + '.txt', 'utf8');
+var getPlayersAndNumbers = function(club, style){
+	var club = fs.readFileSync('./public/teams/' + style + "/" + club + '.txt', 'utf8');
 	var playersAndNumbers = club.split("\n");
 	var players = playersAndNumbers[0].split(",")
 	var numbers = playersAndNumbers[1].split(",")

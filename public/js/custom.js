@@ -45,6 +45,11 @@ $(document).on('change','.playerOption',function(){
 	}
 });
 
+$(document).on('change','.serviceOption',function(){
+	var service = $('.serviceOption').find(":selected").val();
+	console.log(service)
+});
+
 $(document).on('change','.proOption',function(){
 	var player = $('.proOption').find(":selected").text();
 	if(player == "Please Select"){
@@ -146,6 +151,10 @@ $( document ).ready(function() {
 
 	$(".emailSent .fa-times").on("click", function(){
 		$(".emailSent").hide();	
+	});
+
+	$(".payment").on("click", function(e){
+		e.preventDefault()
 	});
 
 	$(".top .fa-bars").on("click", function(){

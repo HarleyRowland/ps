@@ -98,19 +98,20 @@ h1.title {
 
 @media only screen and (min-width: 39em) and (max-width: 64em) { 
 	.optionTitle {
-		height: 120px;
+		height: 80px;
+		font-size: 25px;
 	}
 
 	.optionText {
-		height: 100px;
+		height: 90px;
 	}
 
 	.optionSubtitle {
-		height: 130px;
+		height: 100px;
 	}
 
 	.childOrAdult .optionSubtitle {
-		height: 170px;
+		height: 120px;
 	}
 
 

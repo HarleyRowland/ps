@@ -14,7 +14,7 @@
 	padding: 30px;
 	margin: 2px;
 	border: 2px solid #818181;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 .nameNumberLeft {
@@ -51,7 +51,7 @@
 
 .top a img {
 	padding: 15px;
-	border-radius: 10px;
+	border-radius: 5px;
 	width: 300px;
 }
 
@@ -114,7 +114,7 @@
  	font-size: 20px;
  	padding: 5px;
  	border: solid 3px #323B7E;
- 	border-radius: 10px;
+ 	border-radius: 5px;
  	transition: 1s;
 	width: 150px !important;
  }
@@ -258,8 +258,8 @@
 }
 
 .sleeveImage img {
-	height: 300px;
-	margin: 30px;
+	height: 170px;
+	margin: 10px;
 }
 
 .buttons {
@@ -267,7 +267,16 @@
 	margin-bottom: 200px;
 }
 
+.buttons .yes {
+	text-align: right;
+}
+
+.buttons .no {
+	text-align: left;
+}
+
 .buttons .action div {
+	text-align: center;
 	display: inline-block;
 	width: 100px !important;
 }
@@ -332,21 +341,40 @@
 	cursor: pointer;
 }
 
+.serviceModal {
+	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+	position: fixed;
+	height: 500px;
+	width: 100%;
+	left: 0;
+	top: 10%;
+}
+
+.serviceModal .content {
+	text-align: center;
+	padding: 100px;
+	width: 60%;
+	background-color: white;
+	border: 2px solid black;
+}
+
 @media only screen and (max-width: 40em) { 
 	.topChoice > div {
-		margin-bottom: 0px;
-		border-radius: 10px 10px 0px 0px;
+		margin-bottom: -2px;
+		border-radius: 5px 5px 0px 0px;
 	}
 
 	.middleChoice > div {
 		margin-top: 0px;
-		margin-bottom: 0px;
+		margin-bottom: -2px;
 		border-radius: 0px 0px 0px 0px;
 	}	
 
 	.bottomChoice > div {
 		margin-top: 0px;
-		border-radius: 0px 0px 10px 10px;
+		border-radius: 0px 0px 5px 5px;
 	}
 	.confirmation .shirt {
 	 	margin-bottom: 300px;
@@ -362,6 +390,10 @@
 		width: 50%;
 		display: inline-block;
 		margin-top: 20px;
+	}
+
+	.buttons .yes, .buttons .no {
+		text-align: center !important;
 	}
 }
 

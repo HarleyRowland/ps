@@ -70,6 +70,17 @@ div.page.basket
 					div.payment
 						a(href="/payment") Make Payment		
 					div.delete
-						a(href="/deleteShirtFromBasket?timestamp=all") Empty Your Basket		
+						a(href="/deleteShirtFromBasket?timestamp=all") Empty Your Basket
+//- div.serviceModal
+//- 	div.content
+//- 		h4 You have choosen different services for each shirt. Do you want the same for all shirts?
+//- 		select.serviceSelect
+//- 			option(value="pleaseselect") Please Select
+//- 			option(value="pleaseselect") Keep services different for each shirt
+//- 			option(value="sending") You are sending all shirts in the post
+//- 			option(value="bringing") You are bringing all shirts to the office
+//- 			option(value="pleaseselect") You want just the letters for each shirt sent to
+//- 		div.payment.hiddenFirst
+//- 			a(href="/payment") Make Payment	
 
 include footer.pug
