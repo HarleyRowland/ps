@@ -13,6 +13,12 @@
  	margin-bottom: 15px;
 }
 
+.colourShirtImage img {
+	margin-top: 100px;
+	padding-left: 100px;
+	height: 150px !important;
+}
+
 .kitImage img {
 	height: 300px;
 }
@@ -52,6 +58,12 @@
 	padding: 10px;
 	border-radius: 5px;
 	transition: 1s;
+}
+
+.paymentModal {
+	display: block !important;
+	visibility: hidden;
+	margin-top: 30px;
 }
 
 .payment a:hover {

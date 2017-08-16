@@ -48,6 +48,13 @@ $(document).on('change','.playerOption',function(){
 $(document).on('change','.serviceOption',function(){
 	var service = $('.serviceOption').find(":selected").val();
 	console.log(service)
+	if(service == "pleaseselect"){
+		$(".hiddenFirst").css("visibility", "hidden");
+	} else {
+		$(".hiddenFirst").css("visibility", "visible");
+		var deliveryOption = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+		$(".paymentModal a").attr("href", "/payment?deliveryOption=" + deliveryOption + "&serviceChoice=" + service)
+	}
 });
 
 $(document).on('change','.proOption',function(){
@@ -153,10 +160,6 @@ $( document ).ready(function() {
 		$(".emailSent").hide();	
 	});
 
-	$(".payment").on("click", function(e){
-		e.preventDefault()
-	});
-
 	$(".top .fa-bars").on("click", function(){
 		$(".menuDisplay").show();	
 	});
@@ -183,7 +186,6 @@ $( document ).ready(function() {
 		$("a.confirmShirt").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
 	}
 	$(".paymentButton").on("click", function(e){
-		e.preventDefault()
 		var name =  $('.name').val();
 		var telephone =  $('.telephone').val();
 		var line1 =  $('.line1').val();
@@ -200,6 +202,13 @@ $( document ).ready(function() {
 			$(".stripe-button-el").click();
 		} else {
 			e.preventDefault();
+		}
+	});
+
+	$(".notModal").on("click", function(e){
+		if(local_data.differentMethods){
+			e.preventDefault()
+			$(".serviceModal").css("visibility", "visible");
 		}
 	});
 
@@ -328,7 +337,7 @@ var buildShirtObject = function(data){
 				fullCost: data.fullCost,
 				timestamp: new Date()
 			}
-	    } else if(data.printingType == "custom" && data.club && data.strip && data.name && data.number) {
+	    } else if(data.printingType == "custom" && data.club && data.strip && data.name && data.number && !data.colour) {
 	      	return {
 				printingType: data.printingType,
 				deliveryType: data.deliveryType,

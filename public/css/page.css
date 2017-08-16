@@ -17,6 +17,19 @@
 	border-radius: 5px;
 }
 
+.addShirt {
+	text-decoration: underline !important;
+	transition: 1s;
+}
+
+.addShirt:hover {
+	text-decoration: underline !important;
+}
+
+.colourShirtImage {
+	width: 300px !important;
+}
+
 .nameNumberLeft {
 	display: block;
 	font-size: small;
@@ -107,7 +120,15 @@
 }
 
 .getYours {
-	margin-top: 50px;
+	margin: 50px;
+}
+
+.getYours a {
+	background-color: green;
+	color: #ffffff;
+	padding: 10px;
+	border-radius: 5px;
+	transition: 1s;
 }
 
 .action span, .action div {
@@ -350,6 +371,7 @@
 	width: 100%;
 	left: 0;
 	top: 10%;
+	visibility: hidden;
 }
 
 .serviceModal .content {

@@ -23,6 +23,8 @@
 	  		res.cookie("shirt"+highestNumber, shirtObject)
 	  		shirtsArray.push(shirtObject)
 		}
+		var differentMethods = false;
+		var deliveryMethodsArray = []
 		if(shirtCount > 0) {
 			for ( cookie in req.cookies ) {
 				if(cookie.includes("shirt")){
@@ -31,15 +33,21 @@
 			}
 			var cost = 0;
 			shirtsArray.forEach(function(shirt){
+				deliveryMethodsArray.push(shirt.deliveryType)
 				shirt.displayCost = buildDisplayCost(shirt.fullCost+"")
 				cost = cost + parseFloat(shirt.fullCost)
 				shirt.fullClub = nameConverter(shirt.club)
 			})			
 		}
 
-		var deliveryTypes = deliveryMethods(shirtCount)
+		if(new Set(deliveryMethodsArray).length == 1){
+			differentMethods = true;
+		}
 
-		var data = { data: { shirtsArray: shirtsArray, cost: cost, deliveryTypes: deliveryTypes } }
+		console.log(differentMethods)
+		var deliveryTypes = deliveryMethods(shirtCount)	
+
+		var data = { data: { shirtsArray: shirtsArray, cost: cost, deliveryTypes: deliveryTypes, differentMethods: differentMethods} }
 
 		callback("basket.pug", data)
 	},

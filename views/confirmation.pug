@@ -4,7 +4,7 @@ div.confirmation.page
 	div.shirt
 		div.row
 			if data.colour
-				div.kitImage.small-12.medium-6.large-4.columns
+				div.kitImage.small-12.medium-6.large-4.columns.colourShirtImage
 					img(src="/public/images/kits/" + data.colour + ".gif")
 			else
 				div.kitImage.small-12.medium-6.large-4.columns
@@ -29,7 +29,7 @@ div.confirmation.page
 					div.small-12.medium-6.columns
 						if data.colour
 							div 
-								h5 Shirt Colour: #{data.colour} 
+								h5 Letter Colour: #{data.colour} 
 							div 
 								h5 Letter Style: #{data.letter} 
 							div 

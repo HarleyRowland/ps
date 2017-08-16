@@ -35,7 +35,7 @@ div.page.basket
 									div.small-12.large-6.columns
 										if shirt.colour
 											div 
-												h5 Shirt Colour: #{shirt.colour} 
+												h5 Letter Colour: #{shirt.colour} 
 											div 
 												h5 Letter Style: #{shirt.letter} 
 											div 
@@ -55,7 +55,7 @@ div.page.basket
 			else 
 					div.emptyBasket
 						h5 You have no shirts in your basket. 
-							a(href="/service") Add one here
+							a.addShirt(href="/service") Add one here
 							span .
 		if data.shirtsArray.length > 0 
 			div.overallActions
@@ -67,20 +67,20 @@ div.page.basket
 								option  #{deliveryMethod}
 					div.totalCost
 						h4 Total Cost: £#{data.cost}
-					div.payment
+					div.payment.notModal
 						a(href="/payment") Make Payment		
 					div.delete
 						a(href="/deleteShirtFromBasket?timestamp=all") Empty Your Basket
-//- div.serviceModal
-//- 	div.content
-//- 		h4 You have choosen different services for each shirt. Do you want the same for all shirts?
-//- 		select.serviceSelect
-//- 			option(value="pleaseselect") Please Select
-//- 			option(value="pleaseselect") Keep services different for each shirt
-//- 			option(value="sending") You are sending all shirts in the post
-//- 			option(value="bringing") You are bringing all shirts to the office
-//- 			option(value="pleaseselect") You want just the letters for each shirt sent to
-//- 		div.payment.hiddenFirst
-//- 			a(href="/payment") Make Payment	
+div.serviceModal
+	div.content
+		h4 You have choosen different services for each shirt. Do you want the same for all shirts?
+		select.serviceOption
+			option(value="pleaseselect") Please Select
+			option(value="leave") Keep services different for each shirt
+			option(value="send") You are sending all shirts in the post
+			option(value="delivery") You are bringing all shirts to the office
+			option(value="post") You want just the letters for each shirt sent to
+		div.payment.paymentModal.hiddenFirst
+			a(href="/payment") Make Payment	
 
 include footer.pug
