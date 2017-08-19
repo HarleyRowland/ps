@@ -29,9 +29,11 @@ div.page.payment
 				input.country
 			if data.deliveryType == "deliver"
 				div.field
-					span.note(onclick="alert('The day you will bring your order to the office.');") ?
 					span.formLabel Delivery Date:
-					input.date(type="date", onfocus="(this.type='date')")
+					div.dateField
+						input.date(type="date", onfocus="(this.type='date')")
+						span.note(onclick="alert('The day you will bring your order to the office.');")
+							i.fa.fa-question-circle-o
 		div.paymentForm
 			form(action="/paymentResult", method="post")
 				article

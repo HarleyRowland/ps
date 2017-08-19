@@ -40,11 +40,12 @@
 			})			
 		}
 
-		if(new Set(deliveryMethodsArray).length == 1){
+		var uniqueDeliveryMethods = deliveryMethodsArray.filter((v, i, a) => a.indexOf(v) === i); 
+
+		if(uniqueDeliveryMethods.length > 1){
 			differentMethods = true;
 		}
-
-		console.log(differentMethods)
+		
 		var deliveryTypes = deliveryMethods(shirtCount)	
 
 		var data = { data: { shirtsArray: shirtsArray, cost: cost, deliveryTypes: deliveryTypes, differentMethods: differentMethods} }
@@ -56,13 +57,15 @@
 		var shirtsArray = []
 		var shirtCount = 0;
 		for ( cookie in req.cookies ) {
-			if(timestamp == "all"){
-				res.clearCookie(cookie);
-			} else if(cookie.includes("shirt") && req.cookies[cookie].timestamp.toString() != timestamp){
-				shirtCount++;
-				shirtsArray.push(req.cookies[cookie]);
-			} else if(req.cookies[cookie].timestamp.toString() === timestamp){
-				res.clearCookie(cookie);
+			if(!cookie.includes("ermission")){
+				if(timestamp == "all"){
+					res.clearCookie(cookie);
+				} else if(cookie.includes("shirt") && req.cookies[cookie].timestamp.toString() != timestamp){
+					shirtCount++;
+					shirtsArray.push(req.cookies[cookie]);
+				} else if(req.cookies[cookie].timestamp.toString() === timestamp){
+					res.clearCookie(cookie);
+				}
 			}
 		}
 		var cost = 0;

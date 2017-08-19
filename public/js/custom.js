@@ -47,12 +47,11 @@ $(document).on('change','.playerOption',function(){
 
 $(document).on('change','.serviceOption',function(){
 	var service = $('.serviceOption').find(":selected").val();
-	console.log(service)
 	if(service == "pleaseselect"){
 		$(".hiddenFirst").css("visibility", "hidden");
 	} else {
 		$(".hiddenFirst").css("visibility", "visible");
-		var deliveryOption = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+		var deliveryOption = $('.deliveryOption').find(":selected").text();
 		$(".paymentModal a").attr("href", "/payment?deliveryOption=" + deliveryOption + "&serviceChoice=" + service)
 	}
 });
@@ -117,7 +116,6 @@ $(document).on('change','.deliveryOption',function(){
 	var deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
 	var deliveryOption = $('.deliveryOption').find(":selected").text();
 	$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
-	$(".basket .payment a").attr("href", "/payment?deliveryOption=" + deliveryOption)
 });
 
 $( document ).ready(function() {
@@ -173,7 +171,6 @@ $( document ).ready(function() {
     	var deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
     	var deliveryOption = $('.deliveryOption').find(":selected").text();
     	$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
-    	$(".basket .payment a").attr("href", "/payment?deliveryOption=" + deliveryOption)
 	}
 
 	if ($("a.confirmShirt").length){
@@ -206,9 +203,16 @@ $( document ).ready(function() {
 	});
 
 	$(".notModal").on("click", function(e){
+		e.preventDefault()
+
 		if(local_data.differentMethods){
-			e.preventDefault()
 			$(".serviceModal").css("visibility", "visible");
+		} else {
+			var totalCost = parseFloat(local_data.cost);
+			var deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+			var deliveryOption = $('.deliveryOption').find(":selected").text();
+			$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
+			$(".basket .payment a").attr("href", "/payment?deliveryOption=" + deliveryOption)
 		}
 	});
 
@@ -225,8 +229,6 @@ $( document ).ready(function() {
 		var shirtNumber =  $('.shirtNumber').val();
 		var comments =  $('.comments').val();
 		var canSend = validateQuoteForm(name, email, league, club, strip, year, colour, letter, shirtName, shirtNumber);
-		console.log(name, email, league, club, strip, year, colour, letter, shirtName, shirtNumber);
-		console.log(canSend)
 		if(canSend){
 			$(".quoteEmail").attr("href", "/sendQuoteEmail?name=" + name + "&email=" + email + "&league=" + league + "&club=" + club + "&strip=" + strip + "&year=" + year + "&colour=" + colour + "&letter=" + letter + "&kitName=" + shirtName + "&kitNumber=" + shirtNumber + "&comments=" + comments)
 			$('.paymentForm *').removeAttr('disabled');
@@ -337,14 +339,14 @@ var buildShirtObject = function(data){
 				fullCost: data.fullCost,
 				timestamp: new Date()
 			}
-	    } else if(data.printingType == "custom" && data.club && data.strip && data.name && data.number && !data.colour) {
-	      	return {
+	    } else if(data.printingType == "custom" && data.club && data.strip && data.name && data.number && data.colour && data.colour != "undefined") {
+	    	return {
 				printingType: data.printingType,
 				deliveryType: data.deliveryType,
 				childOrAdult: data.childOrAdult,
 				style: data.style,
-				club: data.club,
-				strip: data.strip,
+				colour: data.colour,
+				letter: data.letter,
 				sleeve: data.sleeve,
 				name: data.name,
 				number: data.number,
@@ -353,13 +355,13 @@ var buildShirtObject = function(data){
 				timestamp: new Date()
 			}
 	    } else if(data.printingType == "custom" && data.letter && data.colour && data.name && data.number){
-	    	return {
+	      	return {
 				printingType: data.printingType,
 				deliveryType: data.deliveryType,
 				childOrAdult: data.childOrAdult,
 				style: data.style,
-				colour: data.colour,
-				letter: data.letter,
+				club: data.club,
+				strip: data.strip,
 				sleeve: data.sleeve,
 				name: data.name,
 				number: data.number,
@@ -554,6 +556,7 @@ var validateEmail = function(email) {
 
 
 var validatePostcode = function(postcode) {
+	postcode = postcode.toUpperCase();
 	var re = /^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$/;
 	return re.test(postcode);
 }

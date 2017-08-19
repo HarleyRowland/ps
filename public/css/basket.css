@@ -97,3 +97,10 @@
 .removeBasket a:hover {
 	text-decoration: underline !important;
 }
+
+@media only screen and (max-width: 40em) { 
+	.colourShirtImage img {
+		margin-left: -25px;
+		padding-left: 0px;
+	}
+}
