@@ -1,5 +1,7 @@
 var fs = require('fs')
+var async = require('async')
 var tidyClient = require('../clients/tidyClient.js')
+var databaseClient = require('../clients/databaseClient.js')
 
 module.exports = {
 	selectTemplate: function(view, req, callback){
@@ -16,14 +18,30 @@ module.exports = {
 			viewFields.data.clubsFull.forEach(function(club){
 				viewFields.data.clubs.push(nameConverter(club))
 			});
+			callback(view, viewFields)
 		} else if(view == "strip.pug"){
 			viewFields.data.clubs = howManyStrips(req.query.club, req.query.style)
+			callback(view, viewFields)
 		} else if(view == "hero.pug"){
-			var nameNumberTuple = getPlayersAndNumbers(req.query.club, req.query.style)
-			viewFields.data.players = nameNumberTuple[0]
-			viewFields.data.numbers = nameNumberTuple[1]
+			var scorers = [];
+			async.waterfall([
+			    function(callback) {
+					databaseClient.getScorers(callback)
+			    },
+			    function(players, callback) {
+			    	scorers = players;
+					databaseClient.getPrice(callback)
+			    }
+			], function (err, result) {
+				var nameNumberTuple = getPlayersAndNumbers(req.query.club, req.query.style)
+				var playersBeforeDiscounts = nameNumberTuple[0]
+				viewFields.data.players = addDiscounts(playersBeforeDiscounts, nameNumberTuple[1], scorers)
+				viewFields.data.price = result[result.length-1].shirtprice
+				callback(view, viewFields)
+			});
+		} else {
+			callback(view, viewFields)
 		}
-		callback(view, viewFields)
 	},
 	confirmation: function(req, callback){
 		var viewFields = {
@@ -40,7 +58,31 @@ module.exports = {
 		viewFields.data.fullStyle = tidyClient.style(viewFields.data.style)
 		viewFields.data.shirtObject = JSON.stringify(viewFields.data)
 		callback(viewFields)
+	},
+	getThreeScorers: function(callback){
+		var cb = function(err, players){
+			console.log("∆∆∆", err, players)
+			var amount = 3
+			if(players.length < 3) amount = players.length;
+			var resultPlayers = getRandom(players, amount)
+			callback(resultPlayers);
+		}
+		databaseClient.getScorers(cb)
 	}
+}
+
+function getRandom(arr, n) {
+    var result = new Array(n),
+        len = arr.length,
+        taken = new Array(len);
+    if (n > len)
+        throw new RangeError("getRandom: more elements taken than available");
+    while (n--) {
+        var x = Math.floor(Math.random() * len);
+        result[n] = arr[x in taken ? taken[x] : x];
+        taken[x] = --len;
+    }
+    return result;
 }
 
 var howManyStrips = function(club, style){
@@ -56,7 +98,6 @@ var howManyStrips = function(club, style){
 
 var buildClubsArray = function(style) {
 	var teamStats = ""
-	console.log(style)
 	if(style == "current") {
 		teamStats = fs.readFileSync('./public/teamListCurrent.txt', 'utf8');
 	} else {
@@ -91,6 +132,19 @@ var buildDisplayCost = function(cost){
 	} else {
 		return cost;
 	}
+}
+
+var addDiscounts = function(players, numbers, scorers){
+	for (var i = players.length - 1; i >= 0; i--) {
+		var name = players[i]
+		players[i] = name + " - " + numbers[i]
+		scorers.forEach(function(scorer){
+			if(scorer.kitname == name){
+				players[i] = players[i] + " (£" + scorer.discount + " off!)"
+			}
+		});
+	}
+	return players;
 }
 
 var nameConverter = function(club) {

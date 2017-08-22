@@ -19,7 +19,25 @@ div.page.index
 				img(src="/public/images/morgan.jpg")
 		div.action.getYours
 			a.btn(href="/service") Get Yours Now
-	div.imageStrip
+	div.imageStripScorers
+	div.scorers
+		h2 Some of this week's players with a Goal Scorer Discount!
+		p.pageInfo Choose a player who has scored in the last week for your hero printing and get 
+			b £3 
+			span off! Choose a player who has scored two and get 
+			b £5 
+			span off!
+		div.players.row
+			each player in data
+				div.player.small-12.medium-4.columns
+					h3 #{player.kitname}
+					div.image
+						img(src="/public/images/kits/current/" + player.club + "-home.gif")
+					div.discount
+						b £#{player.discount} OFF!
+		div.action.getYours
+			a.btn(href="/service") Get Yours Now
+	div.imageStripContact
 	div.contact
 		h2 Get In Touch With Us
 		p.pageInfo Please do not hesitate to message us. We are more than happy to help with any queries you have!

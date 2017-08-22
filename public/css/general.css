@@ -33,14 +33,34 @@ body *:not(.fa) {
 	color: white !important;
 }
 
-.imageStrip {
-	height: 400px;
+.imageStripScorers {
+	height: 300px;
+	background:
+	    url("public/images/corner.jpeg");
+	    background-attachment: fixed;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+}
+
+.scorers {
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+.player img{
+	max-height: 300px;
+}
+
+.imageStripContact {
+	background-color: red;
+	height: 300px;
 	background:
 	    url("public/images/seats.png");
 	    background-attachment: fixed;
 	    background-position: center;
 	    background-repeat: no-repeat;
-	    background-size: cover;}
+	    background-size: cover;
 }
 
 .fa {
@@ -107,7 +127,7 @@ h1.title {
 	}
 
 	.optionSubtitle {
-		height: 100px;
+		height: 150px;
 	}
 
 	.childOrAdult .optionSubtitle {
@@ -127,6 +147,12 @@ h1.title {
 		top: 20%;
 		position: absolute;
 	}
+
+	.scorers {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
 }
 
 @media only screen and (max-width: 40em) { 
@@ -169,4 +195,16 @@ h1.title {
         background-attachment: scroll;
     }
 
+    .scorers {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	.player {
+		margin-bottom: 20px;
+	}
+
+	.discount {
+		margin-top: 15px;
+	}
 }

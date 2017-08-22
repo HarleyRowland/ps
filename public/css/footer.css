@@ -33,9 +33,10 @@
 }
 
 .footer .social i {
-	font-size: 40px;
+	font-size: 30px;
 	padding: 20px;
 	padding-bottom: 00px;
+	color: #FFFFFF !important;
 }
 
 @media only screen and (max-width: 40em) { 
@@ -44,7 +45,7 @@
 	}
 
 	.footer h4 {
-		font-size: 25px;
-		margin-top: 30px;
+		font-weight: bold;
+		font-size: 20px;
 	}
 }

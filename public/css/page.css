@@ -436,6 +436,22 @@
 	    max-width: 80% !important;
 	    float: left !important;
 	}
+
+	.strip {
+		margin-bottom: 30px;
+	}
+
+	.optionTitle {
+		text-decoration: underline;
+	}
+
+	.shirtImages, .index .choices{
+		margin-top: 15px;
+	}
+
+	.contact .optionSubtitle {
+		height: 80px;
+	}
 }
 
 @media only screen and (min-width: 40em) and (max-width: 64em) { 

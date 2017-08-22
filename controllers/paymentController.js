@@ -7,24 +7,62 @@ var databaseClient = require('../clients/databaseClient.js')
 module.exports = {
 	paymentBuilder: function(req, callback) {
 		var shirtsArray = getCookies(req);
-		var shirtCost = calculateCost(shirtsArray);
-		var displayShirtCost = buildDisplayCost(shirtCost+"")
-		var deliveryCost = delCost(req.query.deliveryOption);
-		console.log(deliveryCost)
-		var displayDeliveryCost = buildDisplayCost(deliveryCost+"")
-		var totalCost = shirtCost + deliveryCost;
-		console.log(totalCost)
-		var displayTotalCost = buildDisplayCost(totalCost+"")
-		var jsonArray = JSON.stringify(shirtsArray);
-		var postOrDeliver = ""
-		shirtsArray.forEach(function(shirt){
-			if(shirt.deliveryType == "deliver"){
-				postOrDeliver = "deliver"	
-			}
-		})
-		var data = { data: {jsonArray: jsonArray, deliveryCost: deliveryCost, shirtCost: shirtCost, totalCost: totalCost, key: config.database.publishableKey, deliveryType: postOrDeliver, deliveryOption: req.query.deliveryOption, displayTotalCost: displayTotalCost, displayDeliveryCost: displayDeliveryCost, displayShirtCost: displayShirtCost}}
-		console.log(data)
-		callback("payment.pug", data);
+		var shirtCost = 0;
+		var scorers = [];
+		async.waterfall([
+		    function(callback) {
+				databaseClient.getScorers(callback)
+		    },
+		    function(players, callback) {
+		    	scorers = players;
+				databaseClient.getPrice(callback)
+		    }
+		], function (err, result) {
+			var shirtprice = result[result.length-1].shirtprice
+			var cost = 0;
+			shirtsArray.forEach(function(shirt) {
+				if(shirt.name && shirt.number){
+					var sleeveCost = 0;
+					if(shirt.sleeve = "Yes") {
+						sleeveCost = 7.5;
+					}
+					var thisShirtCost = shirt.name.replace(/ /g,"").length + (shirt.number.replace(/ /g,"").length*5)
+					if(thisShirtCost < shirtprice || shirt.printingType == "hero") {
+						thisShirtCost = shirtprice;
+					}
+					var discount = 0;
+
+					for (var i = scorers.length - 1; i >= 0; i--) {
+						if(shirt.name == scorers[i].kitname && shirt.club.toLowerCase().trim() == scorers[i].club.toLowerCase().trim()){
+							discount = scorers[i].discount;
+						}
+					}
+
+					cost = parseFloat(cost) + parseFloat(thisShirtCost) + parseFloat(sleeveCost) - parseFloat(discount);
+				}
+			});
+			var costsForShirts = cost
+			console.log(cost)
+			var displayShirtCost = buildDisplayCost(costsForShirts+"")
+			var deliveryCost = delCost(req.query.deliveryOption);
+
+			var displayDeliveryCost = buildDisplayCost(deliveryCost+"")
+			var totalCost = costsForShirts + deliveryCost;
+
+			var displayTotalCost = buildDisplayCost(totalCost+"")
+			var jsonArray = JSON.stringify(shirtsArray);
+			var postOrDeliver = ""
+
+			shirtsArray.forEach(function(shirt){
+				if(shirt.deliveryType == "deliver"){
+					postOrDeliver = "deliver"	
+				}
+			})
+			
+			var data = { data: {jsonArray: jsonArray, deliveryCost: deliveryCost, shirtCost: costsForShirts, totalCost: totalCost, key: config.database.publishableKey, deliveryType: postOrDeliver, deliveryOption: req.query.deliveryOption, displayTotalCost: displayTotalCost, displayDeliveryCost: displayDeliveryCost, displayShirtCost: displayShirtCost}}
+
+			callback("payment.pug", data);
+		});
 	},
 
 	makePayment: function(req, res){
@@ -79,22 +117,45 @@ var getCookies = function(req) {
 }
 
 var calculateCost = function(shirtsArray) {
-	var cost = 0;
-	shirtsArray.forEach(function(shirt) {
-		var shirtCost = 0;
-		if(shirt.name && shirt.number){
-			var sleeveCost = 0;
-			if(shirt.sleeve = "Yes") {
-				sleeveCost = 7.5;
+	var callback = function(cost){
+		return cost;
+	}
+	var scorers = [];
+	async.waterfall([
+	    function(callback) {
+			databaseClient.getScorers(callback)
+	    },
+	    function(players, callback) {
+	    	scorers = players;
+			databaseClient.getPrice(callback)
+	    }
+	], function (err, result) {
+		var cost = result[result.length-1].shirtprice
+		console.log("e", cost)
+		shirtsArray.forEach(function(shirt) {
+			var shirtCost = 0;
+			if(shirt.name && shirt.number){
+				var sleeveCost = 0;
+				if(shirt.sleeve = "Yes") {
+					sleeveCost = 7.5;
+				}
+				shirtCost = shirt.name.replace(/ /g,"").length + (shirt.number.replace(/ /g,"").length*5)
+				if(shirtCost < 20) {
+					shirtCost = 20;
+				}
+				var discount = 0;
+				for (var i = scorers.length - 1; i >= 0; i--) {
+					console.log(shirt.name == scorers[i].kitname)
+					if(shirt.name == scorers[i].kitname){
+						console.log("HERE!!!")
+						discount = scorers[i].discount;
+					}
+				}
+				cost = parseInt(cost) + parseFloat(shirtCost) + sleeveCost - discount;
 			}
-			shirtCost = shirt.name.replace(/ /g,"").length + (shirt.number.replace(/ /g,"").length*5)
-			if(shirtCost < 20) {
-				shirtCost = 20;
-			}
-			cost = cost + parseFloat(shirtCost) + sleeveCost;
-		}
+		});
+		return cost;
 	});
-	return cost;
 }
 
 var buildDisplayCost = function(cost){

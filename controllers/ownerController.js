@@ -36,6 +36,16 @@ module.exports = {
 	quoteEmail: function(name, email, league, club, strip, year, colour, letter, kitName, kitNumber, comments, callback){
 		emailClient.quoteEmail(name, email, league, club, strip, year, colour, letter, kitName, kitNumber, comments)
 		callback(null);
+	},
+	updatePrice(price, callback){
+		databaseClient.updatePrice(price, callback);
+	},
+	inputScorers(scorersString, callback){
+		var players = scorersString.split(";");
+		databaseClient.updatePlayers(players, callback);
+	},
+	clearScorers(callback){
+		databaseClient.clearScorers(callback);
 	}
 }
 

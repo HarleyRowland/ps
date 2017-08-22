@@ -1,6 +1,21 @@
 DROP TABLE shirts;
 DROP TABLE statuses;
 DROP TABLE orders;
+DROP TABLE settings;
+DROP TABLE scorers;
+
+CREATE TABLE settings(
+   settingsID serial primary key,
+   shirtPrice DECIMAL NOT NULL
+);
+
+CREATE TABLE scorers(
+   scorerID serial primary key,
+   kitName VARCHAR(400) NOT NULL,
+   kitNumber VARCHAR(400) NOT NULL,
+   club VARCHAR(400) NOT NULL,
+   discount DECIMAL NOT NULL
+);
 
 CREATE TABLE orders(
    orderNumber serial primary key,
@@ -35,6 +50,21 @@ CREATE TABLE shirts(
    colour VARCHAR(400),
    letter VARCHAR(400)
 );
+
+INSERT INTO settings(shirtPrice) 
+   VALUES (25);
+
+INSERT INTO settings(shirtPrice) 
+   VALUES (20);
+
+INSERT INTO scorers(kitname, kitnumber, club, discount) 
+   VALUES ('Ramsey', '8', 'arsenal', 5);
+
+INSERT INTO scorers(kitName, kitNumber, club, discount) 
+   VALUES ('Özil', '11', 'arsenal', 3);
+
+INSERT INTO scorers(kitName, kitNumber, club, discount) 
+   VALUES ('Alonso', '3', 'chelsea', 3);
 
 INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost) 
    VALUES ('James Adams', '123 test lane, test street, test', '07777777777', 'harleyrowland17@gmail.com', '1991-12-01', '1st', 25.01);

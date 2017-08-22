@@ -30,11 +30,14 @@ app.use("/public", express.static(__dirname + '/public'));
 app.use(cookieParser())
 
 app.get("/", (req, res) => {
-  res.render("index.pug", {keyPublishable});
+  var callback = function(data){
+    res.render("index.pug", {data: data});
+  }
+  flowController.getThreeScorers(callback);
 });
 
 app.get("/service", (req, res) => {
-  res.render("service.pug", {keyPublishable});
+  res.render("service.pug");
 });
 
 app.get("/payment", (req, res) => {
@@ -62,6 +65,31 @@ app.get("/webmail", (req, res) => {
     {Location: 'http://greg-thompson.com/webmail'}
   );
   res.end();
+})
+
+app.get("/administrationForPremierShirts", (req, res) => {
+  res.render("admin.pug");
+})
+
+app.get("/newPriceForTheShirts", (req, res) => {
+  var callback = function(err, template, data){
+    res.render("admin.pug");
+  }
+  ownerController.updatePrice(req.query.shirtCost, callback);    
+})
+
+app.get("/discountsForScorers", (req, res) => {
+  var callback = function(err, template, data){
+    res.render("admin.pug");
+  }
+  ownerController.inputScorers(req.query.scorersString, callback);    
+})
+
+app.get("/clearScorers", (req, res) => {
+  var callback = function(err, template, data){
+    res.render("admin.pug");
+  }
+  ownerController.clearScorers(callback);    
 })
 
 app.get("/basket", (req, res) => {

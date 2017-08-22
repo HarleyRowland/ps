@@ -31,7 +31,13 @@ $(document).on('change','.playerOption',function(){
 		var playerNumberArray = player.split(" - ");
 		var name = playerNumberArray[0].trim();
 		var number = playerNumberArray[1].trim();
-		var shirtCost = 20;
+		var discount = 0;
+		if(number.includes("off")){
+			discount = parseInt(number.split("£")[1].split("off")[0].trim())
+			number = number.split("(£")[0].trim()
+			$(".printStatement").text("This shirt has a £" + discount + " discount. It is priced at £" + (local_data.price - discount) + ".")
+		}
+		var shirtCost = local_data.price - discount;
 		$(".hero .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style +
@@ -203,9 +209,9 @@ $( document ).ready(function() {
 	});
 
 	$(".notModal").on("click", function(e){
-		e.preventDefault()
+		// e.preventDefault()
 
-		if(local_data.differentMethods){
+		if(false){
 			$(".serviceModal").css("visibility", "visible");
 		} else {
 			var totalCost = parseFloat(local_data.cost);

@@ -55,6 +55,38 @@ module.exports = {
 	statusesForOrderNo: function(ordernumber, callback){
 		var orderNoQuery = 'SELECT o.*, s.*, sh.* FROM orders o INNER JOIN statuses s ON o.ordernumber = s.ordernumber INNER JOIN shirts sh ON s.ordernumber=sh.ordernumber WHERE o.ordernumber=' + ordernumber + ';'
 		query('SELECT', orderNoQuery, callback)
+	},
+	updatePrice: function(price, callback){
+		var priceQuery = 'INSERT INTO settings(shirtPrice) VALUES (' + price + ');'
+		query("INSERT", priceQuery, callback)
+	},
+	getPrice: function(callback){
+		console.log("price")
+		var priceQuery = 'SELECT shirtPrice FROM settings;'
+		query("SELECTID", priceQuery, callback)
+	},
+	getScorers: function(callback){
+		var scorersQuery = 'SELECT * FROM scorers;'
+		console.log(scorersQuery)
+		query("SELECTID", scorersQuery, callback)
+	},
+	updatePlayers: function(players, callback){
+		async.eachSeries(players, function(player, cb) {
+			var p = player.split(",");
+			var playerQuery = 'INSERT INTO scorers(kitName, kitNumber, club, discount) VALUES (\'' + p[0] + '\',\'' + p[1] + '\',\'' + p[2] + '\',\'' + p[3] + '\');'
+		    console.log(playerQuery)
+		    query("INSERT", playerQuery, cb)
+		}, function(err) {
+		    if( err ) {
+		    	callback(err)
+		    } else {
+		    	callback()
+		    }
+		});
+	},
+	clearScorers: function(callback){
+		var clearQuery = 'DELETE FROM scorers;'
+		query("DELETE", clearQuery, callback)
 	}
 }
 
@@ -88,7 +120,6 @@ var query = function(type, sqlQuery, callback) {
 	    if(type == "SELECT"){
 	    	callback(null, "userUpdates.pug", rows);
 		} else if("SELECTID"){
-	    	console.log("THE ROWS: ",rows);
 			callback(null, rows);
 		} else {
 			callback()
