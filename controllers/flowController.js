@@ -61,7 +61,6 @@ module.exports = {
 	},
 	getThreeScorers: function(callback){
 		var cb = function(err, players){
-			console.log("∆∆∆", err, players)
 			var amount = 3
 			if(players.length < 3) amount = players.length;
 			var resultPlayers = getRandom(players, amount)

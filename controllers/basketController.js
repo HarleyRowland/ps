@@ -20,7 +20,9 @@
 		if(shirtObject && (add || shirtCount == 0)){
 			shirtCount++;
 			highestNumber++;
-	  		res.cookie("shirt"+highestNumber, shirtObject)
+	  		res.cookie("shirt"+highestNumber, shirtObject, {
+	  			expires: new Date (Date.now() + (3600*5000))
+	  		})
 	  		shirtsArray.push(shirtObject)
 		}
 		var differentMethods = false;

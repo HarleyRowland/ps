@@ -61,20 +61,17 @@ module.exports = {
 		query("INSERT", priceQuery, callback)
 	},
 	getPrice: function(callback){
-		console.log("price")
 		var priceQuery = 'SELECT shirtPrice FROM settings;'
 		query("SELECTID", priceQuery, callback)
 	},
 	getScorers: function(callback){
 		var scorersQuery = 'SELECT * FROM scorers;'
-		console.log(scorersQuery)
 		query("SELECTID", scorersQuery, callback)
 	},
 	updatePlayers: function(players, callback){
 		async.eachSeries(players, function(player, cb) {
 			var p = player.split(",");
 			var playerQuery = 'INSERT INTO scorers(kitName, kitNumber, club, discount) VALUES (\'' + p[0] + '\',\'' + p[1] + '\',\'' + p[2] + '\',\'' + p[3] + '\');'
-		    console.log(playerQuery)
 		    query("INSERT", playerQuery, cb)
 		}, function(err) {
 		    if( err ) {

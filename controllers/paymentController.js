@@ -42,7 +42,6 @@ module.exports = {
 				}
 			});
 			var costsForShirts = cost
-			console.log(cost)
 			var displayShirtCost = buildDisplayCost(costsForShirts+"")
 			var deliveryCost = delCost(req.query.deliveryOption);
 
@@ -131,7 +130,6 @@ var calculateCost = function(shirtsArray) {
 	    }
 	], function (err, result) {
 		var cost = result[result.length-1].shirtprice
-		console.log("e", cost)
 		shirtsArray.forEach(function(shirt) {
 			var shirtCost = 0;
 			if(shirt.name && shirt.number){
@@ -139,15 +137,15 @@ var calculateCost = function(shirtsArray) {
 				if(shirt.sleeve = "Yes") {
 					sleeveCost = 7.5;
 				}
-				shirtCost = shirt.name.replace(/ /g,"").length + (shirt.number.replace(/ /g,"").length*5)
-				if(shirtCost < 20) {
+				var shirtLength = shirt.name.replace(/ /g,"").length
+				if(shirtLength <= 10){
 					shirtCost = 20;
+				} else {
+					shirtCost = 20 + (shirtLength - 10);
 				}
 				var discount = 0;
 				for (var i = scorers.length - 1; i >= 0; i--) {
-					console.log(shirt.name == scorers[i].kitname)
 					if(shirt.name == scorers[i].kitname){
-						console.log("HERE!!!")
 						discount = scorers[i].discount;
 					}
 				}

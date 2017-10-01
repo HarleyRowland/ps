@@ -156,6 +156,7 @@ app.get("/deleteShirtFromBasket", (req, res) => {
 
 app.get("/style", (req, res) => {
   var callback = function(template, data, err){
+    console.log("after", req.cookies)
     res.render(template, data);
   }
   if(req.query.deliveryType){
@@ -255,6 +256,7 @@ app.get("/heroOrCustom", (req, res) => {
 })
 
 app.get("/sleeves", (req, res) => {
+  console.log(req.cookies)
   var callback = function(template, data, err){
     res.render(template, data);
   }

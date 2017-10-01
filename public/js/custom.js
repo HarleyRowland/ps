@@ -131,7 +131,11 @@ $( document ).ready(function() {
 	cookies.forEach(function(cookie) {
 		if(!acceptedCookies || acceptedCookies == undefined){
 			$(".cookiePermission").show();
-			document.cookie = "cookiePermission=true";
+			var now = new Date();
+			var time = now.getTime();
+			time += 3600 * 5000;
+			now.setTime(time);
+			document.cookie = "cookiePermission=true;expires=" + now.toUTCString() +";";
 		}
 		if(cookie.includes("shirt")){
 			shirtCount++;
@@ -275,13 +279,16 @@ $(document).on('input','.shirtName',function(){
 	if(name.trim() == "" || number.trim() == ""){
 		$(".hiddenFirst").css("display", "none");
 	} else {
-		var shirtCost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
-		if(shirtCost < 20){
+		var shirtLength = name.replace(/ /g,"").length
+		var shirtCost = 0;
+		if(shirtLength <= 10){
 			shirtCost = 20;
+		} else {
+			shirtCost = 20 + (shirtLength - 10);
 		}
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
-		$(".price").text("£" + shirtCost + " (£20 minimum - 8 letters and 2 numbers, or 12 letters 1 number, with additional letters at £1 and numbers at £4)");
+		$(".price").text("£" + shirtCost + " (Up to 10 letters and 2 numbers for £20 with additional letters at £1)");
 		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +
@@ -305,13 +312,16 @@ $(document).on('input','.shirtNumber',function(){
 		$(".hiddenFirst").css("display", "none");
 		$(".basket").css("display", "none");
 	} else {
-		var shirtCost = name.replace(/ /g,"").length + (number.replace(/ /g,"").length*5)
-		if(shirtCost < 20){
+		var shirtLength = name.replace(/ /g,"").length
+		var shirtCost = 0;
+		if(shirtLength <= 10){
 			shirtCost = 20;
+		} else {
+			shirtCost = 20 + (shirtLength - 10);
 		}
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
-		$(".price").text("£" + shirtCost + " (£20 minimum - 8 letters and 2 numbers, or 12 letters 1 number, with additional letters at £1 and numbers at £4)");
+		$(".price").text("£" + shirtCost + " (Up to 10 letters and 2 numbers for £20 with additional letters at £1)");
 		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
 			"&printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +

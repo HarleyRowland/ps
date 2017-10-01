@@ -4,19 +4,24 @@ html
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
 		script(type='text/javascript' src='public/js/jquery.js')
 		script(type='text/javascript' src='public/js/admin.js')
+		style 
+			include ../public/css/admin.css
 	body
-		h1 Settings
-		h3 Shirt Price
-		p Submit a whole number only.
-		input.shirtPrice
-		div 
-			a.newPrice(href="") Submit Price
-		h3 Weekly Scorers
-		p Submit in the following format: Name1,Number1,Club1,Discount1;Name2,Number2,Club2,Discount2;...;NameX,NumberX,ClubX,DiscountX; Note the trailing semi-colon.
-		p Player names should appear in the same case as they are seen on the website.
-		p Club names format: arsenal,bournemouth,brighton,burnley,chelsea,crystalPalace,everton,huddersfield,hull,leicesterCity,liverpool,manchesterCity,manu,middlesborough,newcastle,southampton,stoke,sunderland,swansea,tottenham,watford,westbrom,westham
-		textarea.scorers
-		div 
-			a.submitScorers(href="") Submit Scorers
-		div 
-			a(href="/clearScorers") Clear Scorers
+		div.setting
+			h1 Settings
+			h3 Shirt Price
+			p Submit a whole number only.
+			input.shirtPrice
+			div 
+				a.newPrice(href="") Submit Price
+		div.setting
+			h3 Weekly Scorers
+			p Submit in the following format: Name1,Number1,Club1,Discount1;Name2,Number2,Club2,Discount2;...;NameX,NumberX,ClubX,DiscountX; Note the trailing semi-colon.
+			p Player names should appear in the same case as they are seen on the website.
+			p Club names format: arsenal,bournemouth,brighton,burnley,chelsea,crystalPalace,everton,huddersfield,hull,leicesterCity,liverpool,manchesterCity,manu,middlesborough,newcastle,southampton,stoke,sunderland,swansea,tottenham,watford,westbrom,westham
+			p e.g. Ramsey,8,arsenal,3;Özil,11,arsenal,3;Alonso,3,chelsea,3;
+			textarea.scorers
+			div 
+				a.submitScorers(href="") Submit Scorers
+			div.clear 
+				a.clearScorers(href="/clearScorers") Clear Scorers
