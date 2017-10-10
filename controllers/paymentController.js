@@ -9,6 +9,8 @@ module.exports = {
 		var shirtsArray = getCookies(req);
 		var shirtCost = 0;
 		var scorers = [];
+		console.log(shirtsArray)
+		console.log("__________________________________")
 		async.waterfall([
 		    function(callback) {
 				databaseClient.getScorers(callback)
@@ -23,10 +25,16 @@ module.exports = {
 			shirtsArray.forEach(function(shirt) {
 				if(shirt.name && shirt.number){
 					var sleeveCost = 0;
-					if(shirt.sleeve = "Yes") {
+					if(shirt.sleeve == "Yes") {
 						sleeveCost = 7.5;
 					}
-					var thisShirtCost = shirt.name.replace(/ /g,"").length + (shirt.number.replace(/ /g,"").length*5)
+					var thisShirtCost = 0
+					var shirtLength = shirt.name.replace(/ /g,"").length
+					if(shirtLength <= 10){
+						thisShirtCost = 20;
+					} else {
+						thisShirtCost = 20 + (shirtLength - 10);
+					}
 					if(thisShirtCost < shirtprice || shirt.printingType == "hero") {
 						thisShirtCost = shirtprice;
 					}
@@ -37,7 +45,7 @@ module.exports = {
 							discount = scorers[i].discount;
 						}
 					}
-
+					console.log(cost + ", " + thisShirtCost + ", " + sleeveCost + ", " + discount)
 					cost = parseFloat(cost) + parseFloat(thisShirtCost) + parseFloat(sleeveCost) - parseFloat(discount);
 				}
 			});
@@ -68,39 +76,45 @@ module.exports = {
 		var orNo = -1;
 		var name = "";
 		var cost = -1;
+		var template = ""
+		var data = { data: {}}
+		var paymentPass;
 		async.waterfall([
 		    function(callback) {
-		        databaseClient.newOrder(req, callback);
+				var cb = function(err, charge){
+					if(err) {
+						template = "paymentFailure.pug"
+						paymentPass = false;
+					} else {
+						for ( cookie in req.cookies ) {
+							if(cookie.includes("shirt")){
+								res.clearCookie(cookie);	
+							}
+						}
+						data = { data: req.query }
+						data.data.cost = req.query.cost;
+						data.data.shirtArray = JSON.parse(data.data.shirtArray)
+						template = "paymentResult.pug"
+						paymentPass = true;
+					}
+					callback();
+				}	
+				stripeClient.makePayment((parseFloat(req.query.cost)*100).toFixed(0), req.body.stripeEmail, req.body.stripeToken, cb)
 		    },
 		    function(callback){
-		    	databaseClient.getIDForOrder(req.body.stripeEmail, callback)
+		        databaseClient.newOrder(req, paymentPass, callback);
 		    },
-		    function(orderNumber, callback) {
-		    	orNo = orderNumber[0].ordernumber
-		    	name = orderNumber[0].name
-		    	cost = orderNumber[0].cost
-		        emailClient.sendEmail("Payment", req.body.stripeEmail, name, cost, orNo)
-		        callback(null, 'done')
+		    function(callback) {
+		    	databaseClient.getIDForOrder(req.body.stripeEmail, callback)
 		    }
 		], function (err, result) {
-			var callback = function(err, charge){
-				if(err) {
-					console.log(err)
-					res.render("paymentFailure.pug")
-				} else {
-					for ( cookie in req.cookies ) {
-						if(cookie.includes("shirt")){
-							res.clearCookie(cookie);	
-						}
-					}
-					var data = { data: req.query }
-					data.data.cost = req.query.cost;
-					data.data.orderNumber = orNo;
-					data.data.shirtArray = JSON.parse(data.data.shirtArray)
-					res.render("paymentResult.pug", data )
-				}
-			}	
-			stripeClient.makePayment(parseFloat(req.query.cost)*100, req.body.stripeEmail, req.body.stripeToken, callback)
+	    	data.data.orderNumber = result[0].ordernumber
+	    	name = result[0].name
+	    	cost = result[0].cost
+	    	if(paymentPass){
+	        	emailClient.sendEmail("Payment", req.body.stripeEmail, name, cost, data.data.orderNumber)
+	    	}
+	        res.render(template, data);
 		});
 	}
 }
@@ -150,6 +164,7 @@ var calculateCost = function(shirtsArray) {
 					}
 				}
 				cost = parseInt(cost) + parseFloat(shirtCost) + sleeveCost - discount;
+				console.log(cost + ", " + shirtCost + ", " + sleeveCost + ", " + discount)
 			}
 		});
 		return cost;

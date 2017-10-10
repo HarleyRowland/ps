@@ -35,7 +35,7 @@
 	width: 200px;
 }
 
-.deliveryOption {
+.deliveryOption, .deliveryMethod {
 	width: 65%;
 }
 
@@ -50,6 +50,11 @@
 
 .basket .overallActions * {
 	margin-top: 20px;
+}
+
+.basket .overallActions .formLabel {
+	width: 120px;
+	display: inline-block;
 }
 
 .payment a {

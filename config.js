@@ -6,6 +6,10 @@ config.email.authorEmail = process.env.authorEmail;
 config.email.password = process.env.emailPassword;
 config.email.host = process.env.emailHost;
 config.email.service = process.env.emailService;
+config.email.clientID = process.env.emailClientID;
+config.email.clientSecret = process.env.emailClientSecret;
+config.email.refreshToken = process.env.emailRefreshToken;
+config.email.accessToken = process.env.emailAccessToken;
 
 config.database = {};
 config.database.user = process.env.databaseUser;

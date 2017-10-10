@@ -68,19 +68,25 @@ app.get("/webmail", (req, res) => {
 })
 
 app.get("/administrationForPremierShirts", (req, res) => {
-  res.render("admin.pug");
+  var callback = function(err, template, data){
+    res.render(template, {data: data});
+  }
+  ownerController.getScorers(callback);  
 })
 
 app.get("/newPriceForTheShirts", (req, res) => {
   var callback = function(err, template, data){
-    res.render("admin.pug");
+    res.writeHead(301,
+      {Location: '/administrationForPremierShirts'}
+    );
+    res.end();
   }
   ownerController.updatePrice(req.query.shirtCost, callback);    
 })
 
 app.get("/discountsForScorers", (req, res) => {
   var callback = function(err, template, data){
-    res.render("admin.pug");
+    res.redirect("/administrationForPremierShirts");
   }
   ownerController.inputScorers(req.query.scorersString, callback);    
 })
@@ -156,7 +162,6 @@ app.get("/deleteShirtFromBasket", (req, res) => {
 
 app.get("/style", (req, res) => {
   var callback = function(template, data, err){
-    console.log("after", req.cookies)
     res.render(template, data);
   }
   if(req.query.deliveryType){
@@ -256,7 +261,6 @@ app.get("/heroOrCustom", (req, res) => {
 })
 
 app.get("/sleeves", (req, res) => {
-  console.log(req.cookies)
   var callback = function(template, data, err){
     res.render(template, data);
   }
@@ -282,5 +286,5 @@ app.get("/quote", (req, res) =>
   res.render("quote.pug", {keyPublishable}));
 
 app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+  console.info('Node app is running on port', app.get('port'));
 });

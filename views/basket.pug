@@ -60,8 +60,16 @@ div.page.basket
 		if data.shirtsArray.length > 0 
 			div.overallActions
 				div
-					div  
-						span.formLabel Delivery Methods: 
+					div
+						div.formLabel
+							span Delivery Method:
+						select.deliveryMethod
+							option(value="post")  Send us your shirt(s) in the post.
+							option(value="bring")  Bring your shirt(s) to our office and we print the same day.
+							option(value="letters")  We send you just the letters and numbers for your shirts.
+					div.deliveryCost  
+						div.formLabel
+							span.formLabel Delivery Cost: 
 						select.deliveryOption
 							each deliveryMethod in data.deliveryTypes
 								option  #{deliveryMethod}

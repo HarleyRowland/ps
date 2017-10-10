@@ -58,8 +58,24 @@ $(document).on('change','.serviceOption',function(){
 	} else {
 		$(".hiddenFirst").css("visibility", "visible");
 		var deliveryOption = $('.deliveryOption').find(":selected").text();
-		$(".paymentModal a").attr("href", "/payment?deliveryOption=" + deliveryOption + "&serviceChoice=" + service)
+		var deliveryMethod = $('.deliveryMethod').find(":selected").val();
+		$(".paymentModal a").attr("href", "/payment?deliveryOption=" + deliveryOption + "&deliveryMethod=" + deliveryMethod)
 	}
+});
+
+
+$(document).on('change','.deliveryMethod',function(){
+	var deliveryCost = 0;
+	var totalCost = parseFloat(local_data.cost);
+	var deliveryOption = $('.deliveryOption').find(":selected").text();
+	var service = $('.deliveryMethod').find(":selected").val()
+	if(service == "bring"){
+		$('.deliveryCost').hide();
+	} else {
+		$('.deliveryCost').show();
+		deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+	}
+	$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
 });
 
 $(document).on('change','.proOption',function(){
@@ -118,8 +134,8 @@ $(document).on('change','.sleeveOption',function(){
 });
 
 $(document).on('change','.deliveryOption',function(){
-	var totalCost = parseFloat(local_data.cost);
 	var deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+	var totalCost = parseFloat(local_data.cost);
 	var deliveryOption = $('.deliveryOption').find(":selected").text();
 	$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
 });
@@ -218,11 +234,17 @@ $( document ).ready(function() {
 		if(false){
 			$(".serviceModal").css("visibility", "visible");
 		} else {
+			var deliveryCost = 0;
 			var totalCost = parseFloat(local_data.cost);
-			var deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
 			var deliveryOption = $('.deliveryOption').find(":selected").text();
+			var service = $('.deliveryMethod').find(":selected").val()
+			if(service == "bring"){
+				$('.deliveryCost').hide();
+			} else {
+				$('.deliveryCost').show();
+				deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+			}
 			$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
-			$(".basket .payment a").attr("href", "/payment?deliveryOption=" + deliveryOption)
 		}
 	});
 

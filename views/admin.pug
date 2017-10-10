@@ -22,6 +22,10 @@ html
 			p e.g. Ramsey,8,arsenal,3;Özil,11,arsenal,3;Alonso,3,chelsea,3;
 			textarea.scorers
 			div 
-				a.submitScorers(href="") Submit Scorers
+				a.submitScorers(href="") Submit New Scorers
 			div.clear 
 				a.clearScorers(href="/clearScorers") Clear Scorers
+			div 
+				p Current Scorers (Name, Number, Club, Discount)
+					each scorer in data
+						p #{scorer.kitname}, #{scorer.kitnumber}, #{scorer.club}, #{scorer.discount}
