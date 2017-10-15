@@ -46,6 +46,9 @@ module.exports = {
 	},
 	clearScorers(callback){
 		databaseClient.clearScorers(callback);
+	},
+	getScorers(callback){
+		databaseClient.getScorersAdmin(callback)
 	}
 }
 

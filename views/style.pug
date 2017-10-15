@@ -9,20 +9,20 @@ div.style.page
           h3.optionTitle Current Style
           h5.optionSubTitle The current English Top Flight Style (2017-2020)
           div.action
-            a.btn(href="/childOrAdult?style=current&deliveryType=" + data.deliveryType)
+            a.btn(href="/childOrAdult?style=current")
               span Select
       div.choice.middleChoice.small-12.medium-4.columns
         div.previous
           h3.optionTitle Previous Style
           h5.optionSubTitle The Previous English Top Flight Style (2014-2017)
           div.action
-            a.btn(href="/childOrAdult?style=previous&deliveryType=" + data.deliveryType)
+            a.btn(href="/childOrAdult?style=previous")
               span Select
       div.choice.bottomChoice.small-12.medium-4.columns
         div.quote
           h3.optionTitle Other Styles
           h5.optionSubTitle We can give you a quote for something different.
           div.action
-            a.btn(href="/quote?deliveryType=" + deliveryType)
+            a.btn(href="/quote")
               span Quote
   include footerFlow.pug

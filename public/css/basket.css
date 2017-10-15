@@ -35,7 +35,17 @@
 	width: 200px;
 }
 
-.deliveryOption {
+.deliveryCost, .deliveryMethod {
+	width: 100% !important;
+}
+
+.deliveryCost .formLabel, .deliveryMethod .formLabel{
+	display: inline-block;
+	width: 130px;
+	margin-top: 0;
+}
+
+.deliveryCost select, .deliveryMethod select{
 	width: 65%;
 }
 
@@ -49,7 +59,7 @@
 }
 
 .basket .overallActions * {
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .payment a {

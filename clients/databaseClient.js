@@ -3,17 +3,17 @@ var pg = require('pg');
 var async = require('async');
 
 module.exports = {
-	newOrder: function(req, callback){
+	newOrder: function(req, paymentPass, callback){
 		var shirtsQueries = [];
 		var address = buildAddress(req.query);
-		var orderQuery = 'INSERT INTO orders(name, email, address, telephone, cost, deliveryOption, deliverydate) VALUES (\'' + req.query.name + '\', \'' + req.body.stripeEmail + '\', \'' + address + '\', \'' + req.query.telephone + '\', ' + req.query.cost + ', \'' + req.query.deliveryOption + '\', \'' + req.query.date + '\');'
+		
+		var orderQuery = 'INSERT INTO orders(name, email, address, telephone, cost, deliveryOption, deliverydate, success) VALUES (\'' + req.query.name + '\', \'' + req.body.stripeEmail + '\', \'' + address + '\', \'' + req.query.telephone + '\', ' + req.query.cost + ', \'' + req.query.deliveryMethod + '\', \'' + req.query.date + '\', \'' + paymentPass + '\');'
 		shirtsQueries.push(orderQuery);
 
 		var getID = '(SELECT ordernumber FROM orders WHERE ordernumber = (select max(orderNumber) from orders WHERE email=\'' + req.body.stripeEmail + '\'))'
 		var statusQuery = 'INSERT INTO statuses(orderNumber, dateChanged, description) VALUES (' + getID + ', now(), \'Waiting for shirt\');'
 		shirtsQueries.push(statusQuery);
-
-		var shirts = JSON.parse(req.query.shirtArray)
+		var shirts = req.query.shirtArray
 		shirts.forEach(function(shirt) {
 			if(shirt.club && shirt.strip){
 				var query = 'INSERT INTO shirts(orderNumber, sleeve, kitName, kitNumber, deliveryType, printingType, adultorchild, style, club, strip) VALUES (' + getID + ', \'' + shirt.sleeve + '\', \'' + shirt.name + '\', \'' + shirt.number + '\', \'' + shirt.deliveryType + '\', \'' + shirt.printingType + '\', \'' + shirt.childOrAdult + '\', \'' + shirt.style + '\', \'' + shirt.club + '\', \'' + shirt.strip + '\')'
@@ -25,7 +25,6 @@ module.exports = {
 		})
 
 		async.eachSeries(shirtsQueries, function(sql, cb) {
-			console.log(sql);
 		    query("INSERT", sql, cb)
 		}, function(err) {
 		    if( err ) {
@@ -49,7 +48,6 @@ module.exports = {
 	},
 	getEmail: function(orderNumber, callback){
 		var statusQuery = 'SELECT * FROM orders WHERE ordernumber=' + orderNumber + ';'
-		console.log(statusQuery)
 		query("SELECTID", statusQuery, callback);
 	},
 	statusesForOrderNo: function(ordernumber, callback){
@@ -67,6 +65,10 @@ module.exports = {
 	getScorers: function(callback){
 		var scorersQuery = 'SELECT * FROM scorers;'
 		query("SELECTID", scorersQuery, callback)
+	},
+	getScorersAdmin: function(callback){
+		var scorersQuery = 'SELECT * FROM scorers;'
+		query("SELECTSCORERS", scorersQuery, callback)
 	},
 	updatePlayers: function(players, callback){
 		async.eachSeries(players, function(player, cb) {
@@ -102,7 +104,6 @@ var query = function(type, sqlQuery, callback) {
 
   	var rows = []
 	result.on('error', function(err) {
-		console.log("pg", err)
 	    return callback(err)
 	});
 
@@ -116,7 +117,9 @@ var query = function(type, sqlQuery, callback) {
 	    client.end();
 	    if(type == "SELECT"){
 	    	callback(null, "userUpdates.pug", rows);
-		} else if("SELECTID"){
+		} else if(type == "SELECTSCORERS"){
+	    	callback(null, "admin.pug", rows);
+		} else if(type == "SELECTID"){
 			callback(null, rows);
 		} else {
 			callback()

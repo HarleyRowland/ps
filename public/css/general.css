@@ -80,6 +80,7 @@ h1.title {
 
 .page {
 	padding-top: 40px;
+	padding-bottom: 50px;
 	text-align: center;
 	min-height: 70%;
 }
@@ -162,6 +163,10 @@ h1.title {
 
 	h3 {
 		font-size: 30px !important;
+	}
+
+	.content {
+		margin-bottom: 30px !important;
 	}
 
 	.pageInfo {

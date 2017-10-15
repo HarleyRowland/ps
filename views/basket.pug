@@ -5,7 +5,7 @@ div.page.basket
 		div.shirts
 			if data.shirtsArray.length > 0
 				div.another
-					a(href="/service") Add Another?	
+					a(href="/style") Add Another?	
 				each shirt in data.shirtsArray
 					div.shirt
 						div.row
@@ -55,34 +55,29 @@ div.page.basket
 			else 
 					div.emptyBasket
 						h5 You have no shirts in your basket. 
-							a.addShirt(href="/service") Add one here
+							a.addShirt(href="/style") Add one here
 							span .
 		if data.shirtsArray.length > 0 
 			div.overallActions
 				div
-					div  
-						span.formLabel Delivery Methods: 
-						select.deliveryOption
-							each deliveryMethod in data.deliveryTypes
-								option  #{deliveryMethod}
+					div.deliveryMethod
+						div.formLabel
+							span Delivery Method:
+						select.deliveryMethodOption
+							option(value="post")  Send us your shirt(s) in the post.
+							option(value="bring")  Bring your shirt(s) to our office and we print the same day.
+							option(value="letters")  We send you just the letters and numbers for your shirts.
+					div.deliveryCost
+						div.formLabel
+							span Delivery Cost: 
+						select.deliveryCostOption
+							each deliveryCost in data.deliveryCosts
+								option  #{deliveryCost}
 					div.totalCost
 						h4 Total Cost: £#{data.cost}
 					div.payment.notModal
 						a() Make Payment		
 					div.delete
 						a(href="/deleteShirtFromBasket?timestamp=all") Empty Your Basket
-
-//- if false
-//- 	div.serviceModal
-//- 		div.content
-//- 			h4 You have choosen different services for each shirt. Do you want the same for all shirts?
-//- 			select.serviceOption
-//- 				option(value="pleaseselect") Please Select
-//- 				option(value="leave") Keep services different for each shirt
-//- 				option(value="send") You are sending all shirts in the post
-//- 				option(value="delivery") You are bringing all shirts to the office
-//- 				option(value="post") You want just the letters for each shirt sent to you
-//- 			div.payment.paymentModal.hiddenFirst
-//- 				a() Make Payment	
 
 include footer.pug
