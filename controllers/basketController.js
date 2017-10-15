@@ -20,13 +20,10 @@
 		if(shirtObject && (add || shirtCount == 0)){
 			shirtCount++;
 			highestNumber++;
-	  		res.cookie("shirt"+highestNumber, shirtObject, {
-	  			expires: new Date (Date.now() + (3600*5000))
-	  		})
+	  		res.cookie("shirt"+highestNumber, shirtObject)
 	  		shirtsArray.push(shirtObject)
 		}
-		var differentMethods = false;
-		var deliveryMethodsArray = []
+
 		if(shirtCount > 0) {
 			for ( cookie in req.cookies ) {
 				if(cookie.includes("shirt")){
@@ -35,22 +32,15 @@
 			}
 			var cost = 0;
 			shirtsArray.forEach(function(shirt){
-				deliveryMethodsArray.push(shirt.deliveryType)
 				shirt.displayCost = buildDisplayCost(shirt.fullCost+"")
 				cost = cost + parseFloat(shirt.fullCost)
 				shirt.fullClub = nameConverter(shirt.club)
 			})			
 		}
-
-		var uniqueDeliveryMethods = deliveryMethodsArray.filter((v, i, a) => a.indexOf(v) === i); 
-
-		if(uniqueDeliveryMethods.length > 1){
-			differentMethods = true;
-		}
 		
-		var deliveryTypes = deliveryMethods(shirtCount)	
+		var deliveryCosts = choicesOfDelivery(shirtCount)	
 
-		var data = { data: { shirtsArray: shirtsArray, cost: cost, deliveryTypes: deliveryTypes, differentMethods: differentMethods} }
+		var data = { data: { shirtsArray: shirtsArray, cost: cost, deliveryCosts: deliveryCosts} }
 
 		callback("basket.pug", data)
 	},
@@ -84,7 +74,7 @@
 }
 
 
-var deliveryMethods = function(shirtCount){
+var choicesOfDelivery = function(shirtCount){
 	var deliveryTypes = ["2nd Class, Not Signed - £3.48", "1st Class, Not Signed - £4.08", "2nd Class, Signed - £4.68", "1st Class, Signed - £5.28"]
 	if(shirtCount < 2){
 		deliveryTypes.push("Guarenteed Before 1pm, Signed - £8.70")

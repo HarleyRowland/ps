@@ -2,7 +2,12 @@ include header.pug
 div.page.paymentSuccess
 	div.content
 		h2.title You successfully paid!
-		p.pageInfo Please post or bring your shirts to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD.
+		if data.deliveryMethod == "bring"
+			p.pageInfo Please bring your shirts to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD on #{data.date}. If you need to change this date, please let us know beforehand.
+		else if data.deliveryMethod == "letters"
+			p.pageInfo Your letters will arrive in the post.
+		else
+			p.pageInfo Please post your shirts to  to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD.
 		p.pageInfo The total cost for your order is 
 			strong £#{data.cost}
 		p.pageInfo Your order number is: 

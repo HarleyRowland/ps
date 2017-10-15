@@ -36,10 +36,6 @@ app.get("/", (req, res) => {
   flowController.getThreeScorers(callback);
 });
 
-app.get("/service", (req, res) => {
-  res.render("service.pug");
-});
-
 app.get("/payment", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
@@ -50,6 +46,7 @@ app.get("/payment", (req, res) => {
 
 app.post("/paymentResult", (req, res) => {
   var callback = function(template, data, err){
+    console.log(data)
     res.render(template, data);
   }
   
@@ -164,16 +161,14 @@ app.get("/style", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType){
-    flowController.selectTemplate("style.pug", req, callback);
-  }
+  flowController.selectTemplate("style.pug", req, callback);
 })
 
 app.get("/printingType", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style && req.query.childOrAdult) {
+  if(req.query.style && req.query.childOrAdult) {
     flowController.selectTemplate("printingType.pug", req, callback);
   }
 })
@@ -182,7 +177,7 @@ app.get("/club", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if((req.query.deliveryType && req.query.style && req.query.printingType == "hero") || (req.query.deliveryType && req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "prem")){
+  if((req.query.style && req.query.printingType == "hero") || (req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "prem")){
     flowController.selectTemplate("club.pug", req, callback);
   }
 })
@@ -191,7 +186,7 @@ app.get("/premOrDifferent", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style && req.query.printingType == "custom"){
+  if(req.query.style && req.query.printingType == "custom"){
     flowController.selectTemplate("premOrDifferent.pug", req, callback);
   }
 })
@@ -200,7 +195,7 @@ app.get("/strip", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style && req.query.printingType && req.query.club){
+  if(req.query.style && req.query.printingType && req.query.club){
     flowController.selectTemplate("strip.pug", req, callback);
   }
 })
@@ -209,7 +204,7 @@ app.get("/childOrAdult", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style){
+  if(req.query.style){
     flowController.selectTemplate("childOrAdult.pug", req, callback);
   }
 })
@@ -218,7 +213,7 @@ app.get("/colour", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different"){
+  if(req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different"){
     flowController.selectTemplate("colour.pug", req, callback);
   }
 })
@@ -227,7 +222,7 @@ app.get("/letter", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.colour){
+  if(req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.colour){
     flowController.selectTemplate("letter.pug", req, callback);
   }
 })
@@ -236,7 +231,7 @@ app.get("/nameNumber", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.colour && req.query.letter){
+  if(req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.colour && req.query.letter){
     flowController.selectTemplate("nameNumber.pug", req, callback);
   } else {
     res.send(req.query)
@@ -247,7 +242,7 @@ app.get("/heroOrCustom", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style && req.query.printingType && req.query.club && req.query.strip){
+  if(req.query.style && req.query.printingType && req.query.club && req.query.strip){
     if(req.query.printingType == "hero"){
       flowController.selectTemplate("hero.pug", req, callback);
     } else if(req.query.printingType == "custom" && req.query.premOrDifferent) {
@@ -264,7 +259,7 @@ app.get("/sleeves", (req, res) => {
   var callback = function(template, data, err){
     res.render(template, data);
   }
-  if(req.query.deliveryType && req.query.style && req.query.printingType){
+  if(req.query.style && req.query.printingType){
     if(req.query.printingType == "hero" && req.query.club && req.query.strip && req.query.name && req.query.number){
       flowController.selectTemplate("sleeves.pug", req, callback);
     } else if(req.query.printingType == "custom" && req.query.club && req.query.strip && req.query.name && req.query.number) {

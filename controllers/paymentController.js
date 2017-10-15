@@ -9,8 +9,6 @@ module.exports = {
 		var shirtsArray = getCookies(req);
 		var shirtCost = 0;
 		var scorers = [];
-		console.log(shirtsArray)
-		console.log("__________________________________")
 		async.waterfall([
 		    function(callback) {
 				databaseClient.getScorers(callback)
@@ -45,28 +43,20 @@ module.exports = {
 							discount = scorers[i].discount;
 						}
 					}
-					console.log(cost + ", " + thisShirtCost + ", " + sleeveCost + ", " + discount)
 					cost = parseFloat(cost) + parseFloat(thisShirtCost) + parseFloat(sleeveCost) - parseFloat(discount);
 				}
 			});
 			var costsForShirts = cost
 			var displayShirtCost = buildDisplayCost(costsForShirts+"")
-			var deliveryCost = delCost(req.query.deliveryOption);
+			var deliveryCost = parseFloat(req.query.deliveryCost);
 
 			var displayDeliveryCost = buildDisplayCost(deliveryCost+"")
 			var totalCost = costsForShirts + deliveryCost;
 
 			var displayTotalCost = buildDisplayCost(totalCost+"")
 			var jsonArray = JSON.stringify(shirtsArray);
-			var postOrDeliver = ""
 
-			shirtsArray.forEach(function(shirt){
-				if(shirt.deliveryType == "deliver"){
-					postOrDeliver = "deliver"	
-				}
-			})
-			
-			var data = { data: {jsonArray: jsonArray, deliveryCost: deliveryCost, shirtCost: costsForShirts, totalCost: totalCost, key: config.database.publishableKey, deliveryType: postOrDeliver, deliveryOption: req.query.deliveryOption, displayTotalCost: displayTotalCost, displayDeliveryCost: displayDeliveryCost, displayShirtCost: displayShirtCost}}
+			var data = { data: {jsonArray: jsonArray, deliveryCost: deliveryCost, shirtCost: costsForShirts, totalCost: totalCost, key: config.database.publishableKey, deliveryMethod: req.query.deliveryMethod , deliveryOption: req.query.deliveryOption, displayTotalCost: displayTotalCost, displayDeliveryCost: displayDeliveryCost, displayShirtCost: displayShirtCost}}
 
 			callback("payment.pug", data);
 		});
@@ -109,11 +99,14 @@ module.exports = {
 		    }
 		], function (err, result) {
 	    	data.data.orderNumber = result[0].ordernumber
+	    	data.data.deliverydate = result[0].ordernumber
+	    	data.data.deliveryoption = result[0].ordernumber
 	    	name = result[0].name
 	    	cost = result[0].cost
 	    	if(paymentPass){
-	        	emailClient.sendEmail("Payment", req.body.stripeEmail, name, cost, data.data.orderNumber)
+	        	emailClient.sendEmail("Payment", req.body.stripeEmail, name, cost, data.data.orderNumber, result[0].deliveryoption, result[0].deliverydate)
 	    	}
+	    	console.log(data)
 	        res.render(template, data);
 		});
 	}
@@ -182,22 +175,4 @@ var buildDisplayCost = function(cost){
 	} else {
 		return cost;
 	}
-}
-
-var deliveryMethods = function(shirtCount){
-	var deliveryTypes = ["1st Class, Not Signed - £4.08", "1st Class, Signed - £5.28", "2nd Class, Not Signed - £3.48", "2nd Class, Signed - £4.68"]
-
-	if(shirtCount == 1){
-		deliveryTypes.push("Guarenteed Before 1pm, Signed - £8.70")
-	} else if(shirtCount > 1 && shirtCount < 4){
-		deliveryTypes.push("Guarenteed Before 1pm, Signed - £10.26")
-	} else if(shirtCount > 3){
-		deliveryTypes.push("Guarenteed Before 1pm, Signed - £13.20")
-	}
-
-	return deliveryMethods;
-}
-
-var delCost = function(deliverOption) {
-	return parseFloat(deliverOption.split("£")[1].trim());
 }

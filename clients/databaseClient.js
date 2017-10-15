@@ -6,7 +6,8 @@ module.exports = {
 	newOrder: function(req, paymentPass, callback){
 		var shirtsQueries = [];
 		var address = buildAddress(req.query);
-		var orderQuery = 'INSERT INTO orders(name, email, address, telephone, cost, deliveryOption, deliverydate, success) VALUES (\'' + req.query.name + '\', \'' + req.body.stripeEmail + '\', \'' + address + '\', \'' + req.query.telephone + '\', ' + req.query.cost + ', \'' + req.query.deliveryOption + '\', \'' + req.query.date + '\', \'' + paymentPass + '\');'
+		
+		var orderQuery = 'INSERT INTO orders(name, email, address, telephone, cost, deliveryOption, deliverydate, success) VALUES (\'' + req.query.name + '\', \'' + req.body.stripeEmail + '\', \'' + address + '\', \'' + req.query.telephone + '\', ' + req.query.cost + ', \'' + req.query.deliveryMethod + '\', \'' + req.query.date + '\', \'' + paymentPass + '\');'
 		shirtsQueries.push(orderQuery);
 
 		var getID = '(SELECT ordernumber FROM orders WHERE ordernumber = (select max(orderNumber) from orders WHERE email=\'' + req.body.stripeEmail + '\'))'

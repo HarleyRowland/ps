@@ -27,7 +27,7 @@ div.page.payment
 			div.field  
 				span.formLabel Country: 
 				input.country
-			if data.deliveryType == "deliver"
+			if data.deliveryMethod == "bring"
 				div.field
 					span.formLabel Delivery Date:
 					div.dateField
@@ -40,7 +40,8 @@ div.page.payment
 					label.breakdown
 						h5 Price Breakdown
 						div Shirt Cost: £!{data.displayShirtCost}
-						div Delivery Cost: £!{data.displayDeliveryCost}
+						if data.deliveryMethod != "bring"
+							div Delivery Cost: £!{data.displayDeliveryCost}
 						div Toal Cost: £!{data.displayTotalCost}
 				script(
 					src="//checkout.stripe.com/v2/checkout.js",

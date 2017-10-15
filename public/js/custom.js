@@ -4,15 +4,13 @@ $(document).on('change','.clubOption',function(){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		if(local_data.premOrDifferent){
-			$(".action a").attr("href", "/strip?&deliveryType=" + local_data.deliveryType +
-				"&printingType=" + local_data.printingType +
+			$(".action a").attr("href", "/strip?&printingType=" + local_data.printingType +
 				"&style=" + local_data.style +
 				"&premOrDifferent=" + local_data.premOrDifferent +
 				"&club=" + nameConverter(club)
 			)
 		} else {
-			$(".action a").attr("href", "/strip?deliveryType=" + local_data.deliveryType +
-				"&printingType=" + local_data.printingType + 
+			$(".action a").attr("href", "/strip?printingType=" + local_data.printingType + 
 				"&style=" + local_data.style +
 				"&club=" + nameConverter(club)
 			)
@@ -38,8 +36,7 @@ $(document).on('change','.playerOption',function(){
 			$(".printStatement").text("This shirt has a £" + discount + " discount. It is priced at £" + (local_data.price - discount) + ".")
 		}
 		var shirtCost = local_data.price - discount;
-		$(".hero .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
-			"&printingType=" + local_data.printingType +
+		$(".hero .btn").attr("href", "/sleeves?printingType=" + local_data.printingType +
 			"&style=" + local_data.style +
 			"&club=" + local_data.club +
 			"&strip=" + local_data.strip +
@@ -51,29 +48,32 @@ $(document).on('change','.playerOption',function(){
 	}
 });
 
-$(document).on('change','.serviceOption',function(){
-	var service = $('.serviceOption').find(":selected").val();
+$(document).on('click','.payment a',function(){
+	var service = $('.serviceOption').find(":selected").text();
+	console.log(service)
 	if(service == "pleaseselect"){
 		$(".hiddenFirst").css("visibility", "hidden");
 	} else {
 		$(".hiddenFirst").css("visibility", "visible");
-		var deliveryOption = $('.deliveryOption').find(":selected").text();
 		var deliveryMethod = $('.deliveryMethod').find(":selected").val();
-		$(".paymentModal a").attr("href", "/payment?deliveryOption=" + deliveryOption + "&deliveryMethod=" + deliveryMethod)
+		var deliveryCost = 0;
+		if(deliveryMethod != "bring"){
+			deliveryCost = $('.deliveryCostOption').find(":selected").text().split("£")[1];
+		}
+		$(".payment a").attr("href", "/payment?deliveryCost=" + deliveryCost + "&deliveryMethod=" + deliveryMethod)
 	}
 });
 
 
-$(document).on('change','.deliveryMethod',function(){
+$(document).on('change','.deliveryMethodOption',function(){
 	var deliveryCost = 0;
 	var totalCost = parseFloat(local_data.cost);
-	var deliveryOption = $('.deliveryOption').find(":selected").text();
-	var service = $('.deliveryMethod').find(":selected").val()
+	var service = $('.deliveryMethodOption').find(":selected").val()
 	if(service == "bring"){
 		$('.deliveryCost').hide();
 	} else {
 		$('.deliveryCost').show();
-		deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+		deliveryCost = parseFloat($('.deliveryCostOption').find(":selected").text().split("£")[1]);
 	}
 	$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
 });
@@ -90,13 +90,12 @@ $(document).on('change','.proOption',function(){
 
 
 $(document).on('change','.colourOption',function(){
-	var colour = $('.colourOption').find(":selected").text();
-	if(colour == "Please Select"){
+	var colour = $('.colourOption').find(":selected").val();
+	if(colour == ""){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".colour .btn").attr("href", "/letter?deliveryType=" + local_data.deliveryType +
-			"&printingType=" + local_data.printingType +
+		$(".colour .btn").attr("href", "/letter?printingType=" + local_data.printingType +
 			"&style=" + local_data.style +
 			"&premOrDifferent=" + local_data.premOrDifferent +
 			"&colour=" + colour + 
@@ -106,13 +105,12 @@ $(document).on('change','.colourOption',function(){
 });
 
 $(document).on('change','.letterOption',function(){
-	var letter = $('.letterOption').find(":selected").text();
-	if(letter == "Please Select"){
+	var letter = $('.letterOption').find(":selected").val();
+	if(letter == ""){
 		$(".hiddenFirst").css("display", "none");
 	} else {
 		$(".hiddenFirst").css("display", "block");
-		$(".letter .btn").attr("href", "/nameNumber?deliveryType=" + local_data.deliveryType +
-			"&printingType=" + local_data.printingType +
+		$(".letter .btn").attr("href", "/nameNumber?printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +
 			"&premOrDifferent=" + local_data.premOrDifferent +
 			"&colour=" + local_data.colour +
@@ -133,10 +131,9 @@ $(document).on('change','.sleeveOption',function(){
 	}
 });
 
-$(document).on('change','.deliveryOption',function(){
-	var deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
+$(document).on('change','.deliveryCostOption',function(){
+	var deliveryCost = parseFloat($('.deliveryCostOption').find(":selected").text().split("£")[1]);
 	var totalCost = parseFloat(local_data.cost);
-	var deliveryOption = $('.deliveryOption').find(":selected").text();
 	$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
 });
 
@@ -147,11 +144,7 @@ $( document ).ready(function() {
 	cookies.forEach(function(cookie) {
 		if(!acceptedCookies || acceptedCookies == undefined){
 			$(".cookiePermission").show();
-			var now = new Date();
-			var time = now.getTime();
-			time += 3600 * 5000;
-			now.setTime(time);
-			document.cookie = "cookiePermission=true;expires=" + now.toUTCString() +";";
+			document.cookie = "cookiePermission=true;";
 		}
 		if(cookie.includes("shirt")){
 			shirtCount++;
@@ -194,8 +187,7 @@ $( document ).ready(function() {
 
 	if ($(".totalCost").length){
     	var totalCost = parseFloat(local_data.cost);
-    	var deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
-    	var deliveryOption = $('.deliveryOption').find(":selected").text();
+    	var deliveryCost = parseFloat($('.deliveryCostOption').find(":selected").text().split("£")[1]);
     	$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
 	}
 
@@ -209,6 +201,8 @@ $( document ).ready(function() {
 		$("a.confirmShirt").attr("href", "/basket?shirtObject=" + shirtObject + "&timestamp=" + new Date())
 	}
 	$(".paymentButton").on("click", function(e){
+					e.preventDefault();
+
 		var name =  $('.name').val();
 		var telephone =  $('.telephone').val();
 		var line1 =  $('.line1').val();
@@ -221,30 +215,8 @@ $( document ).ready(function() {
 		var canSend = validatePaymentForm(name, telephone, line1, town, county, postcode, county);
 
 		if(canSend){
-			$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&telephone=" + telephone + "&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&country=" + country + "&cost=" + local_data.totalCost + "&shirtArray=" + local_data.jsonArray + "&date=" + date + "&deliveryOption=" + local_data.deliveryOption)
+			$(".paymentForm form").attr("action", "/paymentResult?name=" + name + "&telephone=" + telephone + "&line1=" + line1 + "&line2=" + line2 + "&town=" + town + "&county=" + county + "&postcode=" + postcode + "&country=" + country + "&cost=" + local_data.totalCost + "&shirtArray=" + local_data.jsonArray + "&date=" + date + "&deliveryCost=" + local_data.deliveryCost + "&deliveryMethod=" + local_data.deliveryMethod)
 			$(".stripe-button-el").click();
-		} else {
-			e.preventDefault();
-		}
-	});
-
-	$(".notModal").on("click", function(e){
-		// e.preventDefault()
-
-		if(false){
-			$(".serviceModal").css("visibility", "visible");
-		} else {
-			var deliveryCost = 0;
-			var totalCost = parseFloat(local_data.cost);
-			var deliveryOption = $('.deliveryOption').find(":selected").text();
-			var service = $('.deliveryMethod').find(":selected").val()
-			if(service == "bring"){
-				$('.deliveryCost').hide();
-			} else {
-				$('.deliveryCost').show();
-				deliveryCost = parseFloat($('.deliveryOption').find(":selected").text().split("£")[1]);
-			}
-			$(".totalCost h4").text("Total Cost: £" + (totalCost + deliveryCost))
 		}
 	});
 
@@ -265,7 +237,7 @@ $( document ).ready(function() {
 			$(".quoteEmail").attr("href", "/sendQuoteEmail?name=" + name + "&email=" + email + "&league=" + league + "&club=" + club + "&strip=" + strip + "&year=" + year + "&colour=" + colour + "&letter=" + letter + "&kitName=" + shirtName + "&kitNumber=" + shirtNumber + "&comments=" + comments)
 			$('.paymentForm *').removeAttr('disabled');
 		} else {
-			$(this).unbind('submit').submit()
+			e.preventDefault();
 		}
 	});
 
@@ -311,8 +283,7 @@ $(document).on('input','.shirtName',function(){
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
 		$(".price").text("£" + shirtCost + " (Up to 10 letters and 2 numbers for £20 with additional letters at £1)");
-		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
-			"&printingType=" + local_data.printingType +
+		$(".nameNumber .btn").attr("href", "/sleeves?printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +
 			"&premOrDifferent=" + local_data.premOrDifferent +
 			"&colour=" + local_data.colour +
@@ -344,8 +315,7 @@ $(document).on('input','.shirtNumber',function(){
 		$(".hiddenFirst").css("display", "block");
 		$(".basket").css("display", "block");
 		$(".price").text("£" + shirtCost + " (Up to 10 letters and 2 numbers for £20 with additional letters at £1)");
-		$(".nameNumber .btn").attr("href", "/sleeves?deliveryType=" + local_data.deliveryType +
-			"&printingType=" + local_data.printingType +
+		$(".nameNumber .btn").attr("href", "/sleeves?printingType=" + local_data.printingType +
 			"&style=" + local_data.style  +
 			"&premOrDifferent=" + local_data.premOrDifferent +
 			"&colour=" + local_data.colour +
@@ -361,11 +331,10 @@ $(document).on('input','.shirtNumber',function(){
 });
 
 var buildShirtObject = function(data){
-	if(data.deliveryType && data.style && data.printingType && data.shirtCost){
+	if(data.style && data.printingType && data.shirtCost){
 	    if(data.printingType == "hero" && data.club && data.strip && data.name && data.number){
 			return {
 				printingType: data.printingType,
-				deliveryType: data.deliveryType,
 				childOrAdult: data.childOrAdult,
 				style: data.style,
 				club: data.club,
@@ -380,7 +349,6 @@ var buildShirtObject = function(data){
 	    } else if(data.printingType == "custom" && data.club && data.strip && data.name && data.number && data.colour && data.colour != "undefined") {
 	    	return {
 				printingType: data.printingType,
-				deliveryType: data.deliveryType,
 				childOrAdult: data.childOrAdult,
 				style: data.style,
 				colour: data.colour,
@@ -395,7 +363,6 @@ var buildShirtObject = function(data){
 	    } else if(data.printingType == "custom" && data.letter && data.colour && data.name && data.number){
 	      	return {
 				printingType: data.printingType,
-				deliveryType: data.deliveryType,
 				childOrAdult: data.childOrAdult,
 				style: data.style,
 				club: data.club,
@@ -416,175 +383,57 @@ var buildShirtObject = function(data){
 }
 
 var validateContactForm = function(name, phone, email, comments){
-  var canSend = true;
+  	var canSend = true;
 
-  if(name+"" == ""){
-    $('.field .name').addClass('animated shake');
-    canSend = false;
-    $('.field .name').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .name').removeClass('shake');
-    });
-
-  }
-  if(phone+"".length < 11 ){
-    $('.field .number').addClass('animated shake');
-    canSend = false;
-    $('.field .number').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .number').removeClass('shake');
-    });
-  }
-  if(email+"" == "" || !validateEmail(email)){
-    $('.field .email').addClass('animated shake');
-    canSend = false;
-    $('.field .email').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .email').removeClass('shake');
-    });
-
-  }
-  if(comments+"" == ""){
-    $('.field .comments').addClass('animated shake');
-    canSend = false;
-    $('.field .comments').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .comments').removeClass('shake');
-    });
-  }
-  return canSend;
+  	canSend = animateField(name+"" == "", ".field .name");
+	canSend = animateField(phone.length > 11 || phone.length < 9, ".field .number");
+    canSend = animateField(email+"" == "" || !validateEmail(email), ".field .email");
+    canSend = animateField(comments+"" == "", ".field .comments");
+  	
+  	return canSend;
 }
 
 var validateQuoteForm = function(name, email, league, club, strip, year, colour, letter, shirtName, shirtNumber){
-  var canSend = true;
+	var canSend = true;
 
-  if(name+"" == ""){
-    $('.field .name').addClass('animated shake');
-    canSend = false;
-    $('.field .name').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .name').removeClass('shake');
-    });
+    canSend = animateField(name+"" == "", ".field .name");
+    canSend = animateField(email+"" == "" || !validateEmail(email), ".field .email");
+    canSend = animateField(league+"" == "", ".field .league");
+    canSend = animateField(club+"" == "", ".field .club");
+    canSend = animateField(strip+"" == "", ".field .strip");
+    canSend = animateField(year+"" == "", ".field .year");
+    canSend = animateField(colour+"" == "", ".field .colour");
+    canSend = animateField(letter+"" == "", ".field .letterSelect");
+    canSend = animateField(shirtName+"" == "", ".field .shirtName");
+    canSend = animateField(shirtNumber+"" == "", ".field .shirtNumber");
 
-  }
-  if(email+"" == "" || !validateEmail(email)){
-    $('.field .email').addClass('animated shake');
-    canSend = false;
-    $('.field .email').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .email').removeClass('shake');
-    });
-
-  }
-  if(league+"" == ""){
-    $('.field .league').addClass('animated shake');
-    canSend = false;
-    $('.field .league').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .league').removeClass('shake');
-    });
-  }
-  if(club+"" == ""){
-    $('.field .club').addClass('animated shake');
-    canSend = false;
-    $('.field .club').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .club').removeClass('shake');
-    });
-  }
-  if(strip+"" == ""){
-    $('.field .strip').addClass('animated shake');
-    canSend = false;
-    $('.field .strip').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .strip').removeClass('shake');
-    });
-  }
-  if(year+"" == ""){
-    $('.field .year').addClass('animated shake');
-    canSend = false;
-    $('.field .year').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .year').removeClass('shake');
-    });
-  }
-  if(colour+"" == ""){
-    $('.field .colour').addClass('animated shake');
-    canSend = false;
-    $('.field .colour').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .colour').removeClass('shake');
-    });
-  }
-  if(letter+"" == "Please Select"){
-    $('.field .letterSelect').addClass('animated shake');
-    canSend = false;
-    $('.field .letterSelect').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .letterSelect').removeClass('shake');
-    });
-  }
-  if(shirtName+"" == ""){
-    $('.field .shirtName').addClass('animated shake');
-    canSend = false;
-    $('.field .shirtName').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .shirtName').removeClass('shake');
-    });
-  }
-  if(shirtNumber+"" == ""){
-    $('.field .shirtNumber').addClass('animated shake');
-    canSend = false;
-    $('.field .shirtNumber').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .shirtNumber').removeClass('shake');
-    });
-  }
-  return canSend;
+	return canSend;
 }
 
 var validatePaymentForm = function(name, phone, line1, town, county, postcode, country){
-  var canSend = true;
+	var canSend = true;
 
-  if(name == ""){
-    $('.field .name').addClass('animated shake');
-    canSend = false;
-    $('.field .name').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .name').removeClass('shake');
-    });
+	canSend = animateField(name == "", ".field .name");
+	canSend = animateField(phone.length > 11 || phone.length < 9, ".field .telephone");
+	canSend = animateField(line1 == "", ".field .line1");
+	canSend = animateField(town == "", ".field .town");
+	canSend = animateField(county == "", ".field .county");
+	canSend = animateField(postcode+"" == "" || !validatePostcode(postcode), ".field .postcode");
+	canSend = animateField(country == "", ".field .country");
 
-  }
-  if(phone.length > 11 || phone.length < 9){
-    $('.field .telephone').addClass('animated shake');
-    canSend = false;
-    $('.field .telephone').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .telephone').removeClass('shake');
-    });
-  }
-  if(line1 == ""){
-    $('.field .line1').addClass('animated shake');
-    canSend = false;
-    $('.field .line1').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .line1').removeClass('shake');
-    });
+	return canSend;
+}
 
-  }
-  if(town == ""){
-    $('.field .town').addClass('animated shake');
-    canSend = false;
-    $('.field .town').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .town').removeClass('shake');
-    });
-
-  }
-  if(county == ""){
-    $('.field .county').addClass('animated shake');
-    canSend = false;
-    $('.field .county').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .county').removeClass('shake');
-    });
-  }
-  if(postcode+"" == "" || !validatePostcode(postcode)){
-    $('.field .postcode').addClass('animated shake');
-    canSend = false;
-    $('.field .postcode').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .postcode').removeClass('shake');
-    });
-  }
-  if(country == ""){
-    $('.field .country').addClass('animated shake');
-    canSend = false;
-    $('.field .country').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $('.field .country').removeClass('shake');
-    });
-  }
-  return canSend;
+var animateField = function(animateTest, fieldToAnimate){
+	var canSend = true;
+	if(animateTest){
+	    $(fieldToAnimate).addClass('animated shake');
+	    canSend = false;
+	    $(fieldToAnimate).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+	      	$(fieldToAnimate).removeClass('shake');
+	    });
+	}
+	return canSend;
 }
 
 var validateEmail = function(email) {

@@ -16,28 +16,36 @@ var transporter = nodemailer.createTransport(({
 }));
 
 module.exports = {
-	sendEmail: function(subject, toEmailAddress, name, cost, orderNumber){
-		send(subject, toEmailAddress, name, cost, orderNumber)
+	sendEmail: function(subject, toEmailAddress, name, cost, orderNumber, deliveryOption, deliveryDate){
+		send(subject, toEmailAddress, name, cost, orderNumber, deliveryOption, deliveryDate)
 	},
 	queryEmail: function(name, number, email, comments){
-		var emails = [config.email.email]
+		var emails = [toEmailAddress, config.email.email]
 		var subject = "New Quote Request From " + email
-		var content = "<p>Query email from: " + name + " (" + email + "/" + number + ")</p><p> The said: " + comments + "</p>"
-		sendMail(emails, emailSubject, content)
+		var content = "<p>Query email from: " + name + " (" + email + "/" + number + ")</p><p> They said: " + comments + "</p>"
+		sendMail(emails, subject, content)
 	},
 	quoteEmail: function(name, email, league, club, strip, year, colour, letter, kitName, kitNumber, comments){
-		var emails = [config.email.email]
+		var emails = [toEmailAddress, config.email.email]
 		var subject = "New Quote Request From " + email
 		var content = "<p>Quote email from: " + name + " (" + email + ")</p><p> The Quote: " + comments + "</p><ul><li>League: " + league + "</li><li>Club: " + club + "</li><li>Strip: " + strip + "</li><li>Year: " + year + "</li><li>Colour: " + colour + "</li><li>Letter: " + letter + "</li><li>Kit Name: " + kitName + "</li><li>Kit Number: " + kitNumber + "</li><li>Extra Comments: " + comments + "</li></ul>"
-		sendMail(emails, emailSubject, content)
+		sendMail(emails, subject, content)
 	}
 }
 
-var send = function(subject, toEmailAddress, name, cost, orderNumber){
+var send = function(subject, toEmailAddress, name, cost, orderNumber, deliveryOption, deliveryDate){
+	console.log(deliveryOption, deliveryDate)
 	if(subject == "Payment"){
-		var emails = [toEmailAddress, config.email.authorEmail]
+		var emails = [toEmailAddress, config.email.authorEmail, config.email.email]
 		var emailSubject =  subject + " - Order Number: " + orderNumber
-		var content = "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>Please send or bring your shirt to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD. We will notify you when we have recieved your shirt.</p><p>If you have requested letters to be sent to you, we will notify you when they are on their way.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
+		var content;
+		if(deliveryOption == "post") {
+			content = "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>Please deliver your shirt to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD. We will notify you when we have recieved your shirt.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
+		} else if(deliveryOption == "bring"){
+			content = "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>Please bring your shirt to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD on " + deliveryDate + " and you can take them away the same day.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
+		} else {
+			content = "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>We will notify you when your letters are on their way.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"		
+		}
 		sendMail(emails, emailSubject, content)
 	} else if( subject == "Shirt Received") {
 		var emails = [toEmailAddress]
