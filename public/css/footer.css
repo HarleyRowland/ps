@@ -1,8 +1,5 @@
 .bottom {
-	position: fixed;
 	width: 100%;
-	bottom: 0;
-	margin-bottom: 0px;
 	padding: 30px;
 	background-color: #FFFFFF;
 }
@@ -14,10 +11,10 @@
 }
 
 .footer {
-	margin-top: 50px;
 	background-color: #323B7E; 
 	padding: 50px;
 	text-align: center;
+	margin-bottom: 0px;
 }
 
 .footer h4 {

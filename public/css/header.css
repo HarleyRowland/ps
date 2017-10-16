@@ -47,14 +47,19 @@
 	margin: 10px;
 }
 
+.cookiePermission, .emailSent {
+	font-size: small;
+}
+
 
 .cookiePermission .fa-times, .emailSent .fa-times {
-	padding-top: 5px;
+	padding-top: 3px;
 	position: absolute;
 	color: white;
 	right: 0;
 	padding-right: 30px;
 	cursor: pointer;
+	font-size: small;
 }
 
 .header {
