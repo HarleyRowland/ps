@@ -10,17 +10,17 @@ var nameConverter = function(name){
 	} else if(name == "Chelsea"){
 		return "chelsea"
 	} else if(name == "Crystal Palace"){
-		return "crystalPalace"
+		return "crystalpalace"
 	} else if(name == "Everton"){
 		return "everton"
 	} else if(name == "Huddersfield"){
 		return "huddersfield"
 	} else if(name == "Leicester City"){
-		return "leicesterCity"
+		return "leicestercity"
 	} else if(name == "Liverpool"){
 		return "liverpool"
 	} else if(name == "Manchester City"){
-		return "manchesterCity"
+		return "manchestercity"
 	} else if(name == "Manchester United"){
 		return "manu"
 	} else if(name == "Newcastle United"){

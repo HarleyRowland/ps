@@ -9,6 +9,7 @@ html
 			include ../public/css/animate.css
 			include ../public/css/page.css
 			include ../public/css/header.css
+			include ../public/css/scorerDiscounts.css
 			include ../public/css/basket.css
 			include ../public/css/footer.css
 		script(type='text/javascript' src='public/js/jquery.js')
@@ -23,7 +24,7 @@ html
 		div.cookiePermission
 			span We use cookies. By continuing to use our site you give us permission to use cookies on your browser.
 			i.fa.fa-times(aria-hidden="true")
-		if emailSent
+		if data && data.emailSent
 			div.emailSent
 				span Your message has been sent to our team. We aim to reply within 5 working days.
 				i.fa.fa-times(aria-hidden="true")

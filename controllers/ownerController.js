@@ -3,52 +3,102 @@ var databaseClient = require('../clients/databaseClient.js')
 var emailClient = require('../clients/emailClient.js')
 
 module.exports = {
-	getAll: function(callback){
-		databaseClient.getAllOrders(callback)
+	getAllUserOrders: function(res, template, callback){
+		var databaseCallback = function(error, data){
+			if(error){
+				return callback(error)
+			}
+			callback(null, res, template, data);
+		}
+		databaseClient.getAllOrders(databaseCallback)
 	},
-	updateOrder: function(req, res){
-		var email = "";
-		var name = "";
+	updateOrder: function(req, res, redirectRoute, callback){
+		var email, name;
 		async.waterfall([
 		    function(callback) {
-		        databaseClient.getEmail(req.query.orderNumber, callback);
+		        databaseClient.getEmail(req, callback);
 		    },
 		    function(order, callback) {
 		    	email = order[0].email;
 		    	name = order[0].name;
-		        databaseClient.updateOrder(req.query.orderNumber, req.query.shirtid, req.query.description, callback);
+		        databaseClient.updateOrder(req, callback);
 		    },
-		    function(order, callback) {
-		    	callback(null, null)
-		        emailClient.sendEmail(req.query.description, email, name, null, req.query.orderNumber)
+		    function(callback) {
+		        emailClient.sendEmail(req, email, name, null, null, null, callback)
 		    }
-		], function (err, result) {
-			res.redirect("/userOrders")
+		], function (error, result) {
+			if(error){ 
+				return callback(error);
+			}
+			callback(null, res, redirectRoute)
 		});
 	},
-	statusesForOrderNo: function(orderNumber, callback){
-		databaseClient.statusesForOrderNo(orderNumber, callback);
+	statusesForOrderNo: function(req, res, template, callback){
+		var databaseCallback = function(error, data){
+			if(error){
+				return callback(error)
+			}
+			callback(null, res, template, data);
+		}
+		databaseClient.statusesForOrderNo(req, databaseCallback);
 	},
-	queryEmail: function(name, email, number, comments, callback){
-		emailClient.queryEmail(name, email, number, comments)
-		callback(null);
+	queryEmail: function(req, res, template, callback){
+		var emailCallback = function(error){
+			if(error){
+				return callback(error)
+			}
+			callback(null, res, template, {emailSent: true});
+		}
+		emailClient.queryEmail(req, emailCallback)
 	},
-	quoteEmail: function(name, email, league, club, strip, year, colour, letter, kitName, kitNumber, comments, callback){
-		emailClient.quoteEmail(name, email, league, club, strip, year, colour, letter, kitName, kitNumber, comments)
-		callback(null);
+	quoteEmail: function(req, res, template, callback){
+		var emailCallback = function(error){
+			if(error){
+				return callback(error)
+			}
+			callback(null, res, template, {emailSent: true});
+		}
+		emailClient.quoteEmail(req, emailCallback)
 	},
-	updatePrice(price, callback){
-		databaseClient.updatePrice(price, callback);
+	updatePrice(req, res, redirectRoute, callback){
+		var databaseCallback = function(error){
+			if(error){
+				return callback(error)
+			}
+			callback(null, res, redirectRoute);
+		}
+		databaseClient.updatePrice(req, databaseCallback);
 	},
-	inputScorers(scorersString, callback){
-		var players = scorersString.split(";");
-		databaseClient.updatePlayers(players, callback);
+	inputScorers(req, res, redirectRoute, callback){
+		var databaseCallback = function(error){
+			if(error){
+				return callback(error)
+			}
+			callback(null, res, redirectRoute);
+		}
+		databaseClient.updatePlayers(req, databaseCallback);
 	},
-	clearScorers(callback){
-		databaseClient.clearScorers(callback);
+	clearScorers(res, template, callback){
+		var databaseCallback = function(error){
+			if(error){
+				return callback(error)
+			}
+			callback(null, res, template, {});
+		}
+		databaseClient.clearScorers(databaseCallback);
 	},
-	getScorers(callback){
-		databaseClient.getScorersAdmin(callback)
+	getScorers(res, template, callback){
+		var databaseCallback = function(error, data){
+			if(error){
+				return callback(error)
+			}
+			callback(null, res, template, data);
+		}
+		databaseClient.getScorersAdmin(databaseCallback)
+	},
+	sendToWebmail(res){
+		res.writeHead(301, {Location: 'http://greg-thompson.com/webmail'});
+		res.end();
 	}
 }
 

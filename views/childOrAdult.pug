@@ -14,13 +14,13 @@ div.childOrAdult.page
 							span 53mm 
 						span high and numbers approx. 256mm high.
 					div.action
-						a.btn(href="/printingType?childOrAdult=Adult&style=" + data.style)
+						a.btn(href="/printingType?childOrAdult=Adult&style=" + data.style + "&club="+ data.club + "&name=" + data.name + "&number=" + data.number + "&shirtCost=" + data.shirtCost + "&printingType=" + data.printingType)
 							span Select
 			div.choice.bottomChoice.small-12.medium-6.columns
 				div.customPrinting
 					h3.optionTitle Youths
 					h5.optionSubTitle Ideal for youth shirts up to roughly 8 years old. Letters are approx. 33mm high and numbers approx. 163mm high.
 					div.action
-						a.btn(href="/printingType?childOrAdult=Youth&style=" + data.style)
+						a.btn(href="/printingType?childOrAdult=Youth&style=" + data.style + "&club="+ data.club + "&name=" + data.name + "&number=" + data.number + "&shirtCost=" + data.shirtCost + "&printingType=" + data.printingType)
 							span Select
 	include footerFlow.pug

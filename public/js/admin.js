@@ -10,6 +10,6 @@ $( document ).ready(function() {
 
 	$(".scorers").keyup(function(){
 		var scorersString =  $('.scorers').val();
-		$(".submitScorers").attr("href", "/discountsForScorers?scorersString=" + scorersString);
+		$(".submitScorers").attr("href", "/inputScorerDiscounts?scorersString=" + scorersString);
 	});
 })

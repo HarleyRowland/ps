@@ -4,25 +4,23 @@ var tidyClient = require('../clients/tidyClient.js')
 var databaseClient = require('../clients/databaseClient.js')
 
 module.exports = {
-	selectTemplate: function(view, req, callback){
-		var viewFields = {
-			data: req.query
-		} 
-		if(view == "club.pug"){
+	selectTemplate: function(req, res, template, callback){
+		var data = req.query;
+		if(template == "club.pug"){
 			var clubStats = buildClubsArray(req.query.style)
-			viewFields.data.clubsFull = clubStats[0]
-			viewFields.data.locations = clubStats[1]
-			viewFields.data.stadiums = clubStats[2]
-			viewFields.data.capacity = clubStats[3]
-			viewFields.data.clubs = []
-			viewFields.data.clubsFull.forEach(function(club){
-				viewFields.data.clubs.push(nameConverter(club))
+			data.clubsFull = clubStats[0]
+			data.locations = clubStats[1]
+			data.stadiums = clubStats[2]
+			data.capacity = clubStats[3]
+			data.clubs = []
+			data.clubsFull.forEach(function(club){
+				data.clubs.push(nameConverter(club))
 			});
-			callback(view, viewFields)
-		} else if(view == "strip.pug"){
-			viewFields.data.clubs = howManyStrips(req.query.club, req.query.style)
-			callback(view, viewFields)
-		} else if(view == "hero.pug"){
+			callback(template, data)
+		} else if(template == "strip.pug"){
+			data.clubs = howManyStrips(req.query.club, req.query.style)
+			callback(template, data)
+		} else if(template == "hero.pug"){
 			var scorers = [];
 			async.waterfall([
 			    function(callback) {
@@ -35,51 +33,140 @@ module.exports = {
 			], function (err, result) {
 				var nameNumberTuple = getPlayersAndNumbers(req.query.club, req.query.style)
 				var playersBeforeDiscounts = nameNumberTuple[0]
-				viewFields.data.players = addDiscounts(playersBeforeDiscounts, nameNumberTuple[1], scorers)
-				viewFields.data.price = result[result.length-1].shirtprice
-				callback(view, viewFields)
+				data.players = addDiscounts(playersBeforeDiscounts, nameNumberTuple[1], scorers, req.query.club)
+				data.price = result[result.length-1].shirtprice
+				callback(template, data)
 			});
 		} else {
-			callback(view, viewFields)
+			callback(null, res, template, data)
 		}
 	},
-	confirmation: function(req, callback){
-		var viewFields = {
-			data: JSON.parse(req.query.shirtObject)
+
+	printingType: function(req, res, template, callback){
+		if(req.query.printingType && req.query.printingType == "hero"){
+	    	template = "strip.pug";
+	  	};
+	  	callback(null, res, template, req.query)
+	},
+	premOrDifferent: function(req, res, template, callback){
+	  	callback(null, res, template, req.query)
+	},
+	strip: function(req, res, template, callback){
+	  	callback(null, res, template, req.query)
+	},
+	childOrAdult: function(req, res, template, callback){
+	  	callback(null, res, template, req.query)
+	},
+	colour: function(req, res, template, callback){
+	  	callback(null, res, template, req.query)
+	},
+	letter: function(req, res, template, callback){
+	  	callback(null, res, template, req.query)
+	},
+	club: function(req, res, template, callback){
+		var data = req.query;
+		if(req.query.club && req.query.club != "undefined"){
+	    	template = "strip.pug";
+	  	};
+	  	if(req.query.name && req.query.number && req.query.name != "undefined" && req.query.number != "undefined"){
+	    	template = "sleeves.pug";
+	    }
+	    if(template == "club.pug"){
+	    	var clubStats = buildClubsArray(req.query.style)
+			data.clubsFull = clubStats[0]
+			data.clubs = []
+			data.clubsFull.forEach(function(club){
+				data.clubs.push(nameConverter(club))
+			});
+	    }
+	  	callback(null, res, template, data)
+	},
+	nameNumber: function(req, res, template, callback){
+	  	callback(null, res, template, req.query)
+	},
+	heroOrCustom: function(req, res, template, callback){
+		var data = req.query;
+		if(req.query.printingType == "custom" && req.query.premOrDifferent) {
+		    template = "nameNumber.pug";
+		   	return callback(null, res, template, data)
 		}
+		if(req.query.name && req.query.number && req.query.name != "undefined" && req.query.number != "undefined"){
+	    	template = "sleeves.pug";
+	    	return callback(null, res, template, data)
+	    }
+		var scorers = [];
+		async.waterfall([
+		    function(callback) {
+				databaseClient.getScorers(callback)
+		    },
+		    function(players, callback) {
+		    	scorers = players;
+				databaseClient.getPrice(callback)
+		    }
+		], function (err, result) {
+			var nameNumberTuple = getPlayersAndNumbers(req.query.club, req.query.style)
+			var playersBeforeDiscounts = nameNumberTuple[0]
+			data.players = addDiscounts(playersBeforeDiscounts, nameNumberTuple[1], scorers, req.query.club)
+			data.price = result[result.length-1].shirtprice
+		  	callback(null, res, template, data)
+		});
+	},
+	sleeves: function(req, res, template, callback){
+	  	callback(null, res, template, req.query)
+	},
+	contact: function(res, template, callback){
+		callback(null, res, template);
+	},
+	quote: function(res, template, callback){
+		callback(null, res, template);
+	},
+	confirmation: function(req, res, template, callback){
+		if(!req.query.shirtObject) return callback("Invalid Fields");
+		
+		var data =  JSON.parse(req.query.shirtObject);
+		
 		var sleeveCost = 0;
-		if(viewFields.data.sleeve == "Yes"){
+		if(data.sleeve == "Yes"){
 			sleeveCost = 7.5;
 		}
-		viewFields.data.fullCost = parseFloat(viewFields.data.shirtCost) + sleeveCost;
-		viewFields.data.displayCost = buildDisplayCost(viewFields.data.fullCost+"")
-		viewFields.data.fullClubName = tidyClient.clubName(viewFields.data.club)
-		viewFields.data.fullStrip = tidyClient.strip(viewFields.data.strip)
-		viewFields.data.fullStyle = tidyClient.style(viewFields.data.style)
-		viewFields.data.shirtObject = JSON.stringify(viewFields.data)
-		callback(viewFields)
+		data.fullCost = parseFloat(data.shirtCost) + sleeveCost;
+		data.displayCost = buildDisplayCost(data.fullCost+"")
+		data.fullClubName = tidyClient.clubName(data.club);
+		data.fullStrip = tidyClient.strip(data.strip);
+		data.fullStyle = tidyClient.style(data.style);
+		data.shirtObject = JSON.stringify(data);
+
+		callback(null, res, template, data);
 	},
-	getThreeScorers: function(callback){
-		var cb = function(err, players){
-			var amount = 3
-			if(players.length < 3) amount = players.length;
-			var resultPlayers = getRandom(players, amount)
-			callback(resultPlayers);
+	getThreeScorers: function(res, template, callback){
+		var databaseCallback = function(error, players){
+			if(error){
+				return callback(error);
+			}
+			var playersToShow = 3;
+			if(players.length < playersToShow) {
+				playersToShow = players.length;
+			}
+			var resultPlayers = getRandomPlayers(players, playersToShow);
+			resultPlayers.forEach(function(resultPlayer){
+				resultPlayer = tidyClient.formatPlayerFromDatabase(resultPlayer)
+			})
+			callback(null, res, template, resultPlayers);
 		}
-		databaseClient.getScorers(cb)
+		databaseClient.getScorers(databaseCallback)
 	}
 }
 
-function getRandom(arr, n) {
-    var result = new Array(n),
-        len = arr.length,
-        taken = new Array(len);
-    if (n > len)
+function getRandomPlayers(playersArray, playersToShow) {
+    var result = new Array(playersToShow),
+        playersArrayLength = playersArray.length,
+        taken = new Array(playersArrayLength);
+    if (playersToShow > playersArrayLength)
         throw new RangeError("getRandom: more elements taken than available");
-    while (n--) {
-        var x = Math.floor(Math.random() * len);
-        result[n] = arr[x in taken ? taken[x] : x];
-        taken[x] = --len;
+    while (playersToShow--) {
+        var randomIndex = Math.floor(Math.random() * playersArrayLength);
+        result[playersToShow] = playersArray[randomIndex in taken ? taken[randomIndex] : randomIndex];
+        taken[randomIndex] = --playersArrayLength;
     }
     return result;
 }
@@ -133,12 +220,12 @@ var buildDisplayCost = function(cost){
 	}
 }
 
-var addDiscounts = function(players, numbers, scorers){
+var addDiscounts = function(players, numbers, scorers, club){
 	for (var i = players.length - 1; i >= 0; i--) {
 		var name = players[i]
 		players[i] = name + " - " + numbers[i]
 		scorers.forEach(function(scorer){
-			if(scorer.kitname == name){
+			if(scorer.kitname == name && scorer.club == club){
 				players[i] = players[i] + " (£" + scorer.discount + " off!)"
 			}
 		});
@@ -158,7 +245,7 @@ var nameConverter = function(club) {
 	} else if(club == "Chelsea"){
 		return "chelsea"
 	} else if(club == "Crystal Palace"){
-		return "crystalPalace"
+		return "crystalpalace"
 	} else if(club == "Everton"){
 		return "everton"
 	} else if(club == "Huddersfield"){
@@ -166,11 +253,11 @@ var nameConverter = function(club) {
 	} else if(club == "Hull City") {
 		return"hull"
 	} else if(club == "Leicester City"){
-		return "leicesterCity"
+		return "leicestercity"
 	} else if(club == "Liverpool"){
 		return "liverpool"
 	} else if(club == "Manchester City"){
-		return "manchesterCity"
+		return "manchestercity"
 	} else if(club == "Manchester United"){
 		return "manu"
 	} else if(club == "Middlesborough") {

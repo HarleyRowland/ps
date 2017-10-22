@@ -331,9 +331,13 @@ $(document).on('input','.shirtNumber',function(){
 });
 
 var buildShirtObject = function(data){
+			console.log("1", data)
+
 	if(data.style && data.printingType && data.shirtCost){
+		console.log("2", data)
 	    if(data.printingType == "hero" && data.club && data.strip && data.name && data.number){
-			return {
+			console.log("3")
+		return {
 				printingType: data.printingType,
 				childOrAdult: data.childOrAdult,
 				style: data.style,
@@ -347,6 +351,7 @@ var buildShirtObject = function(data){
 				timestamp: new Date()
 			}
 	    } else if(data.printingType == "custom" && data.club && data.strip && data.name && data.number && data.colour && data.colour != "undefined") {
+		console.log("4")
 	    	return {
 				printingType: data.printingType,
 				childOrAdult: data.childOrAdult,

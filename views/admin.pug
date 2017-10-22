@@ -16,10 +16,10 @@ html
 				a.newPrice(href="") Submit Price
 		div.setting
 			h3 Weekly Scorers
-			p Submit in the following format: Name1,Number1,Club1,Discount1;Name2,Number2,Club2,Discount2;...;NameX,NumberX,ClubX,DiscountX; Note the trailing semi-colon.
+			p Submit in the following format: Name1,Number1,Club1,Discount1;Name2,Number2,Club2,Discount2;...;NameX,NumberX,ClubX,DiscountX
 			p Player names should appear in the same case as they are seen on the website.
-			p Club names format: arsenal,bournemouth,brighton,burnley,chelsea,crystalPalace,everton,huddersfield,hull,leicesterCity,liverpool,manchesterCity,manu,middlesborough,newcastle,southampton,stoke,sunderland,swansea,tottenham,watford,westbrom,westham
-			p e.g. Ramsey,8,arsenal,3;Özil,11,arsenal,3;Alonso,3,chelsea,3;
+			p Club names format: arsenal,bournemouth,brighton,burnley,chelsea,crystalpalace,everton,huddersfield,hull,leicestercity,liverpool,manchestercity,manu,middlesborough,newcastle,southampton,stoke,sunderland,swansea,tottenham,watford,westbrom,westham
+			p e.g. Ramsey,8,arsenal,3;Özil,11,arsenal,3;Alonso,3,chelsea,3
 			textarea.scorers
 			div 
 				a.submitScorers(href="") Submit New Scorers
@@ -27,5 +27,8 @@ html
 				a.clearScorers(href="/clearScorers") Clear Scorers
 			div 
 				p Current Scorers (Name, Number, Club, Discount)
-					each scorer in data
-						p #{scorer.kitname}, #{scorer.kitnumber}, #{scorer.club}, #{scorer.discount}
+					if data.length
+						each scorer in data
+							p #{scorer.kitname}, #{scorer.kitnumber}, #{scorer.club}, #{scorer.discount}
+					else 
+						p No discount scorers.

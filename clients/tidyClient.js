@@ -10,7 +10,7 @@ module.exports = {
 			return "Burnley"
 		} else if(club == "chelsea"){
 			return "Chelsea"
-		} else if(club == "crystalPalace"){
+		} else if(club == "crystalpalace"){
 			return "Crystal Palace"
 		} else if(club == "everton"){
 			return "Everton"
@@ -18,11 +18,11 @@ module.exports = {
 			return "Huddersfield"
 		} else if(club == "hull"){
 			return "Hull City"
-		} else if(club == "leicesterCity"){
+		} else if(club == "leicestercity"){
 			return "Leicester City"
 		} else if(club == "liverpool"){
 			return "Liverpool"
-		} else if(club == "manchesterCity"){
+		} else if(club == "manchestercity"){
 			return "Manchester City"
 		} else if(club == "manu"){
 			return "Manchester United"
@@ -65,5 +65,12 @@ module.exports = {
 		} else if(styling == "previous"){
 			return "2014-2017 Kit Styling"
 		}
+	},
+	formatPlayerFromDatabase(player){
+		player.kitname = player.kitname.trim();
+		player.kitnumber = player.kitnumber.trim().toLowerCase();
+		player.club = player.club.trim();
+		player.discount = player.discount.trim().toLowerCase();
+		return player;
 	}
 }

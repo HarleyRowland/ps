@@ -1,0 +1,28 @@
+include header.pug
+div.teams.scorerDiscounts.page
+	div.content
+		h1.title The Current Players with Scorer Discounts
+		ul.clubs
+		each club in clubList
+			li.clubDiscounts.row
+				div.listContent
+					div.shirtImage.small-12.medium-4.columns
+						div.image
+							img(src="/public/images/shirts/current/" + club + ".gif")
+					div.playerList.small-12.medium-8.columns
+						table
+							tr.tableHeadings
+								th Name
+								th Kit Number
+								th Discount
+								th
+							each player in data
+								if club == player.club
+									tr
+										td #{player.kitname}
+										td #{player.kitnumber}
+										td £#{player.discount}
+										td 
+											a(href="/style?club=" + player.club + "&name=" + player.kitname + "&number=" + player.kitnumber + "&shirtCost=" + player.shirtCost + "&printingType=hero") Select
+
+include footer.pug

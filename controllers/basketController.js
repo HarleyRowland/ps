@@ -1,5 +1,9 @@
  module.exports = {
-	buildBasket: function(res, req, shirtObject, callback){
+	buildBasket: function(req, res, template, callback){
+		var shirtObject;
+		if(req.query.shirtObject) {
+			shirtObject = JSON.parse(req.query.shirtObject);
+		}
 		var add = true;
 		var shirtsArray = []
 		var highestNumber = 0;
@@ -40,36 +44,37 @@
 		
 		var deliveryCosts = choicesOfDelivery(shirtCount)	
 
-		var data = { data: { shirtsArray: shirtsArray, cost: cost, deliveryCosts: deliveryCosts} }
+		var data = { shirtsArray: shirtsArray, cost: cost, deliveryCosts: deliveryCosts}
 
-		callback("basket.pug", data)
+		callback(null, res, "basket.pug", data)
 	},
 
-	deleteCookie: function(res, req, timestamp, callback){
-		var shirtsArray = []
+	deleteCookie: function(res, req, template, callback){
+		if(!req.query.timestamp) return callback("Invalid Params");
+		var shirtsArray = [];
 		var shirtCount = 0;
-		for ( cookie in req.cookies ) {
+		for (cookie in req.cookies) {
 			if(!cookie.includes("ermission")){
-				if(timestamp == "all"){
+				if(req.query.timestamp == "all"){
 					res.clearCookie(cookie);
-				} else if(cookie.includes("shirt") && req.cookies[cookie].timestamp.toString() != timestamp){
+				} else if(cookie.includes("shirt") && req.cookies[cookie].timestamp.toString() != req.query.timestamp){
 					shirtCount++;
 					shirtsArray.push(req.cookies[cookie]);
-				} else if(req.cookies[cookie].timestamp.toString() === timestamp){
+				} else if(req.cookies[cookie].timestamp.toString() === req.query.timestamp){
 					res.clearCookie(cookie);
 				}
 			}
-		}
+		};
 		var cost = 0;
 		shirtsArray.forEach(function(shirt){
 			cost = cost + parseFloat(shirt.shirtCost)
 			shirt.fullClub = nameConverter(shirt.club)
-		})
-		var deliveryTypes = deliveryMethods(shirtCount)
+		});
+		var deliveryCosts = choicesOfDelivery(shirtCount);
 
-		var data = { data: { shirtsArray: shirtsArray, cost: cost, deliveryTypes: deliveryTypes } }
+		var data = { shirtsArray: shirtsArray, cost: cost, deliveryCosts: deliveryCosts};
 
-		callback("basket.pug", data)
+		callback(null, res, template, data);
 	}
 }
 
@@ -111,17 +116,17 @@ var nameConverter = function(name){
 		return "Burnley"
 	} else if(name == "chelsea"){
 		return "Chelsea"
-	} else if(name == "crystalPalace"){
+	} else if(name == "crystalpalace"){
 		return "Crystal Palace"
 	} else if(name == "everton"){
 		return "Everton"
 	} else if(name == "huddersfield"){
 		return "Huddersfield"
-	} else if(name == "leicesterCity"){
+	} else if(name == "leicestercity"){
 		return "Leicester City"
 	} else if(name == "liverpool"){
 		return "Liverpool"
-	} else if(name == "manchesterCity"){
+	} else if(name == "manchestercity"){
 		return "Manchester City"
 	} else if(name == "manu"){
 		return "Manchester United"

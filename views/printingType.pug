@@ -9,13 +9,13 @@ div.printingType.page
 					h3.optionTitle Hero Printing
 					h5.optionSubtitle A professional player and their number.
 					div.action
-						a.btn(href="/club?printingType=hero&style=" + data.style + "&childOrAdult=" + data.childOrAdult)
+						a.btn(href="/club?printingType=hero&style=" + data.style + "&childOrAdult=" + data.childOrAdult + "&club="+ data.club + "&name=" + data.name + "&number=" + data.number)
 							span Select
 			div.choice.bottomChoice.small-12.medium-6.columns
 				div.customPrinting
 					h3.optionTitle Custom Printing
 					h5.optionSubtitle A name and number chosen by you.
 					div.action
-						a.btn(href="/premOrDifferent?printingType=custom&style=" + data.style + "&childOrAdult=" + data.childOrAdult)
+						a.btn(href="/premOrDifferent?printingType=custom&style=" + data.style + "&childOrAdult=" + data.childOrAdult + "&club="+ data.club + "&name=" + data.name + "&number=" + data.number)
 							span Select
 	include footerFlow.pug

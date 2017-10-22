@@ -1,4 +1,7 @@
 var express = require('express');
+var async = require('async');
+var databaseClient = require('./clients/databaseClient.js')
+
 var fs = require('fs');
 var cookieParser = require('cookie-parser')
 
@@ -29,256 +32,78 @@ app.use(require("body-parser").urlencoded({extended: false}));
 app.use("/public", express.static(__dirname + '/public'));
 app.use(cookieParser())
 
-app.get("/", (req, res) => {
-  var callback = function(data){
-    res.render("index.pug", {data: data});
+var callback = function(error, res, template, data){
+  if(error){
+    console.log("here error");
+    return console.error(error);
   }
-  flowController.getThreeScorers(callback);
-});
+  res.render(template, {data: data});
+}
 
-app.get("/payment", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
+var callbackRedirect = function(error, res, redirectRoute){
+  if(error){
+    return console.error(error);
   }
+  res.redirect(redirectRoute);
+}
 
-  paymentController.paymentBuilder(req, callback);
+app.get("/", (req, res) => flowController.getThreeScorers(res, "index.pug", callback));
+app.get("/payment", (req, res) => paymentController.paymentBuilder(req, res, "payment.pug", callback));
+app.get("/webmail", (req, res) => ownerController.sendToWebmail(res));
+app.get("/administrationForPremierShirts", (req, res) => ownerController.getScorers(res, "admin.pug", callback));
+app.get("/inputScorerDiscounts", (req, res) => ownerController.inputScorers(req, res, "/administrationForPremierShirts", callbackRedirect));
+app.get("/clearScorers", (req, res) => ownerController.clearScorers(res, "admin.pug", callback));
+app.get("/newPriceForTheShirts", (req, res) => ownerController.updatePrice(req, res, '/administrationForPremierShirts', callbackRedirect));
+app.get("/userOrders", (req, res) => ownerController.getAllUserOrders(res, "userUpdates.pug", callback));
+app.get("/updateStatus", (req, res) => ownerController.updateOrder(req, res, "/userOrders", callbackRedirect));
+app.get("/confirmation", (req, res) => flowController.confirmation(req, res, "confirmation.pug", callback));
+app.get("/statusesForOrderNo", (req, res) => ownerController.statusesForOrderNo(req, res, "userUpdates.pug", callback));
+app.get("/sendQuoteEmail", (req, res) => ownerController.quoteEmail(req, res, "quote.pug", callback));
+app.get("/sendQueryEmail", (req, res) => ownerController.queryEmail(req, res, "contact.pug", callback));
+app.get("/deleteShirtFromBasket", (req, res) => basketController.deleteCookie(res, req, "basket.pug", callback));
+app.get("/style", (req, res) => flowController.selectTemplate(req, res, "style.pug", callback));
+app.get("/contact", (req, res) => flowController.contact(res, "contact.pug", callback));
+app.get("/quote", (req, res) => flowController.contact(res, "quote.pug", callback));
+app.get("/basket", (req, res) => basketController.buildBasket(req, res, "basket.pug", callback));
+app.get("/printingType", (req, res) => flowController.printingType(req, res, "printingType.pug", callback));
+app.get("/premOrDifferent", (req, res) => flowController.premOrDifferent(req, res, "premOrDifferent.pug", callback));
+app.get("/strip", (req, res) => flowController.strip(req, res, "strip.pug", callback));
+app.get("/childOrAdult", (req, res) => flowController.childOrAdult(req, res, "childOrAdult.pug",callback));
+app.get("/colour", (req, res) => flowController.colour(req, res, "colour.pug", callback));
+app.get("/letter", (req, res) => flowController.letter(req, res, "letter.pug", callback));
+app.get("/club", (req, res) => flowController.club(req, res, "club.pug", callback));
+app.get("/nameNumber", (req, res) => flowController.nameNumber(req, res, "nameNumber.pug", callback));
+app.get("/heroOrCustom", (req, res) => flowController.heroOrCustom(req, res, "hero.pug", callback));
+app.get("/sleeves", (req, res) => flowController.sleeves(req, res, "sleeves.pug", callback));
+app.post("/paymentResult", (req, res) => paymentController.makePayment(req, res, "paymentResult.pug", callback));
+
+app.get("/scorerDiscounts", (req, res) => {
+  var callback = function(err, res, template, data){
+    var price;
+    async.waterfall([
+        function(asyncCallback) {
+          databaseClient.getPrice(asyncCallback)
+        },
+        function(cost, asyncCallback) {
+          price = parseFloat(cost[cost.length-1].shirtprice);
+          databaseClient.getScorers(asyncCallback)
+        }
+    ], function (err, data) {
+      var clubList = []
+      data.forEach(function(obj){
+        obj.shirtCost = price-obj.discount;
+        obj.club = obj.club.trim();
+        obj.kitname = obj.kitname.trim();
+        obj.kitnumber = obj.kitnumber.trim();
+        if(!clubList.includes(obj.club.trim())){
+          clubList.push(obj.club.trim());
+        }
+      })
+      res.render(template, {data: data, clubList: clubList});
+    });
+  }
+  ownerController.getScorers(res, "scorerDiscounts.pug", callback);  
 })
-
-app.post("/paymentResult", (req, res) => {
-  var callback = function(template, data, err){
-    console.log(data)
-    res.render(template, data);
-  }
-  
-  if(req.body.stripeEmail && req.query.cost && req.query.shirtArray){
-    paymentController.makePayment(req, res);
-  } else {
-    res.send(req.query)
-  }
-})
-
-app.get("/webmail", (req, res) => {
-  res.writeHead(301,
-    {Location: 'http://greg-thompson.com/webmail'}
-  );
-  res.end();
-})
-
-app.get("/administrationForPremierShirts", (req, res) => {
-  var callback = function(err, template, data){
-    res.render(template, {data: data});
-  }
-  ownerController.getScorers(callback);  
-})
-
-app.get("/newPriceForTheShirts", (req, res) => {
-  var callback = function(err, template, data){
-    res.writeHead(301,
-      {Location: '/administrationForPremierShirts'}
-    );
-    res.end();
-  }
-  ownerController.updatePrice(req.query.shirtCost, callback);    
-})
-
-app.get("/discountsForScorers", (req, res) => {
-  var callback = function(err, template, data){
-    res.redirect("/administrationForPremierShirts");
-  }
-  ownerController.inputScorers(req.query.scorersString, callback);    
-})
-
-app.get("/clearScorers", (req, res) => {
-  var callback = function(err, template, data){
-    res.render("admin.pug");
-  }
-  ownerController.clearScorers(callback);    
-})
-
-app.get("/basket", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.shirtObject){
-    var shirtObject = JSON.parse(req.query.shirtObject)
-    basketController.buildBasket(res, req, shirtObject, callback);
-  } else {
-    basketController.buildBasket(res, req, null, callback);    
-  }
-})
-
-app.get("/confirmation", (req, res) => {
-  var callback = function(data, err){
-    res.render("confirmation.pug", data);
-  }
-  if(req.query.shirtObject){
-    flowController.confirmation(req, callback);
-  }
-})
-
-app.get("/userOrders", (req, res) => {
-  var callback = function(err, template, data){
-    res.render(template, {data: data});
-  }
-  ownerController.getAll(callback);    
-})
-
-app.get("/updateStatus", (req, res) => {
-  ownerController.updateOrder(req, res);    
-})
-
-app.get("/statusesForOrderNo", (req, res) => {
-  var callback = function(err, template, data){
-    res.render(template, {data: data});
-  }
-  ownerController.statusesForOrderNo(req.query.orderNumber, callback);    
-})
-
-app.get("/sendQuoteEmail", (req, res) => {
-  var callback = function(err){
-    res.render("quote.pug", {emailSent: true});
-  }
-  ownerController.quoteEmail(req.query.name, req.query.email, req.query.league, req.query.club, req.query.strip, req.query.year, req.query.colour, req.query.letter, req.query.kitName, req.query.kitNumber, req.query.comments, callback);    
-})
-
-app.get("/sendQueryEmail", (req, res) => {
-  var callback = function(err){
-    res.render("contact.pug", {emailSent: true});
-  }
-  ownerController.queryEmail(req.query.name, req.query.number, req.query.email, req.query.comments, callback);    
-})
-
-app.get("/deleteShirtFromBasket", (req, res) => {
-  var callback = function(template, data){
-    res.render(template, data);
-  }
-  if(req.query.timestamp){
-    basketController.deleteCookie(res, req, req.query.timestamp, callback);
-  }
-})
-
-app.get("/style", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  flowController.selectTemplate("style.pug", req, callback);
-})
-
-app.get("/printingType", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.style && req.query.childOrAdult) {
-    flowController.selectTemplate("printingType.pug", req, callback);
-  }
-})
-
-app.get("/club", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if((req.query.style && req.query.printingType == "hero") || (req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "prem")){
-    flowController.selectTemplate("club.pug", req, callback);
-  }
-})
-
-app.get("/premOrDifferent", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.style && req.query.printingType == "custom"){
-    flowController.selectTemplate("premOrDifferent.pug", req, callback);
-  }
-})
-
-app.get("/strip", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.style && req.query.printingType && req.query.club){
-    flowController.selectTemplate("strip.pug", req, callback);
-  }
-})
-
-app.get("/childOrAdult", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.style){
-    flowController.selectTemplate("childOrAdult.pug", req, callback);
-  }
-})
-
-app.get("/colour", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different"){
-    flowController.selectTemplate("colour.pug", req, callback);
-  }
-})
-
-app.get("/letter", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.colour){
-    flowController.selectTemplate("letter.pug", req, callback);
-  }
-})
-
-app.get("/nameNumber", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.style && req.query.printingType == "custom" && req.query.premOrDifferent == "different" && req.query.colour && req.query.letter){
-    flowController.selectTemplate("nameNumber.pug", req, callback);
-  } else {
-    res.send(req.query)
-  }
-})
-
-app.get("/heroOrCustom", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.style && req.query.printingType && req.query.club && req.query.strip){
-    if(req.query.printingType == "hero"){
-      flowController.selectTemplate("hero.pug", req, callback);
-    } else if(req.query.printingType == "custom" && req.query.premOrDifferent) {
-      flowController.selectTemplate("nameNumber.pug", req, callback);
-    } else {
-      res.send(req.query);
-    }
-  } else {
-    res.send(req.query)
-  }
-})
-
-app.get("/sleeves", (req, res) => {
-  var callback = function(template, data, err){
-    res.render(template, data);
-  }
-  if(req.query.style && req.query.printingType){
-    if(req.query.printingType == "hero" && req.query.club && req.query.strip && req.query.name && req.query.number){
-      flowController.selectTemplate("sleeves.pug", req, callback);
-    } else if(req.query.printingType == "custom" && req.query.club && req.query.strip && req.query.name && req.query.number) {
-      flowController.selectTemplate("sleeves.pug", req, callback);
-    } else {
-      res.send(req.query);
-    }
-  } else {
-    res.send(req.query)
-  }
-})
-
-app.get("/contact", (req, res) =>
-  res.render("contact.pug", {keyPublishable}));
-
-app.get("/faq", (req, res) =>
-  res.render("faq.pug", {keyPublishable}));
-app.get("/quote", (req, res) =>
-  res.render("quote.pug", {keyPublishable}));
 
 app.listen(app.get('port'), function() {
   console.info('Node app is running on port', app.get('port'));

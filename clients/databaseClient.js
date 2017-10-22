@@ -40,41 +40,43 @@ module.exports = {
 	},
 	getIDForOrder: function(email, callback){
 		var getID = 'SELECT * FROM orders WHERE ordernumber = (select max(orderNumber) from orders WHERE email=\'' + email + '\')';
-		query("SELECTID", getID, callback)
+		query("SELECT", getID, callback)
 	},
-	updateOrder: function(orderNumber, shirtid, description, callback){
-		var statusQuery = 'INSERT INTO statuses(orderNumber, dateChanged, description) VALUES (\'' + orderNumber + '\', now(), \'' + description + '\');'
+	updateOrder: function(req, callback){
+		var statusQuery = 'INSERT INTO statuses(orderNumber, dateChanged, description) VALUES (\'' + req.query.orderNumber + '\', now(), \'' + req.query.description + '\');'
 		query("INSERT", statusQuery, callback);
 	},
-	getEmail: function(orderNumber, callback){
-		var statusQuery = 'SELECT * FROM orders WHERE ordernumber=' + orderNumber + ';'
-		query("SELECTID", statusQuery, callback);
+	getEmail: function(req, callback){
+		var statusQuery = 'SELECT * FROM orders WHERE ordernumber=' + req.query.orderNumber + ';'
+		query("SELECT", statusQuery, callback);
 	},
-	statusesForOrderNo: function(ordernumber, callback){
-		var orderNoQuery = 'SELECT o.*, s.*, sh.* FROM orders o INNER JOIN statuses s ON o.ordernumber = s.ordernumber INNER JOIN shirts sh ON s.ordernumber=sh.ordernumber WHERE o.ordernumber=' + ordernumber + ';'
+	statusesForOrderNo: function(req, callback){
+		var orderNoQuery = 'SELECT o.*, s.*, sh.* FROM orders o INNER JOIN statuses s ON o.ordernumber = s.ordernumber INNER JOIN shirts sh ON s.ordernumber=sh.ordernumber WHERE o.ordernumber=' + req.query.orderNumber + ';'
+		console.log(orderNoQuery)
 		query('SELECT', orderNoQuery, callback)
 	},
-	updatePrice: function(price, callback){
-		var priceQuery = 'INSERT INTO settings(shirtPrice) VALUES (' + price + ');'
+	updatePrice: function(req, callback){
+		var priceQuery = 'INSERT INTO settings(shirtPrice) VALUES (' + req.query.shirtCost + ');'
 		query("INSERT", priceQuery, callback)
 	},
 	getPrice: function(callback){
 		var priceQuery = 'SELECT shirtPrice FROM settings;'
-		query("SELECTID", priceQuery, callback)
+		query("SELECT", priceQuery, callback)
 	},
 	getScorers: function(callback){
-		var scorersQuery = 'SELECT * FROM scorers;'
-		query("SELECTID", scorersQuery, callback)
+		var scorersQuery = 'SELECT * FROM scorers ORDER BY club;'
+		query("SELECT", scorersQuery, callback)
 	},
 	getScorersAdmin: function(callback){
-		var scorersQuery = 'SELECT * FROM scorers;'
-		query("SELECTSCORERS", scorersQuery, callback)
+		var scorersQuery = 'SELECT * FROM scorers ORDER BY club;'
+		query("SELECT", scorersQuery, callback)
 	},
-	updatePlayers: function(players, callback){
-		async.eachSeries(players, function(player, cb) {
+	updatePlayers: function(req, callback){
+		var players = req.query.scorersString.split(";");
+		async.eachSeries(players, function(player, asyncCallback) {
 			var p = player.split(",");
 			var playerQuery = 'INSERT INTO scorers(kitName, kitNumber, club, discount) VALUES (\'' + p[0] + '\',\'' + p[1] + '\',\'' + p[2] + '\',\'' + p[3] + '\');'
-		    query("INSERT", playerQuery, cb)
+		    query("INSERT", playerQuery, asyncCallback)
 		}, function(err) {
 		    if( err ) {
 		    	callback(err)
@@ -116,10 +118,6 @@ var query = function(type, sqlQuery, callback) {
 	result.on('end', function() {
 	    client.end();
 	    if(type == "SELECT"){
-	    	callback(null, "userUpdates.pug", rows);
-		} else if(type == "SELECTSCORERS"){
-	    	callback(null, "admin.pug", rows);
-		} else if(type == "SELECTID"){
 			callback(null, rows);
 		} else {
 			callback()
