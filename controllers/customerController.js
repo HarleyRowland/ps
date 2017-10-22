@@ -4,44 +4,6 @@ var tidyClient = require('../clients/tidyClient.js')
 var databaseClient = require('../clients/databaseClient.js')
 
 module.exports = {
-	selectTemplate: function(req, res, template, callback){
-		var data = req.query;
-		if(template == "club.pug"){
-			var clubStats = buildClubsArray(req.query.style)
-			data.clubsFull = clubStats[0]
-			data.locations = clubStats[1]
-			data.stadiums = clubStats[2]
-			data.capacity = clubStats[3]
-			data.clubs = []
-			data.clubsFull.forEach(function(club){
-				data.clubs.push(nameConverter(club))
-			});
-			callback(template, data)
-		} else if(template == "strip.pug"){
-			data.clubs = howManyStrips(req.query.club, req.query.style)
-			callback(template, data)
-		} else if(template == "hero.pug"){
-			var scorers = [];
-			async.waterfall([
-			    function(callback) {
-					databaseClient.getScorers(callback)
-			    },
-			    function(players, callback) {
-			    	scorers = players;
-					databaseClient.getPrice(callback)
-			    }
-			], function (err, result) {
-				var nameNumberTuple = getPlayersAndNumbers(req.query.club, req.query.style)
-				var playersBeforeDiscounts = nameNumberTuple[0]
-				data.players = addDiscounts(playersBeforeDiscounts, nameNumberTuple[1], scorers, req.query.club)
-				data.price = result[result.length-1].shirtprice
-				callback(template, data)
-			});
-		} else {
-			callback(null, res, template, data)
-		}
-	},
-
 	printingType: function(req, res, template, callback){
 		if(req.query.printingType && req.query.printingType == "hero"){
 	    	template = "strip.pug";
@@ -154,6 +116,33 @@ module.exports = {
 			callback(null, res, template, resultPlayers);
 		}
 		databaseClient.getScorers(databaseCallback)
+	},
+	getScorerDiscounts: function(req, res, template, callback){
+		var price;
+		async.waterfall([
+		    function(asyncCallback) {
+		        databaseClient.getPrice(asyncCallback)
+		    },
+		    function(cost, asyncCallback) {
+		        price = parseFloat(cost[cost.length-1].shirtprice);
+		        databaseClient.getScorers(asyncCallback)
+		    }
+		], function (error, players) {
+			if(error) {
+				return callback(error)
+			}
+			var data = { clubList: [], players: players}
+			players.forEach(function(player){
+				player.shirtCost = price-player.discount;
+				player.club = player.club.trim();
+				player.kitname = player.kitname.trim();
+				player.kitnumber = player.kitnumber.trim();
+				if(!data.clubList.includes(player.club.trim())){
+				  	data.clubList.push(player.club.trim());
+				}
+			})
+			callback(null, res, template, data);
+		});
 	}
 }
 

@@ -3,7 +3,7 @@ div.teams.scorerDiscounts.page
 	div.content
 		h1.title The Current Players with Scorer Discounts
 		ul.clubs
-		each club in clubList
+		each club in data.clubList
 			li.clubDiscounts.row
 				div.listContent
 					div.shirtImage.small-12.medium-4.columns
@@ -16,7 +16,7 @@ div.teams.scorerDiscounts.page
 								th Kit Number
 								th Discount
 								th
-							each player in data
+							each player in data.players
 								if club == player.club
 									tr
 										td #{player.kitname}
