@@ -1,3 +1,4 @@
+/* Both Mobile and Desktop*/
 .emailSent, .cookiePermission {
 	width: 100%;
 	left: 0;
@@ -13,44 +14,28 @@
  	display: none;
 }
 
+.top {
+	text-align: center;
+}
+
+.top a img {
+	padding: 15px;
+	border-radius: 5px;
+	width: 300px;
+}
+
+.shopping-basket * {
+	color: #323B7E;	
+}
+
 .emailSent {
 	display: block;
 	background-color: green;
 }
 
-.menuDisplay {
-	position: fixed;
-	top:0;
-	left:0;
-	width: 100%;
-	height: 100%;
-    background-color: rgba(255,255,255,0.90); 
-	z-index: 1000;
-	display: none;
-}
-
-.menuDisplay a {
-	display: block;
-	font-size: 30px;
-	margin-top: 40px;
-	color: #000000;
-	font-weight: bolder;
-}
-
-.menuDisplay .fa {
-	position: fixed;
-	top: 0;
-	right: 0;
-	color: #000000;
-	font-weight: bolder;
-	font-size: 40px;
-	margin: 10px;
-}
-
 .cookiePermission, .emailSent {
 	font-size: small;
 }
-
 
 .cookiePermission .fa-times, .emailSent .fa-times {
 	padding-top: 3px;
@@ -64,11 +49,10 @@
 
 .header {
 	height: 80px;
-	border-bottom: #323B7E solid 3px;
 }
 
 .logo {
-	padding: 5px;
+	/*padding: 5px;*/
 	height: 100%;
 }
 
@@ -106,16 +90,59 @@
 	display: flex;
  	justify-content: center;
  	align-items: center;
- 	border-bottom: #323B7E solid 1px;
+ 	border-bottom: #323B7E solid 3px;
 }
 
 a.link {
 	font-size: 20px;
 	color: #323B7E;
-	transition: 1s;
+	padding-top: 30px;
 }
 
 a.link:hover {
-	color: #323B7E;
-	text-decoration: underline;
+	border-top: 3px solid #323B7E;
+}
+
+/* Mobile Pop-up Menu */
+.mobileMenu {
+	position: fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+    background-color: rgba(255,255,255,0.90); 
+	z-index: 1000;
+	display: none;
+}
+
+.mobileMenu a {
+	display: block;
+	font-size: 30px;
+	margin-top: 40px;
+	color: #000000;
+	font-weight: bolder;
+}
+
+.mobileMenu .fa {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: #000000;
+	font-weight: bolder;
+	font-size: 40px;
+	margin: 10px;
+}
+
+@media only screen and (max-width: 40em) { 
+	.shopping-basket a {
+		font-size: 20px;
+		padding-right: 10px;
+		float: right;
+	}
+
+	.fa-bars {
+		font-size: 20px !important; /* Need !important as Font Awesome seems to force a size. */
+		padding-left: 10px;
+		float: left;
+	}
 }

@@ -67,13 +67,14 @@ body *:not(.fa) {
 	color: #323B7E;
 }
 
-.title:not(h1) {
+.title {
 	padding: 30px;
 	color: #323B7E;
 }
 
 h1.title {
-	padding-bottom: 20px !important;
+	padding-top: 0px;
+	margin-top: 0px;
 	color: #323B7E;
 	font-size: 30px;
 }
@@ -102,10 +103,6 @@ h1.title {
 
 .basket:hover {
 	text-decoration: none !important;
-}
-
-.basketHeader * {
-	color: #323B7E !important;	
 }
 
 .basket *:hover {

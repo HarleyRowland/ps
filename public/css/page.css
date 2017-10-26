@@ -1,5 +1,13 @@
 .hiddenFirst {
-	display: none;
+	visibility: hidden;
+}
+
+.index.page {
+	padding-top: 0px;
+}
+
+.landingImage {
+	margin-top: -3px;
 }
 
 .select {
@@ -52,10 +60,6 @@
 	padding-right: 100px;
 }
 
-.page h1 {
-	margin-top: 50px;
-}
-
 .page * {
 	color: #323B7E;
 }
@@ -71,18 +75,6 @@
 .page > * {
 	margin-bottom: 30px;
 }
-
-.top {
-	text-align: center;
-	margin-bottom: -60px;
-}
-
-.top a img {
-	padding: 15px;
-	border-radius: 5px;
-	width: 300px;
-}
-
 .content {
 	margin-bottom: 100px;
 }

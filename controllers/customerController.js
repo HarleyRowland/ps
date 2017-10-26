@@ -4,25 +4,13 @@ var tidyClient = require('../clients/tidyClient.js')
 var databaseClient = require('../clients/databaseClient.js')
 
 module.exports = {
+	selectTemplate: function(req, res, template, callback) {
+	  	callback(null, res, template, req.query)		
+	},
 	printingType: function(req, res, template, callback){
 		if(req.query.printingType && req.query.printingType == "hero"){
 	    	template = "strip.pug";
 	  	};
-	  	callback(null, res, template, req.query)
-	},
-	premOrDifferent: function(req, res, template, callback){
-	  	callback(null, res, template, req.query)
-	},
-	strip: function(req, res, template, callback){
-	  	callback(null, res, template, req.query)
-	},
-	childOrAdult: function(req, res, template, callback){
-	  	callback(null, res, template, req.query)
-	},
-	colour: function(req, res, template, callback){
-	  	callback(null, res, template, req.query)
-	},
-	letter: function(req, res, template, callback){
 	  	callback(null, res, template, req.query)
 	},
 	club: function(req, res, template, callback){
@@ -43,8 +31,10 @@ module.exports = {
 	    }
 	  	callback(null, res, template, data)
 	},
-	nameNumber: function(req, res, template, callback){
-	  	callback(null, res, template, req.query)
+	strip: function(req, res, template, callback){
+		var strips = howManyStrips(req.query.club, req.query.style);
+		req.query.strips = strips
+		callback(null, res, template, req.query);
 	},
 	heroOrCustom: function(req, res, template, callback){
 		var data = req.query;
@@ -72,15 +62,6 @@ module.exports = {
 			data.price = result[result.length-1].shirtprice
 		  	callback(null, res, template, data)
 		});
-	},
-	sleeves: function(req, res, template, callback){
-	  	callback(null, res, template, req.query)
-	},
-	contact: function(res, template, callback){
-		callback(null, res, template);
-	},
-	quote: function(res, template, callback){
-		callback(null, res, template);
 	},
 	confirmation: function(req, res, template, callback){
 		if(!req.query.shirtObject) return callback("Invalid Fields");
