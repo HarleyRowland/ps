@@ -62,8 +62,8 @@ app.get("/payment", (req, res) => paymentController.paymentBuilder(req, res, "pa
 app.get("/deleteShirtFromBasket", (req, res) => basketController.deleteCookie(res, req, "basket.pug", callback));
 
 // Contact
-app.get("/quote", (req, res) => customerController.selectTemplate(res, "quote.pug", callback));
-app.get("/contact", (req, res) => customerController.selectTemplate(res, "contact.pug", callback));
+app.get("/quote", (req, res) => customerController.selectTemplate(req, res, "quote.pug", callback));
+app.get("/contact", (req, res) => customerController.selectTemplate(req, res, "contact.pug", callback));
 app.post("/paymentResult", (req, res) => paymentController.makePayment(req, res, "paymentResult.pug", callback));
 
 // Admin

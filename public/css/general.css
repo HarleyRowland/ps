@@ -25,6 +25,10 @@ body *:not(.fa) {
 	position: absolute;
 }
 
+.fa-bars {
+	cursor: pointer;
+}
+
 .form input, .form select, .form textarea {
 	border: solid 1px #818181;
 }

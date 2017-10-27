@@ -32,23 +32,27 @@ $(document).on('change','.deliveryCostOption',function(){
 	setDeliveryCost();
 });
 
-$(".cookiePermission .fa-times").on("click", function(){
+$(document).on('click','.cookiePermission .fa-times',function(){
 	$(".cookiePermission").hide();	
+});
+
+$(document).on('click','.emailSent .fa-times',function(){
+	$(".emailSent").hide();	
 });
 
 $(".emailSent .fa-times").on("click", function(){
 	$(".emailSent").hide();	
 });
 
-$(".top .fa-bars").on("click", function(){
+$(document).on('click','.top .fa-bars',function(){
 	$(".mobileMenu").show();	
 });
 
-$(".mobileMenu .fa-times").on("click", function(){
+$(document).on('click','.mobileMenu',function(){
 	$(".mobileMenu").hide();	
 });
 
-$("a.confirmShirt").on("click", function(e){
+$(document).on('click','a.confirmShirt',function(){
 	setConfirmShirt();
 });
 
@@ -354,7 +358,8 @@ var kitNumberInput = function(){
 }
 
 var setCookieWarning = function(cookies) {
-	var cookieWarningShown = cookies.includes(" cookiePermission=true");
+	var cookieWarningShown = cookies.toString().includes("cookiePermission");
+	console.log(cookieWarningShown)
 	if(!cookieWarningShown) {
 		$(".cookiePermission").show();
 		document.cookie = "cookiePermission=true;".trim();
