@@ -35,6 +35,7 @@ module.exports = {
 		});
 	},
 	makePayment: function(req, res, template, callback){
+		console.log(req.body)
 		if(!req.body.stripeEmail && !req.query.cost && !req.query.shirtArray) return callback("Invalid Params")
 		var orNo = -1;
 		var name = "";

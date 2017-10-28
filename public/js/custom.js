@@ -40,10 +40,6 @@ $(document).on('click','.emailSent .fa-times',function(){
 	$(".emailSent").hide();	
 });
 
-$(".emailSent .fa-times").on("click", function(){
-	$(".emailSent").hide();	
-});
-
 $(document).on('click','.top .fa-bars',function(){
 	$(".mobileMenu").show();	
 });
@@ -54,6 +50,10 @@ $(document).on('click','.mobileMenu',function(){
 
 $(document).on('click','a.confirmShirt',function(){
 	setConfirmShirt();
+});
+
+$(document).on('click','heroButton a',function(){
+	setHero();
 });
 
 $(document).on('click','.payment a',function(){
@@ -84,7 +84,7 @@ $(document).on("click", ".sleeveChoice", function(e){
 	$(this).find("a").attr("href", buildQueryString("confirmation", dataForQuery))
 });
 
-$("a.confirmShirt").on("click", function(e){
+$(document).on("click", "a.confirmShirt", function(e){
 	var shirtObject = JSON.stringify(buildShirtObject(local_data))
 	var dataForQuery = {
 		shirtObject: shirtObject,
@@ -93,7 +93,7 @@ $("a.confirmShirt").on("click", function(e){
 	$("a.confirmShirt").attr("href", buildQueryString("basket", dataForQuery))
 });
 
-$(".paymentButton").on("click", function(e){
+$(document).on("click", ".paymentButton", function(e){
 	e.preventDefault();
 	var name =  $('.name').val();
 	var telephone =  $('.telephone').val();
@@ -118,15 +118,15 @@ $(".paymentButton").on("click", function(e){
 			cost: local_data.totalCost,
 			shirtArray: local_data.jsonArray,
 			date: date,
-			deliveryCost: deliveryCost,
-			deliveryMethod: deliveryMethod
+			deliveryCost: local_data.deliveryCost,
+			deliveryMethod: local_data.deliveryMethod
 		}
 		$(".paymentForm form").attr("action", buildQueryString("paymentResult", dataForQuery))
 		$(".stripe-button-el").click();
 	}
 });
 
-$(".quoteEmail").on("click", function(e){
+$(document).on("click", ".quoteEmail", function(e){
 	if(!$(".quote").length) return;
 
 	var name =  $('.name').val();
@@ -162,18 +162,20 @@ $(".quoteEmail").on("click", function(e){
 	}
 });
 
-$(".contactEmail").on("click", function(e){
-	if(!$(".query").length) return;
+$(document).on("click", ".contactEmail", function(e){
+	if(!$(".query").length) return e.preventDefault();
 
 	var name =  $('.name').val();
 	var email =  $('.email').val();
 	var number =  $('.number').val();
 	var comments =  $('.comments').val();
 	var canSend = validateContactForm(name, number, email, comments);
+
 	if(canSend){
 		var dataForQuery = {
 			name: name,
 			email: email,
+			number: number,
 			comments: comments
 		}
 		$(".contactEmail").attr("href", buildQueryString("sendQueryEmail", dataForQuery))
@@ -208,7 +210,6 @@ var setHeroString = function(){
 	if(player == "Please Select"){
 		$(".hiddenFirst").css("visibility", "hidden");
 	}
-	return;
 	$(".hiddenFirst").css("visibility", "visible");
 	var playerNumberArray = player.split(" - ");
 	var name = playerNumberArray[0].trim();
@@ -334,7 +335,6 @@ var buildQueryString = function(route, dataSet){
 }
 
 var kitNameInput = function(){
-	console.log("kitname")
 	if($(".shirtName").length){
 		var charsLeft = 20 - $(".shirtName").val().length
   		if(charsLeft == 0){
@@ -359,7 +359,6 @@ var kitNumberInput = function(){
 
 var setCookieWarning = function(cookies) {
 	var cookieWarningShown = cookies.toString().includes("cookiePermission");
-	console.log(cookieWarningShown)
 	if(!cookieWarningShown) {
 		$(".cookiePermission").show();
 		document.cookie = "cookiePermission=true;".trim();
@@ -457,18 +456,20 @@ var buildShirtObject = function(data){
 
 var validateContactForm = function(name, phone, email, comments){
   	var canSend = true;
-
-  	canSend = animateField(name+"" == "", ".field .name");
-	canSend = animateField(phone.length > 11 || phone.length < 9, ".field .number");
-    canSend = animateField(email+"" == "" || !validateEmail(email), ".field .email");
-    canSend = animateField(comments+"" == "", ".field .comments");
-  	
+  	var resultArray = [];
+  	resultArray.push(animateField(name+"" == "", ".field .name"));
+	resultArray.push(animateField(phone.length > 12 || phone.length < 9, ".field .number"));
+    resultArray.push(animateField(email+"" == "" || !validateEmail(email), ".field .email"));
+    resultArray.push(animateField(comments+"" == "", ".field .comments"));
+    if(resultArray.includes(false)){
+    	canSend = false;
+    }
   	return canSend;
 }
 
 var validateQuoteForm = function(name, email, league, club, strip, year, colour, letter, shirtName, shirtNumber){
 	var canSend = true;
-
+	console.log(letter)
     canSend = animateField(name+"" == "", ".field .name");
     canSend = animateField(email+"" == "" || !validateEmail(email), ".field .email");
     canSend = animateField(league+"" == "", ".field .league");
@@ -476,7 +477,7 @@ var validateQuoteForm = function(name, email, league, club, strip, year, colour,
     canSend = animateField(strip+"" == "", ".field .strip");
     canSend = animateField(year+"" == "", ".field .year");
     canSend = animateField(colour+"" == "", ".field .colour");
-    canSend = animateField(letter+"" == "", ".field .letterSelect");
+    canSend = animateField(letter+"" == "Please Select", ".field .letterSelect");
     canSend = animateField(shirtName+"" == "", ".field .shirtName");
     canSend = animateField(shirtNumber+"" == "", ".field .shirtNumber");
 
@@ -498,6 +499,7 @@ var validatePaymentForm = function(name, phone, line1, town, county, postcode, c
 }
 
 var animateField = function(animateTest, fieldToAnimate){
+	console.log(animateTest, fieldToAnimate)
 	var canSend = true;
 	if(animateTest){
 	    $(fieldToAnimate).addClass('animated shake');

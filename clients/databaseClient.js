@@ -52,7 +52,6 @@ module.exports = {
 	},
 	statusesForOrderNo: function(req, callback){
 		var orderNoQuery = 'SELECT o.*, s.*, sh.* FROM orders o INNER JOIN statuses s ON o.ordernumber = s.ordernumber INNER JOIN shirts sh ON s.ordernumber=sh.ordernumber WHERE o.ordernumber=' + req.query.orderNumber + ';'
-		console.log(orderNoQuery)
 		query('SELECT', orderNoQuery, callback)
 	},
 	updatePrice: function(req, callback){

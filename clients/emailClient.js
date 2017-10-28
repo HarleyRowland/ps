@@ -21,6 +21,7 @@ module.exports = {
 	},
 	queryEmail: function(req, callback){
 		var emails = [config.email.email]
+		console.log("∆∆∆", req.query);
 		var subject = "New Query Request From " + req.query.email
 		var content = "<p>Query email from: " + req.query.name + " (" + req.query.email + "/" + req.query.number + ")</p><p> They said: " + req.query.comments + "</p>"
 		sendMail(emails, subject, content, callback)

@@ -1,6 +1,7 @@
 var express = require('express');
 var fs = require('fs');
-var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var app = express();
 
 var customerController = require('./controllers/customerController.js')
@@ -19,13 +20,13 @@ app.use(function(req, res, next) {
   res.header('Pragma', 'no-cache');
   next();
 });
-
 app.use("/public", express.static(__dirname + '/public'));
 app.use(cookieParser())
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 var callback = function(error, res, template, data){
   if(error){
-    console.log("here error");
     return console.error(error);
   }
   res.render(template, {data: data});
@@ -76,6 +77,7 @@ app.get("/userOrders", (req, res) => ownerController.getAllUserOrders(res, "user
 app.get("/updateStatus", (req, res) => ownerController.updateOrder(req, res, "/userOrders", callbackRedirect));
 app.get("/statusesForOrderNo", (req, res) => ownerController.statusesForOrderNo(req, res, "userUpdates.pug", callback));
 app.get("/sendQuoteEmail", (req, res) => ownerController.quoteEmail(req, res, "quote.pug", callback));
+app.get("/sendQueryEmail", (req, res) => ownerController.queryEmail(req, res, "contact.pug", callback));
 
 app.get("*", (req, res) => res.send("ERROR"))
 app.post("*", (req, res) => res.send("ERROR"))
