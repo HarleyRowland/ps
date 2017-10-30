@@ -8,7 +8,7 @@ html
 			include ../public/css/general.css
 			include ../public/css/animate.css
 			include ../public/css/page.css
-			include ../public/css/header.css
+			include ../public/css/headerNew.css
 			include ../public/css/scorerDiscounts.css
 			include ../public/css/basket.css
 			include ../public/css/footer.css
@@ -21,37 +21,38 @@ html
 		link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css")
 		link(rel="shortcut icon" href="/public/images/logo-icon.png")
 	body
-		div.cookiePermission
-			span We use cookies. By continuing to use our site you give us permission to use cookies on your browser.
-			i.fa.fa-times(aria-hidden="true")
-		if data && data.emailSent
-			div.emailSent
-				span Your message has been sent to our team. We aim to reply within 5 working days.
-				i.fa.fa-times(aria-hidden="true")
+		div.messages
+			div.cookiePermission.row
+				span.small-11.columns We use cookies. By continuing to use our site you give us permission to use cookies on your browser.
+				i.fa.fa-times.small-1.columns(aria-hidden="true")
+			if data && data.emailSent
+				div.emailSent
+					span Your message has been sent to our team. We aim to reply within 5 working days.
+					i.fa.fa-times(aria-hidden="true")
 		div.top.row.show-for-medium
-			div.medium-2.columns
-				a.link(href="/") Home
-			div.medium-2.columns
-				a.link(href="/style") Printing
-			div.medium-4.smallLogo
+			div.medium-6.logo
 				a(href="/")
 					img(src="/public/images/logo.jpeg")
-			div.medium-2.columns
-				a.link(href="/contact") Contact
-			div.shopping-basket.medium-2.columns
-				a(href="/basket")
-					i.fa.fa-shopping-cart(aria-hidden="true")
-					span.basketSize ( 0 )
+			div.links.medium-6.columns
+				div
+					a.link(href="/") HOME
+				div
+					a.link(href="/style") PRINTING
+				div
+					a.link(href="/contact") CONTACT
+				div.shopping-basket
+					a(href="/basket")
+						i.fa.fa-shopping-cart(aria-hidden="true")
+						span.basketSize.show-for-large ( 0 )
 		div.top.row.hide-for-medium
 			div.menu-bars.medium-2.columns
 				i.fa.fa-bars.fa-6(aria-hidden="true")
-			div.medium-4.logo-menu.logo-small
+			div.medium-4.logo.columns
 				a(href="/")
 					img(src="/public/images/logo-icon.png")
 			div.shopping-basket.medium-2.columns
 				a(href="/basket")
 					i.fa.fa-shopping-cart(aria-hidden="true")
-					span.basketSize ( 0 )
 			div.mobileMenu
 				i.fa.fa-times(aria-hidden="true")
 				a(href="/") Home
