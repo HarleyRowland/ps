@@ -2,7 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var app = express();
+const app = express();
 
 var customerController = require('./controllers/customerController.js')
 var paymentController = require('./controllers/paymentController.js')
@@ -24,6 +24,13 @@ app.use("/public", express.static(__dirname + '/public'));
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+  app.use((req, res, next) => {
+    if (req.headers['x-forwarded-proto'] !== 'https')
+      res.redirect("https://" + req.header('host') + req.url);
+    else
+      next()
+  })
 
 var callback = function(error, res, template, data){
   if(error){
