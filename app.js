@@ -30,7 +30,7 @@ app.use(bodyParser.json());
       if(req.header('host').includes("www")){
         res.redirect("http://" + req.header('host') + req.url);
       } else {
-        res.redirect("https://www." + req.header('host') + req.url);
+        res.redirect("http://www." + req.header('host') + req.url);
       }
     else
       next()
