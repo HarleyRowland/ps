@@ -1,0 +1,71 @@
+.landingTitle {
+	text-align: left;
+    padding: 100px;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.description {
+	font-size: large;
+	padding: 30px 70px 30px 70px;
+	background-color: #323B7E;
+	color: #F9F9F9;
+}
+
+.description a {
+	color: #76c6df;
+	text-decoration: underline;
+	transition: 1s;
+}
+
+.description a:hover {
+	color: #F9F9F9;
+}
+
+.section {
+	padding: 30px 70px 30px 70px;
+}
+
+.section .heading {
+	text-align: center;
+	font-weight: bolder;
+	color: #323B7E;
+}
+
+.pageInfo {
+	padding: 30px 0px 30px 0px;
+	font-size: large;
+	color: #323B7E;
+}
+
+.exampleShirt img {
+	border: solid 7px #323B7E;
+	border-radius: 20px;
+}
+
+.action {
+	margin: 50px;
+}
+
+.action a {
+	padding: 10px;
+	background-color: #4BB543;
+	color: #F9F9F9;
+	font-weight: bolder;
+	transition: 1s;
+	border-radius: 5px;
+}
+
+.divider {
+	height: 300px;
+	background:
+	    url("public/images/seats.png");
+	    background-attachment: fixed;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+}
+
+.action a:hover {
+	background-color: #006900;
+}

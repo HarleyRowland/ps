@@ -1,57 +1,52 @@
 include header.pug
-div.page.index
+div.index.page
 	div.landing
 		div.landingImage
-			h1.landingTitle Football Shirt</br>Customisation
-	div.about
-		h2 Any Shirt, Styled Any Way You Want
-		p.pageInfo We specialise in football shirt printing and promise that a shirt you send to us will look as good on you as it does on the players you support.
-		div.shirtImages.row
-			div.shirtImage.small-6.medium-3.columns
+			h2.landingTitle YOUR SHIRT,<br>THE WAY YOU WANT IT
+	div.description
+		p At Premier Shirts, we specialise in football shirts customisation. We receive your shirt and you get it back customised the way you want - we have a range of options which will have you looking amazing on game day! With the addition of a name and number on the back of your shirt and the offical sleeve patches of the English Top Flight, you will look like the players you support!
+		p Want something a little different? 
+			a(href="/quote") Send us a message
+			span  with the details and we will get back to you will a quote.
+	div.section#about
+		h2.heading SOME OF OUR PRINTS
+		p.pageInfo Below are the finished products ordered by some of our happy customers!
+		div.row
+			div.exampleShirt.small-6.medium-4.large-3.columns.show-for-large
 				img(src="/public/images/fix.jpg")
-			div.shirtImage.small-6.medium-3.columns
+			div.exampleShirt.small-6.medium-4.large-3.columns.hide-for-medium
+				img(src="/public/images/fix.jpg")
+			div.exampleShirt.small-6.medium-4.large-3.columns
 				img(src="/public/images/halliday.jpg")
-			div.shirtImage.small-6.medium-3.columns
+			div.exampleShirt.small-6.medium-4.large-3.columns
 				img(src="/public/images/janssen.jpg")
-			div.shirtImage.small-6.medium-3.columns
+			div.exampleShirt.small-6.medium-4.large-3.columns
 				img(src="/public/images/morgan.jpg")
 		div.action.getYours
-			a.btn(href="/style") Get Yours Now
-	div.imageStripScorers
-	div.scorers
-		h2 Some of this week's players with a Goal Scorer Discount!
-		p.pageInfo Choose a player who has scored in the last week for your hero printing and get 
+			a.btn(href="/style") MAKE AN ORDER
+	div.divider
+	div.section#scorers
+		h2.heading GOAL SCORER DISCOUNTS
+		p.pageInfo When a English Top Flight player scorers, he get's a discounts. It's 
 			b £3 
-			span off! Choose a player who has scored two and get 
+			span off for players who have scored one goal and 
 			b £5 
-			span off!
-		div.players.row
+			span off for players who have scored two or more goals.
+		div.players.row.show-for-medium
 			each player in data
 				div.player.small-12.medium-4.columns
 					h3 #{player.kitname}
 					div.image
-						img(src="/public/images/kits/current/" + player.club + "-home.gif")
+						img(src="/public/images/shirts/current/" + player.club + ".gif")
 					div.discount
 						b £#{player.discount} OFF!
+		div.players.row.hide-for-medium
+			div.player.small-12.medium-4.columns
+				h3 #{data[1].kitname}
+				div.image
+					img(src="/public/images/shirts/current/" + data[1].club + ".gif")
+				div.discount
+					b £#{data[1].discount} OFF!
 		div.action.getYours
-			a.btn(href="/scorerDiscounts") See All Scorers with Discounts
-	div.imageStripContact
-	div.contact
-		h2 Get In Touch With Us
-		p.pageInfo Please do not hesitate to message us. We are more than happy to help with any queries you have!
-		div.choices.row
-			div.choice.topChoice.small-12.medium-6.columns
-				div.quote
-					h3.optionTitle Contact Us
-					h5.optionSubTitle Ask Us Anything!
-					div.action
-						a.btn(href="/contact")
-							span Contact
-			div.choice.bottomChoice.small-12.medium-6.columns
-				div.contact
-					h3.optionTitle Get A Quote
-					h5.optionSubTitle Get a quote for any football shirt or maybe even something a little different.
-					div.action
-						a.btn(href="/quote")
-							span Quote
+			a.btn(href="/scorerDiscounts") ALL SCORER DISCOUNTS
 include footer.pug

@@ -82,21 +82,41 @@ module.exports = {
 		callback(null, res, template, data);
 	},
 	getThreeScorers: function(res, template, callback){
-		var databaseCallback = function(error, players){
-			if(error){
-				return callback(error);
-			}
-			var playersToShow = 3;
-			if(players.length < playersToShow) {
-				playersToShow = players.length;
-			}
-			var resultPlayers = getRandomPlayers(players, playersToShow);
-			resultPlayers.forEach(function(resultPlayer){
-				resultPlayer = tidyClient.formatPlayerFromDatabase(resultPlayer)
-			})
+		// var databaseCallback = function(error, players){
+			// if(error){
+			// 	return callback(error);
+			// }
+			// var playersToShow = 3;
+			// if(players.length < playersToShow) {
+			// 	playersToShow = players.length;
+			// }
+			// var resultPlayers = getRandomPlayers(players, playersToShow);
+			// resultPlayers.forEach(function(resultPlayer){
+			// 	resultPlayer = tidyClient.formatPlayerFromDatabase(resultPlayer)
+			// })
+			var resultPlayers =  [ 
+					{
+						kitname: "Ramsey",
+						kitnumber: 7,
+						club: "arsenal",
+						discount: 5
+					},
+					{
+						kitname: "Costa",
+						kitnumber: 10,
+						club: "chelsea",
+						discount: 5
+					},
+					{
+						kitname: "Aguero",
+						kitnumber: 10,
+						club: "manchestercity",
+						discount: 5
+					}
+				]
 			callback(null, res, template, resultPlayers);
-		}
-		databaseClient.getScorers(databaseCallback)
+		// }
+		// databaseClient.getScorers(databaseCallback)
 	},
 	getScorerDiscounts: function(req, res, template, callback){
 		var price;

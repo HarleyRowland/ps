@@ -2,10 +2,6 @@
 	visibility: hidden;
 }
 
-.index.page {
-	padding-top: 0px;
-}
-
 .landingImage {
 	margin-top: -3px;
 }
@@ -80,12 +76,12 @@
 }
 
 
-.page h1, .pageInfo {
+.page h1 {
 	padding-bottom: 10px;
 }
 
 
-.pageInfo, .pageInfoSleeve {
+.pageInfoSleeve {
 	font-size: 20px;
 }
 
