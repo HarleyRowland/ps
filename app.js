@@ -28,7 +28,7 @@ app.use(bodyParser.json());
   app.use((req, res, next) => {
     if (req.headers['x-forwarded-proto'] !== 'https')
       if(req.header('host').includes("www")){
-        res.redirect("https://" + req.header('host') + req.url);
+        res.redirect("http://" + req.header('host') + req.url);
       } else {
         res.redirect("https://www." + req.header('host') + req.url);
       }
