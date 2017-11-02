@@ -1,2 +1,0 @@
-Foster,Nyom,Robson-Kanu,Yacob,Evans,Morrison,Livermore,Rondón,Phillips,Brunt,Myhill,McClean,Rodriguez,McManaman,Chadli,McAuley,Dawson,Palmer,Roberts,Leko,Field
-1,2,4,5,6,7,8,9,10,11,13,14,17,19,22,23,25,40,44,45,47

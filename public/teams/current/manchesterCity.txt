@@ -1,2 +1,0 @@
-Bravo,Walker,Danilo,Kompany,Stones,Sterling,Gündoğan,Agüero,Nasri,Bony,Mangala,De Bruyne,Delph,Sané,Silva,Silva,Mendy,Adarabioyo,Fernandinho,Roberts,Denayer,Otamendi,Ederson,Grimshaw,Jesus,Zinchenko,Touré,Nmecha,Dilrosun,Duhaney,Facey,Foden,Faupala,Bryan,Díaz,Nemane,Oliver,Haug,Barker,Bytyqi,Sarmiento,García,Humphreys,Davenport,Wood,Diallo,Patching,Kigbu
-1,2,3,4,5,7,8,10,11,14,15,17,18,19,20,21,22,24,25,27,28,30,31,32,33,35,42,43,44,45,46,47,51,52,55,57,58,60,62,63,71,76,77,82,83,84,85,86
