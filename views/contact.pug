@@ -1,0 +1,23 @@
+include header.pug
+div.query.page
+	div.content
+		h1.title Get In Touch
+		p.pageInfo Please feel free to ask us anything.
+		div.form
+			div.field#name
+				span.formLabel Name: 
+				input.name
+			div.field#email
+				span.formLabel Email: 
+				input.email
+			div.field#number  
+				span.formLabel Number: 
+				input.number
+			div.field#comments  
+				span.formLabel Extra Comments: 
+				textarea.comments
+			div.action.send
+				a.btn.contactEmail(href="/sendQueryEmail")
+					span Send Message
+
+include footer.pug

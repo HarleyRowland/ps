@@ -1,0 +1,28 @@
+include header.pug
+div.teams.page
+	div.content
+		h1.title Which Club's Shirt Do You Have?
+		div.clubs.row.show-for-medium
+			each club, index in data.clubs
+				div.club.small-12.medium-4.large-3.columns
+					h3.optionTitle #{data.clubsFull[index]}
+					div.image
+						img(src="/public/images/shirts/" + data.style + "/" + club + ".gif")
+					div.stats
+					div.btnDiv
+						a.action(href="/strip?printingType=" + data.printingType + "&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent + "&club=" + club + "&childOrAdult=" + data.childOrAdult + "&name=" + data.name + "&number=" + data.number)
+							span Select
+		div.clubs.row.hide-for-medium
+			div.select
+				select.clubOption
+					each club, index in data.clubsFull
+						option(value=data.clubs[index]) #{club}
+			div.club.mobile.small-12.medium-4.large-3.columns
+				h3.optionTitle #{data.clubsFull[index]}
+				div.image
+					img(src="/public/images/shirts/" + data.style + "/" + data+ ".gif")
+				div.stats
+				div.btnDiv
+					a.action(href="/strip?printingType=" + data.printingType + "&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent + "&club=" + club + "&childOrAdult=" + data.childOrAdult + "&name=" + data.name + "&number=" + data.number)
+						span Select
+	include footerFlow.pug

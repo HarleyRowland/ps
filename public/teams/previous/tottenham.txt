@@ -1,0 +1,2 @@
+Lloris,Walker,Rose,Alderweireld,Vertonghen,Heung-min,Janssen,Kane,Lamela,Wanyama,Vor,N'Koudou,Dier,Trippier,Sissoko,Dembélé,Alli, Eriksen,Onomah,Wimmer,Winks,López,Davies,Carter-Vickers
+1,2,3,4,5,7,9,10,11,12,13,14,15,16,17,19,20,23,25,27,29,30,33,38

@@ -1,0 +1,57 @@
+include header.pug
+div.page.index
+	div.landing
+		div.landingImage
+			h1.landingTitle Football Shirt</br>Customisation
+	div.about
+		h2 Any Shirt, Styled Any Way You Want
+		p.pageInfo We specialise in football shirt printing and promise that a shirt you send to us will look as good on you as it does on the players you support.
+		div.shirtImages.row
+			div.shirtImage.small-6.medium-3.columns
+				img(src="/public/images/fix.jpg")
+			div.shirtImage.small-6.medium-3.columns
+				img(src="/public/images/halliday.jpg")
+			div.shirtImage.small-6.medium-3.columns
+				img(src="/public/images/janssen.jpg")
+			div.shirtImage.small-6.medium-3.columns
+				img(src="/public/images/morgan.jpg")
+		div.action.getYours
+			a.btn(href="/style") Get Yours Now
+	div.imageStripScorers
+	div.scorers
+		h2 Some of this week's players with a Goal Scorer Discount!
+		p.pageInfo Choose a player who has scored in the last week for your hero printing and get 
+			b £3 
+			span off! Choose a player who has scored two and get 
+			b £5 
+			span off!
+		div.players.row
+			each player in data
+				div.player.small-12.medium-4.columns
+					h3 #{player.kitname}
+					div.image
+						img(src="/public/images/kits/current/" + player.club + "-home.gif")
+					div.discount
+						b £#{player.discount} OFF!
+		div.action.getYours
+			a.btn(href="/scorerDiscounts") See All Scorers with Discounts
+	div.imageStripContact
+	div.contact
+		h2 Get In Touch With Us
+		p.pageInfo Please do not hesitate to message us. We are more than happy to help with any queries you have!
+		div.choices.row
+			div.choice.topChoice.small-12.medium-6.columns
+				div.quote
+					h3.optionTitle Contact Us
+					h5.optionSubTitle Ask Us Anything!
+					div.action
+						a.btn(href="/contact")
+							span Contact
+			div.choice.bottomChoice.small-12.medium-6.columns
+				div.contact
+					h3.optionTitle Get A Quote
+					h5.optionSubTitle Get a quote for any football shirt or maybe even something a little different.
+					div.action
+						a.btn(href="/quote")
+							span Quote
+include footer.pug

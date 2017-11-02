@@ -1,0 +1,21 @@
+body *:not(.fa) {
+	font-family: 'Dosis', sans-serif !important;
+}
+
+.setting {
+	margin-bottom: 100px;
+}
+
+.scorers {
+	width: 400px;
+	height: 200px;
+}
+
+
+.clear {
+	margin-top: 30px !important;
+}
+
+.clearScorers {
+	color: red;
+}

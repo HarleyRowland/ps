@@ -1,0 +1,215 @@
+body *:not(.fa) {
+	font-family: 'Dosis', sans-serif !important;
+}
+
+.pageInfo {
+	padding: 20px;
+}
+
+.landingImage {
+	margin-top: 18px;
+	height: 70vh;
+ 	background:
+	    url("public/images/ball.jpeg");
+	    background-attachment: fixed;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;}
+
+.landingImage h1{
+	font-size: 70px;
+	padding-left: 15%;
+	font-weight: bolder;
+	color: white;
+	top: 20%;
+	position: absolute;
+}
+
+.fa-bars {
+	cursor: pointer;
+}
+
+.form input, .form select, .form textarea {
+	border: solid 1px #818181;
+}
+
+.landingImage * {
+	color: white !important;
+}
+
+.imageStripScorers {
+	height: 300px;
+	background:
+	    url("public/images/corner.jpeg");
+	    background-attachment: fixed;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+}
+
+.scorers {
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+.player img{
+	max-height: 300px;
+}
+
+.imageStripContact {
+	background-color: red;
+	height: 300px;
+	background:
+	    url("public/images/seats.png");
+	    background-attachment: fixed;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+}
+
+.fa {
+	color: #323B7E;
+}
+
+.title {
+	padding: 30px;
+	color: #323B7E;
+}
+
+h1.title {
+	padding-top: 0px;
+	margin-top: 0px;
+	color: #323B7E;
+	font-size: 30px;
+}
+
+.page {
+	padding-top: 40px;
+	text-align: center;
+	min-height: 70%;
+}
+
+.optionTitle {
+	height: 80px;
+}
+
+.optionText {
+	height: 80px;
+}
+
+.optionSubtitle {
+	height: 80px;
+}
+
+.childOrAdult .optionSubtitle {
+	height: 100px;
+}
+
+.basket:hover {
+	text-decoration: none !important;
+}
+
+.basket *:hover {
+	text-decoration: none !important;
+}
+
+.basketSize {
+	padding-left: 10px;
+}
+
+@media only screen and (min-width: 39em) and (max-width: 64em) { 
+	.optionTitle {
+		height: 80px;
+		font-size: 25px;
+	}
+
+	.optionText {
+		height: 90px;
+	}
+
+	.optionSubtitle {
+		height: 150px;
+	}
+
+	.childOrAdult .optionSubtitle {
+		height: 120px;
+	}
+
+
+	.landingImage {
+		padding-top: 18px;
+	}
+
+	.landingImage h1{
+		font-size: 50px;
+		padding-left: 10%;
+		font-weight: bolder;
+		color: white;
+		top: 20%;
+		position: absolute;
+	}
+
+	.scorers {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+}
+
+@media only screen and (max-width: 40em) { 
+	h1 {
+		font-size: 40px !important;
+	}
+
+	h3 {
+		font-size: 30px !important;
+	}
+
+	.content {
+		margin-bottom: 30px !important;
+	}
+
+	.pageInfo {
+		font-size: 20px !important;
+	}
+
+	.optionTitle {
+		height: 50px;
+	}
+
+	.optionText {
+		height: 50px;
+	}
+
+	.optionSubtitle {
+		height: 50px;
+	}
+	.childOrAdult .optionSubtitle {
+		height: 100px;
+	}
+
+	.form {
+		padding: 10px;
+	}
+    
+    h2 {
+    	font-size: 30px !important;
+    }
+    
+    .landingImage, .imageStrip {
+        background-attachment: scroll;
+    }
+
+    .scorers {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	.player {
+		margin-bottom: 20px;
+	}
+
+	.discount {
+		margin-top: 15px;
+	}
+}

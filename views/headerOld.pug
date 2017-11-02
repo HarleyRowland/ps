@@ -1,0 +1,28 @@
+html
+	head
+		title Premier Shirts
+		style 
+			include ../public/css/general.css
+			include ../public/css/quote.css
+			include ../public/css/header.css
+			include ../public/css/payment.css
+			include ../public/css/basket.css
+			include ../public/css/footer.css
+			include ../public/css/foundation.css
+		script(type='text/javascript' src='public/js/jquery.js')
+		script(type='text/javascript' src='public/js/styleText.js')
+		script(type='text/javascript').
+			var local_data = !{JSON.stringify(data)};
+		script(type='text/javascript' src='public/js/custom.js')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Dosis')
+	body
+		div.header
+			main.row
+				div.logo.small-3.columns
+					a(href="/")
+						img(src="/public/images/logo.jpeg")
+				div.links.small-9.columns
+					a(href="/") Home
+					a(href="/") Printing
+					a(href="/contact") Contact
+					a(href="/faq") FAQs

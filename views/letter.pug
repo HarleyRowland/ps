@@ -1,0 +1,15 @@
+include header.pug
+div.letter.page
+	div.content
+		h1.title What Letter Styling Do You Want?
+		div.select
+			select.letterOption
+				option(value='') Please Select
+				option(value='straight') Straight
+				option(value='curved') Curved
+
+		div.hiddenFirst.content
+			div.action
+				a.btn()
+					span Select
+	include footerFlow.pug

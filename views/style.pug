@@ -1,0 +1,28 @@
+include header.pug
+div.style.page
+  div.content
+    h1.title What Style Do You Want On Your Shirt?
+    p.pageInfo Please select whether you want a style from the current Top Flight, the previous Top Flight style or another kind of style.
+    div.choices.row
+      div.choice.topChoice.small-12.medium-4.columns
+        div.current
+          h3.optionTitle Current Style
+          h5.optionSubTitle The current English Top Flight Style (2017-2020)
+          div.action
+            a.btn(href="/childOrAdult?style=current&club="+ data.club + "&name=" + data.name + "&number=" + data.number + "&shirtCost=" + data.shirtCost + "&printingType=" + data.printingType)
+              span Select
+      div.choice.middleChoice.small-12.medium-4.columns
+        div.previous
+          h3.optionTitle Previous Style
+          h5.optionSubTitle The Previous English Top Flight Style (2014-2017)
+          div.action
+            a.btn(href="/childOrAdult?style=previous&club="+ data.club + "&name=" + data.name + "&number=" + data.number + "&shirtCost=" + data.shirtCost + "&printingType=" + data.printingType)
+              span Select
+      div.choice.bottomChoice.small-12.medium-4.columns
+        div.quote
+          h3.optionTitle Other Styles
+          h5.optionSubTitle We can give you a quote for something different.
+          div.action
+            a.btn(href="/quote")
+              span Quote
+  include footerFlow.pug

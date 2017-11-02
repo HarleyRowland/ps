@@ -1,0 +1,4 @@
+Arsenal,Bournemouth,Burnley,Chelsea,Crystal Palace,Everton,Hull City,Leicester City,Liverpool,Manchester City,Manchester United,Middlesborough,Southampton,Stoke City,Sunderland,Swansea City,Tottenham Hotspur,Watford,West Brom,West Ham
+London,Bournemouth,Burnley,London,London,Liverpool,Hull,Leicester,Liverpool,Manchester,Manchester,Middlesborough,Southampton,Stoke-on-Trent,Sunderland,Swansea,London,Watford,West Bromich,London
+Emirates Stadium,Dean Court,Turf Moor,Stamford Bridge,Selhurst Park,Goodison Park,KCOM Stadium,King Power Stadium,Anfield,Etihad Stadium,Old Trafford,Riverside Stadium,St Mary's Stadium,bet365 Stadium,Stadium of Light,Liberty Stadium,Webley Stadium,Vicarage Road,The Hawthorns,London Stadium
+60432,11464,21401,41623,26309,39572,25404,32500,54074,55097,75643,35100,32689,27902,49000,20972,90000,21977,26500,57000

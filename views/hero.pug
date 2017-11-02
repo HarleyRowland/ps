@@ -1,0 +1,18 @@
+include header.pug
+div.hero.page
+	div.content
+		h1.title What Player Do You Want On Your Shirt?
+		div.select
+			select.playerOption
+				option(value='') Please Select
+				each player in data.players
+					option #{player}
+		div.basket
+			p.printStatement All hero prints are £#{data.price}.
+		span.linkToCustom Can't find who you are looking for? 
+			a(href="/heroOrCustom?strip=" + data.strip + "&club=" + data.club + "&printingType=custom&style=" + data.style + "&premOrDifferent=" + data.premOrDifferent  + "&childOrAdult=" + data.childOrAdult) Input them yourself.
+		div.hiddenFirst.content.heroButton
+			div.action
+				a.btn()
+					span Select
+	include footerFlow.pug

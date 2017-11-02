@@ -1,0 +1,2 @@
+Boruc,Francis,Cook,Gosling,Aké,Surman,Pugh,Arter,Afobe,Gradel,Daniels,Ramsdale,Wilson,Smith,Smith,Cook,King,Defoe,Stanislas,Hyndman,Mahoney,Fraser,Mings,Begović,Wiggins,Mousset,Federici,Ibe,Butcher,Jordan,Cargill,Harfield,O'Flaherty,Simpson,Worthington,Holmes
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,23,24,26,27,29,31,32,33,36,37,38,40,41,42,43,45
