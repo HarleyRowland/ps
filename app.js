@@ -25,16 +25,16 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-  app.use((req, res, next) => {
-    if (req.headers['x-forwarded-proto'] !== 'http')
-      if(req.header('host').includes("www")){
-        res.redirect("http://" + req.header('host') + req.url);
-      } else {
-        res.redirect("http://www." + req.header('host') + req.url);
-      }
-    else
-      next()
-  })
+app.use((req, res, next) => {
+  if (req.headers['x-forwarded-proto'] !== 'https')
+    if(req.header('host').includes("www")){
+      res.redirect("https://" + req.header('host') + req.url);
+    } else {
+      res.redirect("https://www." + req.header('host') + req.url);
+    }
+  else
+    next()
+})
 
 var callback = function(error, res, template, data){
   if(error){
