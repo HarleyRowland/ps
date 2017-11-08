@@ -1,36 +1,26 @@
+body {
+	background-color: #FFFFFF;
+}
+
 body *:not(.fa) {
 	font-family: 'Dosis', sans-serif !important;
 }
 
-.landingImage {
-	margin-top: 18px;
-	height: 70vh;
- 	background:
-	    url("public/images/ball.jpeg");
-	    background-attachment: fixed;
-	    background-position: center;
-	    background-repeat: no-repeat;
-	    background-size: cover;}
+.btn {
+	background-color: #FFFFFF;
+}
 
-.landingImage h1{
-	font-size: 70px;
-	padding-left: 15%;
+.btn a {
+	padding: 10px;
+	background-color: #4BB543;
+	color: #FFFFFF;
 	font-weight: bolder;
-	color: white;
-	top: 20%;
-	position: absolute;
+	transition: 1s;
+	border-radius: 5px;
 }
 
-.fa-bars {
-	cursor: pointer;
-}
-
-.form input, .form select, .form textarea {
-	border: solid 1px #818181;
-}
-
-.landingImage * {
-	color: white !important;
+.btn a:hover {
+	background-color: #006900;
 }
 
 .scorers {

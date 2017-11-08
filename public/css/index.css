@@ -1,3 +1,29 @@
+
+.landingImage {
+	margin-top: 18px;
+	height: 70vh;
+ 	background:
+	    url("public/images/ball.jpeg");
+	    background-attachment: fixed;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+}
+
+.landingImage h1{
+	font-size: 70px;
+	padding-left: 15%;
+	font-weight: bolder;
+	color: white;
+	top: 20%;
+	position: absolute;
+}
+
+.landingImage * {
+	color: white !important;
+}
+
+
 .landingTitle {
 	text-align: left;
     padding: 100px;
@@ -9,7 +35,7 @@
 	font-size: large;
 	padding: 30px 70px 30px 70px;
 	background-color: #323B7E;
-	color: #F9F9F9;
+	color: #FFFFFF;
 }
 
 .description a {
@@ -19,7 +45,7 @@
 }
 
 .description a:hover {
-	color: #F9F9F9;
+	color: #FFFFFF;
 }
 
 .section {
@@ -43,18 +69,10 @@
 	border-radius: 20px;
 }
 
-.action {
+.section .btn {
 	margin: 50px;
 }
 
-.action a {
-	padding: 10px;
-	background-color: #4BB543;
-	color: #F9F9F9;
-	font-weight: bolder;
-	transition: 1s;
-	border-radius: 5px;
-}
 
 .divider {
 	height: 300px;
@@ -64,8 +82,4 @@
 	    background-position: center;
 	    background-repeat: no-repeat;
 	    background-size: cover;
-}
-
-.action a:hover {
-	background-color: #006900;
 }

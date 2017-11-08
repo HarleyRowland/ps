@@ -1,46 +1,59 @@
 include header.pug
 div.page.quote
 	div.content
-		h1.title Need Something Special?
-		p.pageInfo Let us know what you want and we will get back to your with a personalised Quote
-		div.form
-			div.field#name
-				span.formLabel Name: 
-				input.name
-			div.field#email
-				span.formLabel Email: 
-				input.email
-			div.field#league  
-				span.formLabel League: 
-				input.league
-			div.field#club  
-				span.formLabel Club: 
-				input.club
-			div.field#strip  
-				span.formLabel Strip: 
-				input.strip
-			div.field#year  
-				span.formLabel Year: 
-				input.year
-			div.field#colour  
-				span.formLabel Shirt Colour: 
-				input.colour
-			div.field#letter  
-				span.formLabel Letter Shape: 
+		//- h1.title Need Something Special?
+		//- p.pageInfo Let us know what you want and we will get back to your with a personalised Quote
+		div.form.row
+			div.field#name.small-12.medium-6.columns
+				span.formLabel Full name
+					sup * 
+				input.name(placeholder="Joe Bloggs")
+			div.field#email.small-12.medium-6.columns
+				span.formLabel E-mail Address
+					sup * 
+				input.email(placeholder="example.123@example.co.uk")
+			div.field#club.small-12.medium-6.columns
+				span.formLabel The club that wears this shirt is...
+					sup * 
+				input.club(placeholder="Example FC")
+			div.field#league.small-12.medium-6.columns
+				span.formLabel  The league this club is in is...
+				input.league(placeholder="Division 1")
+			div.field#strip.small-12.medium-6.columns
+				span.formLabel Strip
+					sup * 
+				select.strip
+					option Please Select
+					option Home
+					option Away
+					option Third
+			div.field#year.small-12.medium-6.columns
+				span.formLabel This shirt is from the year...
+					sup *
+				input.year(placeholder="2017")
+			div.field#colour.small-12.medium-6.columns
+				span.formLabel Colour of letters/numbers
+					sup * 
+				input.colour(placeholder="Blue")
+			div.field#letter.small-12.medium-6.columns
+				span.formLabel Shape of letters
+					sup * 
 				select.letterSelect
 					option Please Select
 					option Straight
 					option Curved
-			div.field#shirtName  
-				span.formLabel Shirt Name: 
-				input.shirtName
-			div.field#shirtNumber  
-				span.formLabel Shirt Number: 
-				input.shirtNumber
-			div.field#comments  
-				span.formLabel Extra Comments: 
+			div.field#shirtName.small-12.medium-6.columns
+				span.formLabel Name you want on your shirt
+					sup *  
+				input.shirtName(placeholder="Ronaldo")
+			div.field#shirtNumber.small-12.medium-6.columns
+				span.formLabel Numbers you want on your shirt
+					sup *
+				input.shirtNumber(placeholder="7")
+			div.field#comments.small-12.columns
+				span.formLabel Anything else? 
 				textarea.comments
-			div.action.send
-				a.quoteEmail.btn(href="/sendQuoteEmail")
+			div.submit.btn.small-12.columns
+				a.quoteEmail(href="/sendQuoteEmail")
 					span Request Quote
 include footer.pug

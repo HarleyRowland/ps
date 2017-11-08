@@ -1,0 +1,53 @@
+.form {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	padding-top: 30px;	
+}
+
+.field {
+	text-align: left;
+	margin: 10px 0px 10px 0px;
+	height: 90px;
+}
+
+.field input, .field select, .field textarea {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+	height: 40px;
+	border: none;
+	border-bottom: solid 2px grey;
+	width: 100%;
+	transition: 1s;
+}
+
+.field input {
+	padding-left: 10px;
+}
+
+.field textarea {
+	outline: none;
+	height: 100px;
+}
+
+.field textarea:focus, .field input:focus, .field select:focus{
+    outline: none;
+    border-bottom: solid 2px #9DE4FF;
+}
+
+.field .comments {
+	width: 100%;
+}
+
+.formLabel {
+	display: block;
+	text-align: left;
+	font-size: large;
+}
+
+.submit {
+	margin-top: 70px;
+	margin-bottom: 50px;
+}
+
