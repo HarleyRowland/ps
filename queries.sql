@@ -6,7 +6,8 @@ DROP TABLE scorers;
 
 CREATE TABLE settings(
    settingsID serial primary key,
-   shirtPrice DECIMAL NOT NULL
+   shirtPrice DECIMAL NOT NULL,
+   sleevePrice DECIMAL NOT NULL
 );
 
 CREATE TABLE scorers(
@@ -52,11 +53,11 @@ CREATE TABLE shirts(
    letter VARCHAR(400)
 );
 
-INSERT INTO settings(shirtPrice) 
-   VALUES (25);
+INSERT INTO settings(shirtPrice, sleevePrice) 
+   VALUES (25, 10);
 
-INSERT INTO settings(shirtPrice) 
-   VALUES (20);
+INSERT INTO settings(shirtPrice, sleevePrice) 
+   VALUES (20, 7.5);
 
 INSERT INTO scorers(kitname, kitnumber, club, discount) 
    VALUES ('Ramsey', '8', 'arsenal', 5);

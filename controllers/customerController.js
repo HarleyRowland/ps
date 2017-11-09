@@ -37,15 +37,6 @@ module.exports = {
 		callback(null, res, template, req.query);
 	},
 	heroOrCustom: function(req, res, template, callback){
-		var data = req.query;
-		if(req.query.printingType == "custom" && req.query.premOrDifferent) {
-		    template = "nameNumber.pug";
-		   	return callback(null, res, template, data)
-		}
-		if(req.query.name && req.query.number && req.query.name != "undefined" && req.query.number != "undefined"){
-	    	template = "sleeves.pug";
-	    	return callback(null, res, template, data)
-	    }
 		var scorers = [];
 		async.waterfall([
 		    function(callback) {
@@ -56,30 +47,56 @@ module.exports = {
 				databaseClient.getPrice(callback)
 		    }
 		], function (err, result) {
+			var data = req.query;
+			data.price = result[result.length-1].shirtprice
+			if(req.query.printingType == "custom" && req.query.premOrDifferent) {
+			    template = "nameNumber.pug";
+			   	return callback(null, res, template, data)
+			}
+			if(req.query.name && req.query.number && req.query.name != "undefined" && req.query.number != "undefined"){
+		    	template = "sleeves.pug";
+		    	return callback(null, res, template, data)
+		    }
 			var nameNumberTuple = getPlayersAndNumbers(req.query.club, req.query.style)
 			var playersBeforeDiscounts = nameNumberTuple[0]
 			data.players = addDiscounts(playersBeforeDiscounts, nameNumberTuple[1], scorers, req.query.club)
-			data.price = result[result.length-1].shirtprice
+		  	callback(null, res, template, data)
+		});
+	},
+	sleeves: function(req, res, template, callback){
+		async.waterfall([
+			function(asyncCallback) {
+				databaseClient.getPrice(asyncCallback)
+		    }
+		], function (err, result) {
+			var data = req.query;
+			data.price = result[result.length-1].sleeveprice
+			if(data.price.includes(".") && data.price.split(".")[1].length < 2) data.price = data.price + "0"
 		  	callback(null, res, template, data)
 		});
 	},
 	confirmation: function(req, res, template, callback){
 		if(!req.query.shirtObject) return callback("Invalid Fields");
 		
-		var data =  JSON.parse(req.query.shirtObject);
-		
-		var sleeveCost = 0;
-		if(data.sleeve == "Yes"){
-			sleeveCost = 7.5;
-		}
-		data.fullCost = parseFloat(data.shirtCost) + sleeveCost;
-		data.displayCost = buildDisplayCost(data.fullCost+"")
-		data.fullClubName = tidyClient.clubName(data.club);
-		data.fullStrip = tidyClient.strip(data.strip);
-		data.fullStyle = tidyClient.style(data.style);
-		data.shirtObject = JSON.stringify(data);
-
-		callback(null, res, template, data);
+		async.waterfall([
+		    function(asyncCallback) {
+				databaseClient.getPrice(asyncCallback)
+		    }
+		], function (err, result) {
+			var sleevePrice = result[result.length-1].sleeveprice
+			var data = JSON.parse(req.query.shirtObject);
+			var sleeveCost = 0;
+			if(data.sleeve == "Yes"){
+				sleeveCost = parseFloat(sleevePrice);
+			}
+			data.fullCost = parseFloat(data.shirtCost) + sleeveCost;
+			data.displayCost = buildDisplayCost(data.fullCost+"")
+			data.fullClubName = tidyClient.clubName(data.club);
+			data.fullStrip = tidyClient.strip(data.strip);
+			data.fullStyle = tidyClient.style(data.style);
+			data.shirtObject = JSON.stringify(data);
+		  	callback(null, res, template, data)
+		});
 	},
 	getThreeScorers: function(res, template, callback){
 		var databaseCallback = function(error, players){

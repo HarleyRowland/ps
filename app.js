@@ -25,16 +25,16 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-  app.use((req, res, next) => {
-    if (req.headers['x-forwarded-proto'] !== 'http')
-      if(req.header('host').includes("www")){
-        res.redirect("http://" + req.header('host') + req.url);
-      } else {
-        res.redirect("http://www." + req.header('host') + req.url);
-      }
-    else
-      next()
-  })
+  // app.use((req, res, next) => {
+  //   if (req.headers['x-forwarded-proto'] !== 'http')
+  //     if(req.header('host').includes("www")){
+  //       res.redirect("http://" + req.header('host') + req.url);
+  //     } else {
+  //       res.redirect("http://www." + req.header('host') + req.url);
+  //     }
+  //   else
+  //     next()
+  // })
 
 var callback = function(error, res, template, data){
   if(error){
@@ -65,7 +65,7 @@ app.get("/heroOrCustom", (req, res) => customerController.heroOrCustom(req, res,
 app.get("/nameNumber", (req, res) => customerController.selectTemplate(req, res, "nameNumber.pug", callback));
 app.get("/colour", (req, res) => customerController.selectTemplate(req, res, "colour.pug", callback));
 app.get("/letter", (req, res) => customerController.selectTemplate(req, res, "letter.pug", callback));
-app.get("/sleeves", (req, res) => customerController.selectTemplate(req, res, "sleeves.pug", callback));
+app.get("/sleeves", (req, res) => customerController.sleeves(req, res, "sleeves.pug", callback));
 app.get("/confirmation", (req, res) => customerController.confirmation(req, res, "confirmation.pug", callback));
 
 // Payment

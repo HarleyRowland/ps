@@ -39,9 +39,9 @@ var send = function(subject, toEmailAddress, name, cost, orderNumber, deliveryOp
 		emails = [toEmailAddress, config.email.authorEmail, config.email.email, "sales@premiershirts.co.uk"]
 		emailSubject =  subject + " - Order Number: " + orderNumber
 		if(deliveryOption == "post") {
-			content = "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>Please deliver your shirt to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD. We will notify you when we have recieved your shirt.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
+			content = "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>Please deliver your shirt to Unit 2a, Briar Close, Bramble Lane, Wye, Kent, TN25 5HB. We will notify you when we have recieved your shirt.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
 		} else if(deliveryOption == "bring"){
-			content = "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>Please bring your shirt to Suite I, 1 Elwick Road, Ashford, Kent, TN23 1PD on " + deliveryDate + " and you can take them away the same day.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
+			content = "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>Please bring your shirt to Unit 2a, Briar Close, Bramble Lane, Wye, Kent, TN25 5HB on " + deliveryDate + " and you can take them away the same day.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"
 		} else {
 			content = "<p>Hello " + name + ",</p><p>Thank you for your order. Please keep make a note of your order number(" + orderNumber + ").</p><p>The total cost for your order is £" + cost + ".</p><p>We will notify you when your letters are on their way.</p><p>Kind Regards,</p><p>The Premier Shirts Team</p>"		
 		}

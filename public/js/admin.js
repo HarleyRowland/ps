@@ -4,7 +4,15 @@ $( document ).ready(function() {
 		if(isNaN(price)){
 			alert("Please input a number!")
 		} else {
-  			$(".newPrice").attr("href", "/newPriceForTheShirts?shirtCost=" + price);
+  			$(".newShirtPrice").attr("href", "/newPriceForTheShirts?shirtCost=" + price);
+		}
+	});
+	$(".sleevePrice").keyup(function(){
+		var price =  $('.sleevePrice').val();
+		if(isNaN(price)){
+			alert("Please input a number!")
+		} else {
+  			$(".newSleevePrice").attr("href", "/newPriceForTheShirts?sleeveCost=" + price);
 		}
 	});
 

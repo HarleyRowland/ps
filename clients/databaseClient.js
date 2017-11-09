@@ -55,11 +55,29 @@ module.exports = {
 		query('SELECT', orderNoQuery, callback)
 	},
 	updatePrice: function(req, callback){
-		var priceQuery = 'INSERT INTO settings(shirtPrice) VALUES (' + req.query.shirtCost + ');'
-		query("INSERT", priceQuery, callback)
+		var self = this;
+		var priceQuery = ""
+		var databaseCallback = callback;
+		if(isNaN(req.query.shirtCost) || isNaN(req.query.sleeveCost)){
+			var databaseCallback = function(error, rows){
+				var oldShirtPrice = rows[rows.length-1].shirtprice
+				var oldSleevePrice = rows[rows.length-1].sleeveprice
+				if(isNaN(req.query.sleeveCost)){
+					req.query.sleeveCost = oldSleevePrice;
+				} 
+				if(isNaN(req.query.shirtCost)){
+					req.query.shirtCost = oldShirtPrice;
+				}
+				self.updatePrice(req, callback);
+			}
+			self.getPrice(databaseCallback)
+		} else {
+			priceQuery = 'INSERT INTO settings(shirtPrice, sleevePrice) VALUES (' + req.query.shirtCost + ', ' + req.query.sleeveCost + ');'
+			query("INSERT", priceQuery, databaseCallback)
+		}
 	},
 	getPrice: function(callback){
-		var priceQuery = 'SELECT shirtPrice FROM settings;'
+		var priceQuery = 'SELECT * FROM settings;'
 		query("SELECT", priceQuery, callback)
 	},
 	getScorers: function(callback){

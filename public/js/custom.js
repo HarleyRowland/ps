@@ -289,6 +289,7 @@ var setDeliveryCost = function(){
 } 
 
 var setCustomNameAndNumber = function(){
+	console.log(local_data.price)
 	if(!($(".shirtName").length && $(".shirtNumber").length)) return;
 
 	var name =  $('.shirtName').val();
@@ -300,13 +301,13 @@ var setCustomNameAndNumber = function(){
 		var shirtLength = name.replace(/ /g,"").length
 		var shirtCost = 0;
 		if(shirtLength <= 10){
-			shirtCost = 20;
+			shirtCost = local_data.price;
 		} else {
-			shirtCost = 20 + (shirtLength - 10);
+			shirtCost = local_data.price + (shirtLength - 10);
 		}
 		$(".hiddenFirst").css("visibility", "visible");
 		$(".basket").css("visibility", "visible");
-		$(".price").text("£" + shirtCost + " (Up to 10 letters and 2 numbers for £20 with additional letters at £1)");
+		$(".price").text("£" + shirtCost + " (Up to 10 letters and 2 numbers for £"+ local_data.price + " with additional letters at £1)");
 		
 		var dataForQuery = {
 			printingType: local_data.printingType,
