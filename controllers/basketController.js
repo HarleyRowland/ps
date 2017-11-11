@@ -53,8 +53,8 @@
 		if(!req.query.timestamp) return callback("Invalid Params");
 		var shirtsArray = [];
 		var shirtCount = 0;
-		console.log("HERE", req.cookies[cookie])
 		for (cookie in req.cookies) {
+			console.log("HERE", req.cookies[cookie])
 			if(!cookie.includes("ermission")){
 				if(req.query.timestamp == "all"){
 					res.clearCookie(cookie);
