@@ -34,6 +34,7 @@ $(document).on('change','.deliveryCostOption',function(){
 
 $(document).on('click','.cookiePermission .fa-times',function(){
 	$(".cookiePermission").hide();	
+	$(".top-border").show();	
 });
 
 $(document).on('click','.emailSent .fa-times',function(){
@@ -361,6 +362,7 @@ var setCookieWarning = function(cookies) {
 	var cookieWarningShown = cookies.toString().includes("cookiePermission");
 	if(!cookieWarningShown) {
 		$(".cookiePermission").show();
+		$(".top-border").hide();
 		document.cookie = "cookiePermission=true;".trim();
 	}
 }
@@ -499,14 +501,12 @@ var validatePaymentForm = function(name, phone, line1, town, county, postcode, c
 }
 
 var animateField = function(animateTest, fieldToAnimate){
-	console.log(animateTest, fieldToAnimate)
 	var canSend = true;
 	if(animateTest){
-	    $(fieldToAnimate).addClass('animated shake');
+	    $(fieldToAnimate).addClass("formError")
 	    canSend = false;
-	    $(fieldToAnimate).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-	      	$(fieldToAnimate).removeClass('shake');
-	    });
+	} else {
+	    $(fieldToAnimate).removeClass("formError");
 	}
 	return canSend;
 }

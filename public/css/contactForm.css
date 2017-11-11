@@ -1,8 +1,5 @@
 .form {
-	width: 80%;
-	margin-left: 10%;
-	margin-right: 10%;
-	padding-top: 30px;	
+	padding: 30px;
 }
 
 .field {
@@ -19,7 +16,7 @@
 	border: none;
 	border-bottom: solid 2px grey;
 	width: 100%;
-	transition: 1s;
+	transition: 0.5s;
 }
 
 .field input {
@@ -28,12 +25,21 @@
 
 .field textarea {
 	outline: none;
-	height: 100px;
 }
+
 
 .field textarea:focus, .field input:focus, .field select:focus{
     outline: none;
     border-bottom: solid 2px #9DE4FF;
+}
+
+.formError {
+    border-bottom: solid 2px #E50000 !important;
+    transition: 0.5s;
+}
+
+.formError:focus {
+    border-bottom: solid 2px #9DE4FF !important;
 }
 
 .field .comments {

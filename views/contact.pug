@@ -1,21 +1,22 @@
 include header.pug
 div.query.page
 	div.content
-		h1.title Get In Touch
-		p.pageInfo Please feel free to ask us anything.
-		div.form
+		div.title 
+			h1 GET IN TOUCH
+		p.pageInfo We have tried to make our site as easy to use as possible but if there is anything that needs clearing up, please use the form below to let us know.
+		div.form.row
 			div.field#name
 				span.formLabel Name: 
-				input.name
+				input.name(placeholder="Joe Bloggs")
 			div.field#email
 				span.formLabel Email: 
-				input.email
+				input.email(placeholder="myemail@example.co.uk")
 			div.field#number  
 				span.formLabel Number: 
-				input.number
-			div.field#comments  
+				input.number(placeholder="07777777777")
+			div.field#comments
 				span.formLabel Extra Comments: 
-				textarea.comments
+				textarea.comments(placeholder="Ask us anything.")
 			div.submit.btn.small-12.columns
 				a.contactEmail(href="/sendQueryEmail")
 					span Send Message

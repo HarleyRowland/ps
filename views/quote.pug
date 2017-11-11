@@ -1,8 +1,9 @@
 include header.pug
 div.page.quote
 	div.content
-		//- h1.title Need Something Special?
-		//- p.pageInfo Let us know what you want and we will get back to your with a personalised Quote
+		div.title 
+			h1 WANT SOMETHING A LITTLE DIFFERENT ?
+		p.pageInfo Our website is focused on the football shirts of teams from the English Top Flight but we are happy to print shirts of teams in different leagues or even different sports! Fill out the form below as best you can and if there is anything you aren't sure about, add it to the comments field at the bottom. We aim to respond to all queries within 2 working days. 
 		div.form.row
 			div.field#name.small-12.medium-6.columns
 				span.formLabel Full name
@@ -52,7 +53,7 @@ div.page.quote
 				input.shirtNumber(placeholder="7")
 			div.field#comments.small-12.columns
 				span.formLabel Anything else? 
-				textarea.comments
+				textarea.comments(placeholder="Ask us anything.")
 			div.submit.btn.small-12.columns
 				a.quoteEmail(href="/sendQuoteEmail")
 					span Request Quote

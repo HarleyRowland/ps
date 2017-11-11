@@ -10,15 +10,6 @@
 	    background-size: cover;
 }
 
-.landingImage h1{
-	font-size: 70px;
-	padding-left: 15%;
-	font-weight: bolder;
-	color: white;
-	top: 20%;
-	position: absolute;
-}
-
 .landingImage * {
 	color: white !important;
 }
@@ -26,22 +17,32 @@
 
 .landingTitle {
 	text-align: left;
-    padding: 100px;
+    padding-top: 100px;
+    padding-bottom: 100px;
     font-size: xx-large;
     font-weight: bold;
+    max-width: 75rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 30px;
 }
 
 .description {
 	font-size: large;
-	padding: 30px 70px 30px 70px;
+	padding: 30px 30px 30px 30px;
 	background-color: #323B7E;
 	color: #FFFFFF;
+}
+.description p {
+	max-width: 75rem;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .description a {
 	color: #76c6df;
 	text-decoration: underline;
-	transition: 1s;
+	transition: 0.5s;
 }
 
 .description a:hover {
@@ -50,7 +51,11 @@
 
 .section {
 	padding: 30px 70px 30px 70px;
+	background:url(
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAP0lEQVQoU2O8fPnyf11dXUYGPACkBqwAn2KYHNwkbIqRxVCsRJZA14jhNpACkHPQ3U2eQqKsJsozRAUPsQEOANg9RvtmHR2lAAAAAElFTkSuQmCC	) repeat;
 }
+
+
 
 .section .heading {
 	text-align: center;
@@ -59,9 +64,13 @@
 }
 
 .pageInfo {
-	padding: 30px 0px 30px 0px;
+	padding: 30px 30px 30px 30px;
+	max-width: 75rem;
+	margin-left: auto;
+	margin-right: auto;
 	font-size: large;
 	color: #323B7E;
+	text-align: left;
 }
 
 .exampleShirt img {
@@ -82,4 +91,46 @@
 	    background-position: center;
 	    background-repeat: no-repeat;
 	    background-size: cover;
+}
+
+.action a:hover {
+	background-color: #006900;
+}
+
+@media only screen and (max-width: 40em) { 
+	.landingImage {
+		margin-top: 18px;
+		height: 70vh;
+	 	background:
+		    url("public/images/ball-mobile.jpeg");
+		    background-attachment: fixed;
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    background-size: cover;
+	}
+
+	.landingTitle {
+		padding: 100px 100px 30px 30px;		
+	}
+
+	.section {
+		padding: 30px 30px 30px 30px;		
+	}
+
+	.description {
+		padding: 30px 30px 30px 30px;
+		text-align: justify;	
+	}
+
+	.action {
+		margin: 50px 0px 50px 0px;
+	}
+
+	#about img {
+		max-width: 200px;
+	}
+
+	#about img:first-child {
+		margin-bottom: 20px;
+	}
 }

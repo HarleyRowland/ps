@@ -1,15 +1,3 @@
-.bottom {
-	width: 100%;
-	padding: 30px;
-	background-color: #FFFFFF;
-}
-
-.bottom * {
-	display: flex;
- 	justify-content: center;
- 	align-items: center;
-}
-
 .footer {
 	background-color: #323B7E; 
 	padding: 50px;
@@ -23,7 +11,7 @@
 
 .footer a {
 	text-decoration: underline;
-	transition: 1s;
+	transition: 0.5s;
 	color: #FFFFFF;
 	font-weight: bold;
 }
@@ -48,7 +36,12 @@
 	font-size: 30px;
 	padding: 20px;
 	padding-bottom: 00px;
-	color: #FFFFFF !important;
+	color: #FFFFFF;
+	transition: 0.5s;
+}
+
+.footer .social i:hover {
+	color: #76c6df;
 }
 
 @media only screen and (max-width: 40em) { 
