@@ -61,7 +61,7 @@
 				} else if(cookie.includes("shirt") && req.cookies[cookie].timestamp.toString() != req.query.timestamp){
 					shirtCount++;
 					shirtsArray.push(req.cookies[cookie]);
-				} else if(req.cookies[cookie].timestamp.toString() === req.query.timestamp){
+				} else if(req.cookies[cookie].timestamp && req.cookies[cookie].timestamp.toString() === req.query.timestamp){
 					res.clearCookie(cookie);
 				}
 			}
