@@ -1,2 +1,2 @@
-Heaton,Lowton,Taylor,Cork,Tarkowski,Mee,Marney,Vokes,Barnes,Brady,Hendrick,Defour,Guðmundsson,Westwood,Walters,Ulvestad,Ward,Bardsley,Long,Pope,Legzdins,Agyei,Anderson,Arfield
-1,2,3,4,5,6,8,9,10,12,13,16,17,18,19,20,23,26,28,29,30,32,34,37
+Tom Heaton,Matthew Lowton,Charlie Taylor,Jack Cork,James Tarkowski,Ben Mee,Dean Marney,Sam Vokes,Ashley Barnes,Chris Wood,Robbie Brady,Jeff Hendrick,Steven Defour,Jóhann Guðmundsson,Ashley Westwood,Jon Walters,Fredrik Ulvestad,Nahki Wells,Anders Lindegaard,Stephen Ward,Phil Bardsley,Kevin Long,Nick Pope,Adam Legzdins,Scott Arfield
+1,2,3,4,5,6,8,9,10,11,12,13,16,17,18,19,20,21,22,23,26,28,29,30,37
