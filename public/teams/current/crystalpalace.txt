@@ -1,2 +1,2 @@
-Speroni,Ward,van Aanholt,Milivojević,Tomkins,Dann,Cabaye,Loftus-Cheek,Townsend,Zaha,Hennessey,Chung-Yong,Schlupp,Benteke,McArthur,Williams,Wickham,Mutch,N'Diaye Souaré,Fosu-Mensah,Kaikai,Sako,Delaney,Eyenga-Lokilo,Kelly,Puncheon,Riedewald
-1,2,3,4,5,6,7,8,10,11,13,14,15,17,18,20,21,22,23,24,25,26,27,28,34,42,44
+Julian Speroni,Joel Ward,Patrick van Aanholt,Luka Milivojević,James Tomkins,Scott Dann,Yohan Cabaye,Ruben Loftus-Cheek,Andros Townsend,Wilfried Zaha,Mamadou Sakho,Wayne Hennessey,Chung-yong Lee,Jeffrey Schlupp,Christian Benteke,James McArthur,Connor Wickham,Jordon Mutch,Pape Souaré,Timothy Fosu-Mensah,Sullay Kaikai,Bakary Sako,Damien Delaney,Jason Eyenga-Lokilo,Dion Henry,Levi Lumeka,Martin Kelly,Michael Phillips,Freddie Ladapo,Jason Puncheon,Jaïro Riedewald
+1,2,3,4,5,6,7,8,10,11,12,13,14,15,17,18,21,22,23,24,25,26,27,28,30,32,34,35,36,42,44
