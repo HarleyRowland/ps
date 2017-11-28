@@ -1,2 +1,2 @@
-Boruc,Francis,Cook,Gosling,Aké,Surman,Pugh,Arter,Afobe,Gradel,Daniels,Ramsdale,Wilson,Smith,Smith,Cook,King,Defoe,Stanislas,Hyndman,Mahoney,Fraser,Mings,Begović,Wiggins,Mousset,Federici,Ibe,Butcher,Jordan,Cargill,Harfield,O'Flaherty,Simpson,Worthington,Holmes
-1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,23,24,26,27,29,31,32,33,36,37,38,40,41,42,43,45
+Artur Boruc,Simon Francis,Steve Cook,Dan Gosling,Nathan Aké,Andrew Surman,Marc Pugh,Harry Arter,Benik Afobe,Charlie Daniels,Aaron Ramsdale,Callum Wilson,Brad Smith,Adam Smith,Lewis Cook,Joshua King,Jermain Defoe,Junior Stanislas,Emerson Hyndman,Connor Mahoney,Ryan Fraser,Tyrone Mings,Asmir Begović,Rhoys Wiggins,Lys Mousset,Adam Federici,Jordon Ibe,Matt Butcher,Jack Simpson
+1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,22,23,24,26,27,29,31,32,33,36,42
