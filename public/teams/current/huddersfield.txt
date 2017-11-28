@@ -1,2 +1,2 @@
-Lössl,Smith,Malone,Whitehead,Hogg,Scannell,Billing,Kachunga,Mooy,Coleman,Cranie,Löwe,van La Parra,Lolley,Williams,Depoitre,Wells,Ince,Quaner,Mounié,Zanka Jørgensen,Schindler,Gorenc Stanković,Schofield,Coddington,Booty,Hefele,Palmer
-1,2,3,4,6,7,8,9,10,13,14,15,17,18,19,20,21,22,23,24,25,26,27,31,37,38,44,45
+Jonas Lössl,Tom Smith,Scott Malone,Dean Whitehead,Jonathan Hogg,Philip Billing,Elias Kachunga,Aaron Mooy,Abdelhamid Sabiri,Joel Coleman,Martin Cranie,Chris Löwe,Rajiv van La Parra,Joe Lolley,Daniel Williams,Laurent Depoitre,Tom Ince,Collin Quaner,Steve Mounié,Mathias Jørgensen,Christopher Schindler,Jon Gorenc Stankovič,Robert Green,Ryan Schofield,Florent Hadergjonaj,Michael Hefele,Kasey Palmer
+1,2,3,4,6,8,9,10,11,13,14,15,17,18,19,20,22,23,24,25,26,27,28,31,33,44,45
