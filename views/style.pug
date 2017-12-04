@@ -1,28 +1,113 @@
 include header.pug
-div.style.page
-  div.content
-    h1.title What Style Do You Want On Your Shirt?
-    p.pageInfo Please select whether you want a style from the current Top Flight, the previous Top Flight style or another kind of style.
-    div.choices.row
-      div.choice.topChoice.small-12.medium-4.columns
-        div.current
-          h3.optionTitle Current Style
-          h5.optionSubTitle The current English Top Flight Style (2017-2020)
-          div.action
-            a.btn(href="/childOrAdult?style=current&club="+ data.club + "&name=" + data.name + "&number=" + data.number + "&shirtCost=" + data.shirtCost + "&printingType=" + data.printingType)
-              span Select
-      div.choice.middleChoice.small-12.medium-4.columns
-        div.previous
-          h3.optionTitle Previous Style
-          h5.optionSubTitle The Previous English Top Flight Style (2014-2017)
-          div.action
-            a.btn(href="/childOrAdult?style=previous&club="+ data.club + "&name=" + data.name + "&number=" + data.number + "&shirtCost=" + data.shirtCost + "&printingType=" + data.printingType)
-              span Select
-      div.choice.bottomChoice.small-12.medium-4.columns
-        div.quote
-          h3.optionTitle Other Styles
-          h5.optionSubTitle We can give you a quote for something different.
-          div.action
-            a.btn(href="/quote")
-              span Quote
-  include footerFlow.pug
+div.page.style
+    div.content
+        div.title 
+            h1 THE BASICS
+        p.pageInfo Please let us know the basic information about your kit.
+        div.form.row
+            div.field#league.small-12.columns
+                span.formLabel Is your team in the English Top Flight?
+                    sup *
+                    i.fa.fa-question-circle.explanation-link
+                div.radioBoxes
+                    div.radioBox
+                        input(type="radio" name="yes" value="yes") 
+                        span.radioLabel Yes
+                    div.radioBox
+                        input(type="radio" name="no" value="no") 
+                        span.radioLabel No
+                div.underlay
+                    div.explanation
+                        i.fa.fa-times(aria-hidden="true")
+                        h4 Is your team in the English Top Flight?
+                        p Is the shirt that you want printing on in the top league of the English football ladder?
+                        p If it isn't, say no and continue with choices and we will learn even more about your shirt or get a quote 
+                            a(href="/quote") here
+                            span .
+            div.field#year.small-12.columns
+                span.formLabel What season was the shirt used in?
+                    sup * 
+                select.playerOption
+                    option 2017/2018
+                    option 2016/2017
+                    option 2015/2016
+                    option 2014/2015
+                    option 2013/2014
+                span.hint e.g. the current season is 2017/2018.
+            div.field#childOrAdult.small-12.columns
+                span.formLabel Child or Adult Size?
+                    sup * 
+                div.radioBoxes
+                    div.radioBox
+                        input(type="radio" name="child" value="child") 
+                        span.radioLabel Child
+                    div.radioBox
+                        input(type="radio" name="adult" value="adult")
+                        span.radioLabel Adult
+                    span.hint Adult's letters are 50mm high and numbers are 256mm high. Children's letters are 33mm high and numbers are 163mm high.
+            div.field#printingType.small-12.columns
+                span.formLabel Do you want a hero or custom printing on the shirt?
+                    sup * 
+                div.radioBoxes
+                    div.radioBox
+                        input(type="radio" name="hero" value="hero") 
+                        span.radioLabel Hero
+                    div.radioBox
+                        input(type="radio" name="Custom" value="Custom")
+                        span.radioLabel Custom
+                    span.hint Hero printing allows you to pick actual player's name and number from the chosen year and club (there may be a scorer discount). Custom allows you to choose your own name and number.
+            div.field#letterColour.small-12.columns
+                span.formLabel What colour are the letters and numbers?
+                    sup * 
+                div.radioBoxes
+                    div.radioBox
+                        input(type="radio" name="white" value="white") 
+                        span.radioLabel White
+                    div.radioBox
+                        input(type="radio" name="black" value="black") 
+                        span.radioLabel Black
+                    div.radioBox
+                        input(type="radio" name="blue" value="blue") 
+                        span.radioLabel Blue
+                    div.radioBox
+                        input(type="radio" name="red" value="red") 
+                        span.radioLabel Red
+                    div.radioBox
+                        input(type="radio" name="yellow" value="yellow") 
+                        span.radioLabel Yellow
+            div.field#letterStyle.small-12.columns
+                span.formLabel Do you want straight or curved letters and numbers?
+                    sup * 
+                div.radioBoxes
+                    div.radioBox
+                        input(type="radio" name="yes" value="yes") 
+                        span.radioLabel Staight
+                    div.radioBox
+                        input(type="radio" name="no" value="no") 
+                        span.radioLabel Curved
+            div.submit.btn.small-12.columns
+                a.quoteEmail(href="/sendQuoteEmail")
+                    span Continue
+        //- div.choices.row
+        //-     div.choice.topChoice.small-12.medium-4.columns
+        //-         div.current
+        //-             h3.optionTitle Current Style
+        //-             h5.optionsup *current English Top Flight Style (2017-2020)
+        //-             div.action
+        //-                 a.btn(href="/childOrAdult?style=current&club="+ data.club + "&name=" + data.name + "&number=" + data.number + "&shirtCost=" + data.shirtCost + "&printingType=" + data.printingType)
+        //-                     span Select
+        //-     div.choice.middleChoice.small-12.medium-4.columns
+        //-         div.previous
+        //-             h3.optionTitle Previous Style
+        //-             h5.optionsup *Previous English Top Flight Style (2014-2017)
+        //-             div.action
+        //-                 a.btn(href="/childOrAdult?style=previous&club="+ data.club + "&name=" + data.name + "&number=" + data.number + "&shirtCost=" + data.shirtCost + "&printingType=" + data.printingType)
+        //-                     span Select
+        //-     div.choice.bottomChoice.small-12.medium-4.columns
+        //-         div.quote
+        //-             h3.optionTitle Other Styles
+        //-             h5.optionsup *an give you a quote for something different.
+        //-             div.action
+        //-                 a.btn(href="/quote")
+        //-                     span Quote
+include footer.pug

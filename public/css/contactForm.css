@@ -1,11 +1,11 @@
 .form {
-	padding: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
 }
 
 .field {
 	text-align: left;
 	margin: 10px 0px 10px 0px;
-	height: 90px;
 }
 
 .field input, .field select, .field textarea {
@@ -14,7 +14,7 @@
     box-shadow: none;
 	height: 40px;
 	border: none;
-	border-bottom: solid 2px grey;
+	border: solid 2px #f1f1f1;
 	width: 100%;
 	transition: 0.5s;
 }
@@ -25,21 +25,22 @@
 
 .field textarea {
 	outline: none;
+	height: 100px;
 }
 
 
 .field textarea:focus, .field input:focus, .field select:focus{
     outline: none;
-    border-bottom: solid 2px #9DE4FF;
+    border: solid 2px #9DE4FF;
 }
 
 .formError {
-    border-bottom: solid 2px #E50000 !important;
+    border: solid 2px #E50000 !important;
     transition: 0.5s;
 }
 
 .formError:focus {
-    border-bottom: solid 2px #9DE4FF !important;
+    border: solid 2px #9DE4FF !important;
 }
 
 .field .comments {
@@ -52,8 +53,81 @@
 	font-size: large;
 }
 
+.formLabel sub {
+	padding-left: 5px;
+	color: #515151;
+	z-index: 0;
+}
+
 .submit {
 	margin-top: 70px;
 	margin-bottom: 50px;
 }
 
+.radioBoxes {
+	margin: 10px;
+}
+
+.radioBox input[type="radio"]{
+	height: 20px;
+	width: 20px;
+	padding-left: 30px;
+}
+
+.hint {
+	color: #717171;
+	font-size: x-small;
+}
+
+.explanation-link {
+	padding-left: 20px;
+	cursor: pointer;
+}
+
+.underlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color:  rgba(0,0,0,0.5); 
+}
+
+.explanation {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top: 250px;
+	width: 50%;
+	background-color: #FFFFFF;
+	max-height: 300px;
+	z-index: 1000 !important;
+	border: solid 5px #323B7E;
+	text-align: center;
+	padding: 30px;
+	color: #323B7E;
+}
+
+.explanation a {
+	color: #323B7E;
+	text-decoration: underline;
+	transition: 0.5s;
+}
+
+.explanation a:hover {
+	color: #76c6df;
+}
+
+.explanation .fa {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: #323B7E;
+	font-weight: bolder;
+	font-size: 40px;
+	margin: 10px;
+	transition: 0.5s;
+	cursor: pointer;
+}

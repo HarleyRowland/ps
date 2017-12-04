@@ -1,13 +1,11 @@
 body {
-	background-color: #FFFFFF;
+	background:url(
+		data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQ0lEQVQoU2N89vBZmpS81CwGPACkhhEkj08xTA6sEJdiZAPgCtEVo9uCohCmGESju5s8hcjW4bQam88xPENU8BAb4AAqRkYxrOxWpQAAAABJRU5ErkJggg==
+	) repeat;
 }
 
 body *:not(.fa) {
 	font-family: 'Open Sans', sans-serif !important;
-}
-
-.btn {
-	background-color: #FFFFFF;
 }
 
 .btn a {
@@ -21,15 +19,6 @@ body *:not(.fa) {
 
 .btn a:hover {
 	background-color: #006900;
-}
-
-.scorers {
-	padding-left: 100px;
-	padding-right: 100px;
-}
-
-.player img{
-	max-height: 300px;
 }
 
 .fa {
@@ -46,7 +35,7 @@ body *:not(.fa) {
 	margin: 0px;
 	text-align: left;
 	padding-top: 30px;
-	padding-bottom: 30px;
+	padding-bottom: 20px;
 	background-color: #323B7E;
 	color: #FFFFFF;
 	margin-top: 20px;
@@ -61,128 +50,20 @@ body *:not(.fa) {
 	font-weight: bolder;
 }
 
-.page {
-	text-align: center;
-	min-height: 70%;
-}
 
-.optionTitle {
-	height: 80px;
-}
-
-.optionText {
-	height: 80px;
-}
-
-.optionSubtitle {
-	height: 80px;
-}
-
-.childOrAdult .optionSubtitle {
-	height: 100px;
-}
-
-.basket:hover {
-	text-decoration: none !important;
-}
-
-.basket *:hover {
-	text-decoration: none !important;
-}
-
-.basketSize {
-	padding-left: 10px;
-}
-
-@media only screen and (min-width: 39em) and (max-width: 64em) { 
-	.optionTitle {
-		height: 80px;
-		font-size: 25px;
-	}
-
-	.optionText {
-		height: 90px;
-	}
-
-	.optionSubtitle {
-		height: 150px;
-	}
-
-	.childOrAdult .optionSubtitle {
-		height: 120px;
-	}
-
-
-	.landingImage {
-		padding-top: 18px;
-	}
-
-	.landingImage h1{
-		font-size: 50px;
-		padding-left: 10%;
-		font-weight: bolder;
-		color: white;
-		top: 20%;
-		position: absolute;
-	}
-
-	.scorers {
-		padding-left: 20px;
-		padding-right: 20px;
-	}
-
+.pageInfo {
+	padding: 30px;
+	max-width: 75rem;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: large;
+	color: #323B7E;
+	text-align: left;
 }
 
 @media only screen and (max-width: 40em) { 
-	h1 {
-		font-size: 40px !important;
+	.pageInfo {
+		text-align: justify;
 	}
 
-	h3 {
-		font-size: 30px !important;
-	}
-
-	.content {
-		margin-bottom: 30px !important;
-	}
-
-	.optionTitle {
-		height: 50px;
-	}
-
-	.optionText {
-		height: 50px;
-	}
-
-	.optionSubtitle {
-		height: 50px;
-	}
-	.childOrAdult .optionSubtitle {
-		height: 100px;
-	}
-
-	.form {
-		padding: 10px;
-	}
-    
-    h2 {
-    	font-size: 30px !important;
-    }
-    
-    .landingImage, .imageStrip {
-        background-attachment: scroll;
-    }
-
-    .scorers {
-		padding-left: 0px;
-		padding-right: 0px;
-	}
-
-	.player {
-		margin-bottom: 20px;
-	}
-
-	.discount {
-		margin-top: 15px;
-	}
 }

@@ -28,34 +28,37 @@
 }
 
 .description {
-	font-size: large;
-	padding: 30px 30px 30px 30px;
 	background-color: #323B7E;
-	color: #FFFFFF;
+	padding-top: 30px;
 }
+
 .description p {
+	margin-bottom: 0px !important;
+	padding: 30px;
+	padding-top: 0px;
+	font-size: large;
+	color: #FFFFFF;
 	max-width: 75rem;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 .description a {
-	color: #76c6df;
 	text-decoration: underline;
 	transition: 0.5s;
-}
-
-.description a:hover {
 	color: #FFFFFF;
 }
 
-.section {
-	padding: 30px 70px 30px 70px;
-	background:url(
-data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAP0lEQVQoU2O8fPnyf11dXUYGPACkBqwAn2KYHNwkbIqRxVCsRJZA14jhNpACkHPQ3U2eQqKsJsozRAUPsQEOANg9RvtmHR2lAAAAAElFTkSuQmCC	) repeat;
+.description a:hover {
+	color: #76c6df;
 }
 
-
+.section {
+	padding: 30px 30px 30px 30px;
+	text-align: center;
+	border-top: solid 5px #323B7E;
+	border-bottom: solid 5px #323B7E;
+}
 
 .section .heading {
 	text-align: center;
@@ -63,14 +66,18 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAP0lEQVQoU2
 	color: #323B7E;
 }
 
-.pageInfo {
-	padding: 30px 30px 30px 30px;
-	max-width: 75rem;
-	margin-left: auto;
-	margin-right: auto;
-	font-size: large;
+.section .btn {
+	margin: 50px;
+}
+
+.section .pageInfo a {
+	transition: 0.5s;
+	text-decoration: underline;
 	color: #323B7E;
-	text-align: left;
+}
+
+.section .pageInfo a:hover {
+	color: #76c6df;
 }
 
 .exampleShirt img {
@@ -78,9 +85,6 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAP0lEQVQoU2
 	border-radius: 20px;
 }
 
-.section .btn {
-	margin: 50px;
-}
 
 
 .divider {
@@ -132,5 +136,31 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAP0lEQVQoU2
 
 	#about img:first-child {
 		margin-bottom: 20px;
+	}
+   
+    .landingImage, .imageStrip {
+        background-attachment: scroll;
+    }
+
+	.section .btn {
+		margin-right: 10px;
+		margin-left: 10px;
+	}
+}
+
+
+@media only screen and (min-width: 39em) and (max-width: 64em) { 
+
+	.landingImage {
+		padding-top: 18px;
+	}
+
+	.landingImage h1{
+		font-size: 50px;
+		padding-left: 10%;
+		font-weight: bolder;
+		color: white;
+		top: 20%;
+		position: absolute;
 	}
 }
