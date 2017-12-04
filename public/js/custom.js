@@ -301,9 +301,9 @@ var setCustomNameAndNumber = function(){
 		var shirtLength = name.replace(/ /g,"").length
 		var shirtCost = 0;
 		if(shirtLength <= 10){
-			shirtCost = local_data.price;
+			shirtCost = parseFloat(local_data.price);
 		} else {
-			shirtCost = local_data.price + (shirtLength - 10);
+			shirtCost = parseFloat(local_data.price) + (shirtLength - 10);
 		}
 		$(".hiddenFirst").css("visibility", "visible");
 		$(".basket").css("visibility", "visible");
@@ -470,7 +470,6 @@ var validateContactForm = function(name, phone, email, comments){
 
 var validateQuoteForm = function(name, email, league, club, strip, year, colour, letter, shirtName, shirtNumber){
 	var canSend = true;
-	console.log(letter)
     canSend = animateField(name+"" == "", ".field .name");
     canSend = animateField(email+"" == "" || !validateEmail(email), ".field .email");
     canSend = animateField(league+"" == "", ".field .league");
@@ -500,7 +499,6 @@ var validatePaymentForm = function(name, phone, line1, town, county, postcode, c
 }
 
 var animateField = function(animateTest, fieldToAnimate){
-	console.log(animateTest, fieldToAnimate)
 	var canSend = true;
 	if(animateTest){
 	    $(fieldToAnimate).addClass('animated shake');
