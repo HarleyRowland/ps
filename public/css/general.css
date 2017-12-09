@@ -8,6 +8,10 @@ body *:not(.fa) {
 	font-family: 'Open Sans', sans-serif !important;
 }
 
+sup {
+	z-index: -1000;
+}
+
 .btn a {
 	padding: 10px;
 	background-color: #4BB543;
