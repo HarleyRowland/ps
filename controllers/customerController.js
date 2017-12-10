@@ -10,6 +10,8 @@ module.exports = {
 	printingType: function(req, res, template, callback){
 		if(req.query.printingType && req.query.printingType == "hero"){
 	    	template = "strip.pug";
+	    	var strips = howManyStrips(req.query.club, req.query.style);
+			req.query.strips = strips
 	  	};
 	  	callback(null, res, template, req.query)
 	},
@@ -49,8 +51,6 @@ module.exports = {
 		], function (err, result) {
 			var data = req.query;
 			data.price = result[result.length-1].shirtprice
-			var strips = howManyStrips(req.query.club, req.query.style);
-			data.strips = strips
 			if(req.query.printingType == "custom" && req.query.premOrDifferent) {
 				data.price = result[result.length-1].shirtprice
 			    template = "nameNumber.pug";
