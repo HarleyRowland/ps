@@ -49,6 +49,8 @@ module.exports = {
 		], function (err, result) {
 			var data = req.query;
 			data.price = result[result.length-1].shirtprice
+			var strips = howManyStrips(req.query.club, req.query.style);
+			data.strips = strips
 			if(req.query.printingType == "custom" && req.query.premOrDifferent) {
 				data.price = result[result.length-1].shirtprice
 			    template = "nameNumber.pug";
