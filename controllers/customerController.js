@@ -50,10 +50,12 @@ module.exports = {
 			var data = req.query;
 			data.price = result[result.length-1].shirtprice
 			if(req.query.printingType == "custom" && req.query.premOrDifferent) {
+				data.price = result[result.length-1].shirtprice
 			    template = "nameNumber.pug";
 			   	return callback(null, res, template, data)
 			}
 			if(req.query.name && req.query.number && req.query.name != "undefined" && req.query.number != "undefined"){
+				data.price = result[result.length-1].sleeveprice
 		    	template = "sleeves.pug";
 		    	return callback(null, res, template, data)
 		    }
