@@ -163,6 +163,7 @@ function getRandomPlayers(playersArray, playersToShow) {
 }
 
 var howManyStrips = function(club, style){
+	if(!style) style = "current";
 	var stripCount = 0;
 	var imageList = fs.readdirSync("public/images/kits/" + style);
 	imageList.forEach(function(imageList){
