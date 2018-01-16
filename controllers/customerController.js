@@ -7,6 +7,12 @@ module.exports = {
 	selectTemplate: function(req, res, template, callback) {
 	  	callback(null, res, template, req.query)		
 	},
+	basics: function(req, res, template, callback) {
+		var data = req.query
+		data.shirtSizes = JSON.parse(fs.readFileSync('public/data/letterNumberSizes.json', 'utf8'));
+
+	  	callback(null, res, template, data)		
+	},
 	printingType: function(req, res, template, callback){
 		if(req.query.printingType && req.query.printingType == "hero"){
 	    	template = "strip.pug";

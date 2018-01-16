@@ -1,0 +1,15 @@
+.basics .field, .basics .submitButton {
+	display: none;
+}
+
+.basics #league{
+	display: block;
+}
+
+.basics .yearOption {
+	max-width: 200px; 
+}
+
+.basics .field {
+	min-height: 140px;
+}

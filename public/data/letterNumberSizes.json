@@ -1,0 +1,22 @@
+{
+	"2017/2018": {
+		"adult": {
+			"letters": 50,
+			"numbers": 256
+		},
+		"child" : {
+			"letters": 33,
+			"numbers": 163
+		}
+	},
+	"2016/2017": {
+		"adult": {
+			"letters": 53,
+			"numbers": 256
+		},
+		"child" : {
+			"letters": 33,
+			"numbers": 163
+		}
+	}
+}

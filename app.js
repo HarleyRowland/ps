@@ -56,6 +56,7 @@ app.get("/", (req, res) => customerController.getThreeScorers(res, "index.pug", 
 // Shirt Selection Flow
 app.get("/scorerDiscounts", (req, res) => customerController.getScorerDiscounts(req, res, "scorerDiscounts.pug", callback));
 app.get("/style", (req, res) => customerController.selectTemplate(req, res, "style.pug", callback));
+app.get("/basics", (req, res) => customerController.basics(req, res, "style.pug", callback));
 app.get("/childOrAdult", (req, res) => customerController.selectTemplate(req, res, "childOrAdult.pug",callback));
 app.get("/printingType", (req, res) => customerController.printingType(req, res, "printingType.pug", callback));
 app.get("/premOrDifferent", (req, res) => customerController.selectTemplate(req, res, "premOrDifferent.pug", callback));
