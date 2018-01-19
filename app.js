@@ -89,15 +89,15 @@ app.post("/paymentResult", (req, res) => paymentController.makePayment(req, res,
 // Admin
 app.get("/login", (req, res) => ownerController.selectTemplate(req, res, "login.pug", callback));
 app.get("/authenticate", (req, res) => ownerController.authenticate(req, res, "adminList.pug", callback));
-app.get("/adminList", (req, res) => ownerController.selectTemplate(req, res, "adminList.pug", callback));
+app.get("/adminList", verifyAuthentication, (req, res) => ownerController.selectTemplate(req, res, "adminList.pug", callback));
 app.get("/webmail", (req, res) => ownerController.sendToWebmail(res));
 app.get("/adminSettings", verifyAuthentication, (req, res) => ownerController.getScorers(res, "admin.pug", callback));
-app.get("/inputScorerDiscounts", (req, res) => ownerController.inputScorers(req, res, "/adminSettings", callbackRedirect));
-app.get("/clearScorers", (req, res) => ownerController.clearScorers(res, "admin.pug", callback));
-app.get("/newPriceForTheShirts", (req, res) => ownerController.updatePrice(req, res, '/adminSettings', callbackRedirect));
-app.get("/userOrders", (req, res) => ownerController.getAllUserOrders(res, "userUpdates.pug", callback));
-app.get("/updateStatus", (req, res) => ownerController.updateOrder(req, res, "/userOrders", callbackRedirect));
-app.get("/statusesForOrderNo", (req, res) => ownerController.statusesForOrderNo(req, res, "userUpdates.pug", callback));
+app.get("/inputScorerDiscounts", verifyAuthentication, (req, res) => ownerController.inputScorers(req, res, "/adminSettings", callbackRedirect));
+app.get("/clearScorers", verifyAuthentication, (req, res) => ownerController.clearScorers(res, "admin.pug", callback));
+app.get("/newPriceForTheShirts", verifyAuthentication, (req, res) => ownerController.updatePrice(req, res, '/adminSettings', callbackRedirect));
+app.get("/userOrders", verifyAuthentication, (req, res) => ownerController.getAllUserOrders(res, "userUpdates.pug", callback));
+app.get("/updateStatus", verifyAuthentication, (req, res) => ownerController.updateOrder(req, res, "/userOrders", callbackRedirect));
+app.get("/statusesForOrderNo", verifyAuthentication, (req, res) => ownerController.statusesForOrderNo(req, res, "userUpdates.pug", callback));
 app.get("/sendQuoteEmail", (req, res) => ownerController.quoteEmail(req, res, "quote.pug", callback));
 app.get("/sendQueryEmail", (req, res) => ownerController.queryEmail(req, res, "contact.pug", callback));
 
