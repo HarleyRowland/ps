@@ -20,4 +20,18 @@ $( document ).ready(function() {
 		var scorersString =  $('.scorers').val();
 		$(".submitScorers").attr("href", "/inputScorerDiscounts?scorersString=" + scorersString);
 	});
+
+	$(".username").keyup(function(){
+		setLoginString();
+	});
+
+	$(".password").keyup(function(){
+		setLoginString();
+	});
 })
+
+var setLoginString = function(){
+	var username =  forge_sha256($('.username').val());
+	var password =  forge_sha256($('.password').val());
+	$(".login").attr("href", "/authenticate?username=" + username + "&password=" + password);
+}

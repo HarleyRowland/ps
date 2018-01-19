@@ -1,8 +1,32 @@
+var randomstring = require('randomstring');
 var async = require('async')
+var sha256 = require('sha256')
 var databaseClient = require('../clients/databaseClient.js')
 var emailClient = require('../clients/emailClient.js')
+var config = require('../config.js');
+
+var authenticationSha = ""
 
 module.exports = {
+	authenticate: function(req, res, template, callback){
+		var username = sha256(config.adminUsername)
+		var password = sha256(config.adminPassword)
+		if(username == req.query.username && password == req.query.password){
+			authenticationSha = sha256(randomstring.generate())
+			res.cookie("authenticated", authenticationSha)
+		}
+		callback(null, res, template, req.query)		
+	},
+	verify: function(req, res){
+		var authenticated = false;
+		if(authenticationSha == req.cookies["authenticated"]){
+			authenticated = true;
+		}
+		return authenticated;	
+	},
+	selectTemplate: function(req, res, template, callback){
+		callback(null, res, template, req.query)		
+	},
 	getAllUserOrders: function(res, template, callback){
 		var databaseCallback = function(error, data){
 			if(error){

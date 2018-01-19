@@ -36,6 +36,14 @@ app.use((req, res, next) => {
     next()
 })
 
+var verifyAuthentication = function(req, res, next){
+  if(ownerController.verify(req, res)){
+    next()
+  } else {
+    res.redirect("/login");
+  }
+}
+
 var callback = function(error, res, template, data){
   if(error){
     return console.error(error);
@@ -79,11 +87,14 @@ app.get("/contact", (req, res) => customerController.selectTemplate(req, res, "c
 app.post("/paymentResult", (req, res) => paymentController.makePayment(req, res, "paymentResult.pug", callback));
 
 // Admin
+app.get("/login", (req, res) => ownerController.selectTemplate(req, res, "login.pug", callback));
+app.get("/authenticate", (req, res) => ownerController.authenticate(req, res, "adminList.pug", callback));
+app.get("/adminList", (req, res) => ownerController.selectTemplate(req, res, "adminList.pug", callback));
 app.get("/webmail", (req, res) => ownerController.sendToWebmail(res));
-app.get("/administrationForPremierShirts", (req, res) => ownerController.getScorers(res, "admin.pug", callback));
-app.get("/inputScorerDiscounts", (req, res) => ownerController.inputScorers(req, res, "/administrationForPremierShirts", callbackRedirect));
+app.get("/adminSettings", verifyAuthentication, (req, res) => ownerController.getScorers(res, "admin.pug", callback));
+app.get("/inputScorerDiscounts", (req, res) => ownerController.inputScorers(req, res, "/adminSettings", callbackRedirect));
 app.get("/clearScorers", (req, res) => ownerController.clearScorers(res, "admin.pug", callback));
-app.get("/newPriceForTheShirts", (req, res) => ownerController.updatePrice(req, res, '/administrationForPremierShirts', callbackRedirect));
+app.get("/newPriceForTheShirts", (req, res) => ownerController.updatePrice(req, res, '/adminSettings', callbackRedirect));
 app.get("/userOrders", (req, res) => ownerController.getAllUserOrders(res, "userUpdates.pug", callback));
 app.get("/updateStatus", (req, res) => ownerController.updateOrder(req, res, "/userOrders", callbackRedirect));
 app.get("/statusesForOrderNo", (req, res) => ownerController.statusesForOrderNo(req, res, "userUpdates.pug", callback));

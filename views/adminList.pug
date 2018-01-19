@@ -1,0 +1,19 @@
+html
+	head
+		title Premier Shirts
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+		script(type='text/javascript' src='public/js/jquery.js')
+		script(type='text/javascript' src='public/js/admin.js')
+		style 
+			include ../public/css/admin.css
+	bodyA
+		div.setting
+			h3 Website Settings
+			p Shirt Prices, Patch Prices and Scorer Discounts
+			div 
+				a(href="/adminSettings") Settings
+		div.setting
+			h3 User Orders
+			p The list of orders placed
+			div 
+				a(href="/userOrders") Orders

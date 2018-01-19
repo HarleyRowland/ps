@@ -22,4 +22,7 @@ config.database.ssl = process.env.databaseSsl;
 config.stripe = {};
 config.database.publishableKey = process.env.stripePublishableKey;
 config.database.secretKey = process.env.stripeSecretKey;
+
+config.adminPassword = process.env.adminPassword
+config.adminUsername = process.env.adminUsername
 module.exports = config;
