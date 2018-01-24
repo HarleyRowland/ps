@@ -21,12 +21,8 @@ div.page.index
 			a.btn(href="/style") Get Yours Now
 	div.imageStripScorers
 	div.scorers
-		h2 Some of this week's players with a Goal Scorer Discount!
-		p.pageInfo Choose a player who has scored in the last week for your hero printing and get 
-			b £3 
-			span off! Choose a player who has scored two and get 
-			b £5 
-			span off!
+		h2 Player Discounts
+		p.pageInfo These players have either scored or kept a clean sheet in the last week.
 		div.players.row
 			each player in data
 				div.player.small-12.medium-4.columns
@@ -36,7 +32,7 @@ div.page.index
 					div.discount
 						b £#{player.discount} OFF!
 		div.action.getYours
-			a.btn(href="/scorerDiscounts") See All Scorers with Discounts
+			a.btn(href="/scorerDiscounts") See All Players with Discounts
 	div.imageStripContact
 	div.contact
 		h2 Get In Touch With Us

@@ -2,7 +2,7 @@ DROP TABLE shirts;
 DROP TABLE statuses;
 DROP TABLE orders;
 DROP TABLE settings;
-DROP TABLE scorers;
+DROP TABLE discounts;
 
 CREATE TABLE settings(
    settingsID serial primary key,
@@ -10,8 +10,8 @@ CREATE TABLE settings(
    sleevePrice DECIMAL NOT NULL
 );
 
-CREATE TABLE scorers(
-   scorerID serial primary key,
+CREATE TABLE discounts(
+   discountID serial primary key,
    kitName VARCHAR(400) NOT NULL,
    kitNumber VARCHAR(400) NOT NULL,
    club VARCHAR(400) NOT NULL,
@@ -59,13 +59,13 @@ INSERT INTO settings(shirtPrice, sleevePrice)
 INSERT INTO settings(shirtPrice, sleevePrice) 
    VALUES (20, 7.5);
 
-INSERT INTO scorers(kitname, kitnumber, club, discount) 
+INSERT INTO discounts(kitname, kitnumber, club, discount) 
    VALUES ('Ramsey', '8', 'arsenal', 5);
 
-INSERT INTO scorers(kitName, kitNumber, club, discount) 
+INSERT INTO discounts(kitName, kitNumber, club, discount) 
    VALUES ('Özil', '11', 'arsenal', 3);
 
-INSERT INTO scorers(kitName, kitNumber, club, discount) 
+INSERT INTO discounts(kitName, kitNumber, club, discount) 
    VALUES ('Alonso', '3', 'chelsea', 3);
 
 INSERT INTO orders(name, address, telephone, email, deliverydate, deliveryOption, cost, success) 
